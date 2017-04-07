@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OnlineTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Administrator">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="text" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="Email" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetailTest">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+      <PropertyRef Name="ProjectId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="NumberOfQuestion" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupCode" Type="text" Nullable="false" />
+    <Property Name="GroupName" Type="text" Nullable="false" />
+    <Property Name="Leader" Type="text" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="Rate" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GroupMember">
+    <Key>
+      <PropertyRef Name="StudentId" />
+      <PropertyRef Name="GroupId" />
+    </Key>
+    <Property Name="StudentId" Type="int" Nullable="false" />
+    <Property Name="GroupId" Type="int" Nullable="false" />
+    <Property Name="JoinAt" Type="datetime" Nullable="false" />
+    <Property Name="MemberNumber" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Professors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="text" Nullable="false" />
+    <Property Name="Email" Type="text" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Address" Type="text" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectCode" Type="text" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="StartAt" Type="datetime" Nullable="false" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionName" Type="text" Nullable="false" />
+    <Property Name="Answer" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ScoreBoard">
+    <Key>
+      <PropertyRef Name="StudentId" />
+      <PropertyRef Name="ProjectId" />
+    </Key>
+    <Property Name="StudentId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="Score" Type="int" Nullable="false" />
+    <Property Name="SubmitAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="char" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="char" MaxLength="16" Nullable="false" />
+    <Property Name="FullName" Type="text" Nullable="false" />
+    <Property Name="College" Type="text" Nullable="false" />
+    <Property Name="Subject" Type="text" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="AssignBy" Type="int" Nullable="false" />
+    <Property Name="Birthday" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_DetailTest_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="DetailTest" Type="Self.DetailTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DetailTest">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetailTest_Question">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="DetailTest" Type="Self.DetailTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DetailTest">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupMember_Group">
+    <End Role="Group" Type="Self.Group" Multiplicity="1" />
+    <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GroupMember">
+        <PropertyRef Name="GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupMember_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GroupMember">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Professors_Administrator">
+    <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
+    <End Role="Professors" Type="Self.Professors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Administrator">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Professors">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_Professors">
+    <End Role="Professors" Type="Self.Professors" Multiplicity="1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScoreBoard_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="ScoreBoard" Type="Self.ScoreBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScoreBoard">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScoreBoard_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="ScoreBoard" Type="Self.ScoreBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScoreBoard">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Professors">
+    <End Role="Professors" Type="Self.Professors" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="AssignBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OnlineTestModelStoreContainer">
+    <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetailTest" EntityType="Self.DetailTest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GroupMember" EntityType="Self.GroupMember" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Professors" EntityType="Self.Professors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ScoreBoard" EntityType="Self.ScoreBoard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_DetailTest_Project" Association="Self.FK_DetailTest_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="DetailTest" EntitySet="DetailTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetailTest_Question" Association="Self.FK_DetailTest_Question">
+      <End Role="Question" EntitySet="Question" />
+      <End Role="DetailTest" EntitySet="DetailTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupMember_Group" Association="Self.FK_GroupMember_Group">
+      <End Role="Group" EntitySet="Group" />
+      <End Role="GroupMember" EntitySet="GroupMember" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupMember_Student" Association="Self.FK_GroupMember_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="GroupMember" EntitySet="GroupMember" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Professors_Administrator" Association="Self.FK_Professors_Administrator">
+      <End Role="Administrator" EntitySet="Administrator" />
+      <End Role="Professors" EntitySet="Professors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_Professors" Association="Self.FK_Project_Professors">
+      <End Role="Professors" EntitySet="Professors" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScoreBoard_Project" Association="Self.FK_ScoreBoard_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="ScoreBoard" EntitySet="ScoreBoard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScoreBoard_Student" Association="Self.FK_ScoreBoard_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="ScoreBoard" EntitySet="ScoreBoard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Professors" Association="Self.FK_Student_Professors">
+      <End Role="Professors" EntitySet="Professors" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

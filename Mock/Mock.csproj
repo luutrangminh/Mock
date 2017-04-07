@@ -43,6 +43,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +84,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -117,6 +127,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Administrator\Models\OnlineTest.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnlineTest.edmx</DependentUpon>
+      <LastGenOutput>OnlineTest.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Models\OnlineTest.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnlineTest.edmx</DependentUpon>
+      <LastGenOutput>OnlineTest.cs</LastGenOutput>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\data\flot-data.js" />
@@ -270,7 +290,19 @@
     <Content Include="Content\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\vendor\font-awesome\scss\_variables.scss" />
     <Content Include="Areas\Administrator\Views\web.config" />
-    <Content Include="Areas\Professor\Views\web.config" />
+    <EntityDeploy Include="Areas\Administrator\Models\OnlineTest.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OnlineTest.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Areas\Administrator\Models\OnlineTest.edmx.diagram">
+      <DependentUpon>OnlineTest.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Profess\Views\web.config" />
+    <Content Include="Areas\Administrator\Views\Professor\Create.cshtml" />
+    <Content Include="Areas\Administrator\Views\Professor\Delete.cshtml" />
+    <Content Include="Areas\Administrator\Views\Professor\Details.cshtml" />
+    <Content Include="Areas\Administrator\Views\Professor\Edit.cshtml" />
+    <Content Include="Areas\Administrator\Views\Professor\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -280,10 +312,53 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
-    <Compile Include="Areas\Professor\ProfessorAreaRegistration.cs" />
+    <Compile Include="Areas\Administrator\Controllers\ProfessorController.cs" />
+    <Compile Include="Areas\Administrator\Models\Administrator.cs">
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\DetailTest.cs">
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\Group.cs">
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\GroupMember.cs">
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\OnlineTest.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineTest.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\OnlineTest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\OnlineTest.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineTest.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\Professor.cs">
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\Project.cs">
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\Question.cs">
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\ScoreBoard.cs">
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Models\Student.cs">
+      <DependentUpon>OnlineTest.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Administrator\Controllers\HomeController.cs" />
     <Compile Include="Areas\Administrator\Controllers\LoginController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ProfessorManagerController.cs" />
+    <Compile Include="Areas\Profess\ProfessAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -313,13 +388,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administrator\Models\" />
-    <Folder Include="Areas\Professor\Controllers\" />
-    <Folder Include="Areas\Professor\Models\" />
-    <Folder Include="Areas\Professor\Views\Shared\" />
+    <Folder Include="Areas\Profess\Controllers\" />
+    <Folder Include="Areas\Profess\Models\" />
+    <Folder Include="Areas\Profess\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
