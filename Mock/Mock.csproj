@@ -127,12 +127,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Administrator\Models\OnlineTest.Context.tt">
+    <Content Include="Areas\Admin\Models\OnlineTest.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OnlineTest.edmx</DependentUpon>
       <LastGenOutput>OnlineTest.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Administrator\Models\OnlineTest.tt">
+    <Content Include="Areas\Admin\Models\OnlineTest.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OnlineTest.edmx</DependentUpon>
       <LastGenOutput>OnlineTest.cs</LastGenOutput>
@@ -289,20 +289,27 @@
     <Content Include="Content\vendor\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\vendor\font-awesome\scss\_variables.scss" />
-    <Content Include="Areas\Administrator\Views\web.config" />
-    <EntityDeploy Include="Areas\Administrator\Models\OnlineTest.edmx">
+    <Content Include="Areas\Profess\Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <EntityDeploy Include="Areas\Admin\Models\OnlineTest.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OnlineTest.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Areas\Administrator\Models\OnlineTest.edmx.diagram">
+    <Content Include="Areas\Admin\Models\OnlineTest.edmx.diagram">
       <DependentUpon>OnlineTest.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Profess\Views\web.config" />
-    <Content Include="Areas\Administrator\Views\Professor\Create.cshtml" />
-    <Content Include="Areas\Administrator\Views\Professor\Delete.cshtml" />
-    <Content Include="Areas\Administrator\Views\Professor\Details.cshtml" />
-    <Content Include="Areas\Administrator\Views\Professor\Edit.cshtml" />
-    <Content Include="Areas\Administrator\Views\Professor\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Professors\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Professors\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Professors\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Professors\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Professors\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -311,53 +318,53 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
-    <Compile Include="Areas\Administrator\Controllers\ProfessorController.cs" />
-    <Compile Include="Areas\Administrator\Models\Administrator.cs">
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdministratorsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProfessorsController.cs" />
+    <Compile Include="Areas\Admin\Models\Administrator.cs">
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\DetailTest.cs">
+    <Compile Include="Areas\Admin\Models\DetailTest.cs">
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\Group.cs">
+    <Compile Include="Areas\Admin\Models\Group.cs">
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\GroupMember.cs">
+    <Compile Include="Areas\Admin\Models\GroupMember.cs">
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\OnlineTest.Context.cs">
+    <Compile Include="Areas\Admin\Models\Metadata\Professor.Metadata.cs" />
+    <Compile Include="Areas\Admin\Models\OnlineTest.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OnlineTest.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\OnlineTest.cs">
+    <Compile Include="Areas\Admin\Models\OnlineTest.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\OnlineTest.Designer.cs">
+    <Compile Include="Areas\Admin\Models\OnlineTest.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OnlineTest.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\Professor.cs">
+    <Compile Include="Areas\Admin\Models\Professor.cs">
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\Project.cs">
+    <Compile Include="Areas\Admin\Models\Project.cs">
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\Question.cs">
+    <Compile Include="Areas\Admin\Models\Question.cs">
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\ScoreBoard.cs">
+    <Compile Include="Areas\Admin\Models\ScoreBoard.cs">
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Models\Student.cs">
+    <Compile Include="Areas\Admin\Models\Student.cs">
       <DependentUpon>OnlineTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Administrator\Controllers\LoginController.cs" />
-    <Compile Include="Areas\Administrator\Controllers\ProfessorManagerController.cs" />
     <Compile Include="Areas\Profess\ProfessAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -371,14 +378,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Administrator\Views\Shared\_Layout.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Areas\Administrator\Views\Login\Index.cshtml" />
-    <Content Include="Areas\Administrator\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Administrator\Views\ProfessorManager\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
