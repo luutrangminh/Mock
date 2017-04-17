@@ -40,7 +40,7 @@ namespace Mock.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ViewBag.Username = "Tài khoản không chính xác. Vui lòng kiểm tra lại.";
+                    ViewBag.Username = "Tài khoản không tồn tại. Vui lòng kiểm tra lại.";
                 }
 
             }
