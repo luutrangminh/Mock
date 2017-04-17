@@ -1,17 +1,17 @@
 # SPM_URD
-##Administrator:
+## Administrator:
   *Administrator page here*.
-##Administrator.Tests:
+## Administrator.Tests:
   *Administrator Unit Test here*.
-##StudentManagerment:
+## StudentManagerment:
   *StudentManagerment page here*.
-##StudentManagerment.Tests:
+## StudentManagerment.Tests:
   *StudentManagerment Unit Test here*.
-##Professor:
+## Professor:
  *Professor page here*.
-##Professor.Tests:
+## Professor.Tests:
   *Professor Unit Test here*.
-##DataAccess:
+## DataAccess:
   This is a _data access layer_, to fetch data from *Database*.
-##Business:
+## Business:
   This is a _business layer_, to fetch data from *DataAccess layer* and process it.
