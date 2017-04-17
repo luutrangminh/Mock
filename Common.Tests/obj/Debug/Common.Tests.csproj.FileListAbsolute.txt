@@ -1,0 +1,7 @@
+F:\GST\project\SPM_URD\Common.Tests\bin\Debug\Common.Tests.dll
+F:\GST\project\SPM_URD\Common.Tests\bin\Debug\Common.Tests.pdb
+F:\GST\project\SPM_URD\Common.Tests\bin\Debug\Common.dll
+F:\GST\project\SPM_URD\Common.Tests\bin\Debug\Common.pdb
+F:\GST\project\SPM_URD\Common.Tests\obj\Debug\Common.Tests.csprojResolveAssemblyReference.cache
+F:\GST\project\SPM_URD\Common.Tests\obj\Debug\Common.Tests.dll
+F:\GST\project\SPM_URD\Common.Tests\obj\Debug\Common.Tests.pdb

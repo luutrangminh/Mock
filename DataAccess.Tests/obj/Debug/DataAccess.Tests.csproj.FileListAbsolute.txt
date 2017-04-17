@@ -1,0 +1,7 @@
+F:\GST\project\SPM_URD\DataAccess.Tests\bin\Debug\DataAccess.Tests.dll
+F:\GST\project\SPM_URD\DataAccess.Tests\bin\Debug\DataAccess.Tests.pdb
+F:\GST\project\SPM_URD\DataAccess.Tests\bin\Debug\DataAccess.dll
+F:\GST\project\SPM_URD\DataAccess.Tests\bin\Debug\DataAccess.pdb
+F:\GST\project\SPM_URD\DataAccess.Tests\obj\Debug\DataAccess.Tests.csprojResolveAssemblyReference.cache
+F:\GST\project\SPM_URD\DataAccess.Tests\obj\Debug\DataAccess.Tests.dll
+F:\GST\project\SPM_URD\DataAccess.Tests\obj\Debug\DataAccess.Tests.pdb

@@ -1,0 +1,5 @@
+F:\GST\project\SPM_URD\DataAccess\bin\Debug\DataAccess.dll.config
+F:\GST\project\SPM_URD\DataAccess\bin\Debug\DataAccess.dll
+F:\GST\project\SPM_URD\DataAccess\bin\Debug\DataAccess.pdb
+F:\GST\project\SPM_URD\DataAccess\obj\Debug\DataAccess.dll
+F:\GST\project\SPM_URD\DataAccess\obj\Debug\DataAccess.pdb
