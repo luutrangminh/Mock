@@ -15,10 +15,8 @@ namespace DataAccess
         SqlConnection con;
         public Connections()
         {
-            if ((con = OpenConnection()) == null)
-            {
-                this.Dispose();
-            }
+            con = OpenConnection();
+            this.Dispose();
         }
 
         private SqlConnection OpenConnection()
@@ -43,16 +41,21 @@ namespace DataAccess
             con.Close();
         }
 
-        public IDataReader Read(string queryStr)
+        public IDataReader ExecuteReader(string queryStr)
         {
             SqlCommand cmd = new SqlCommand(queryStr, con);
             return cmd.ExecuteReader();
         }
 
-        public void Update(string queryStr)
+        public void ExecuteNonQuery(string queryStr)
         {
             SqlCommand cmd = new SqlCommand(queryStr, con);
             cmd.ExecuteNonQuery();
+        }
+
+        public void ExecuteScalar(string queryStr)
+        {
+
         }
 
         public void Dispose()
