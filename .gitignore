@@ -4,3 +4,9 @@ DataAccess/bin
 Professor/bin
 StudenManagement/bin
 Cryptography/bin
+Administrator/obj
+Business/obj
+DataAccess/obj
+Professor/obj
+StudenManagement/obj
+Cryptography/obj
