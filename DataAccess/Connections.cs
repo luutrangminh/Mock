@@ -61,12 +61,12 @@ namespace DataAccess
             this.CloseConnection();
         }
 
-        public int? ExecuteScalar(string queryStr)
+        public object ExecuteScalar(string queryStr)
         {
             SqlCommand cmd = new SqlCommand(queryStr, con);
             try
             {
-                var result = (Int32)cmd.ExecuteScalar();
+                var result = cmd.ExecuteScalar();
                 this.CloseConnection();
                 return result;
             }

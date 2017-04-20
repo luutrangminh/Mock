@@ -26,6 +26,16 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
+        public IDataReader Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
+            string password, string phoneNumber, string address)
+        {
+            string queryStr = "INSERT INTO [dbo].[Professors] " +
+                "([FullName], [Email], [Username], [Password], [PhoneNumber], [Address], [CreatedBy], [CreatedAt])" +
+                "VALUES (N'" + fullName + "', '" + email + "', '" + username + "', '" +
+                password + "', '" + phoneNumber + "', '" + address + "', " + createdBy + ", '" + createdAt + "')";
+            return (IDataReader)con.ExecuteScalar(queryStr);
+        }
+
         public void Update(string fullName)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'";
