@@ -19,7 +19,7 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader Get(int questionId)
+        public IDataReader GetByQuestion(int questionId)
         {
             string queryStr = "SELECT Id, Answer, QuestionId, Status" +
             "FROM Answer" +
@@ -47,7 +47,7 @@ namespace DataAccess
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int status)
+        public void UpdateStatus(int status)
         {
             string queryStr = "UPDATE [dbo].[Answer] SET [Status] = " + status;
             con.ExecuteNonQuery(queryStr);

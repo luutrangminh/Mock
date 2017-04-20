@@ -19,7 +19,7 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader Get(int projectId)
+        public IDataReader GetByProject(int projectId)
         {
             string queryStr = "SELECT Id, Question, ProjectId" +
             "FROM Question" +
