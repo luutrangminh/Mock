@@ -35,29 +35,33 @@ namespace DataAccess
             return (IDataReader)con.ExecuteScalar(queryStr);
         }
 
-        public void Update(string answer)
+        public void Update(int id, string answer)
         {
-            string queryStr = "UPDATE [dbo].[Answer] SET [Answer] = N'" + answer + "'";
+            string queryStr = "UPDATE [dbo].[Answer] SET [Answer] = N'" + answer + "'" +
+                "WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int questionId)
+        public void Update(int id, int questionId)
         {
-            string queryStr = "UPDATE [dbo].[Answer] SET [QuestionId] = " + questionId;
+            string queryStr = "UPDATE [dbo].[Answer] SET [QuestionId] = " + questionId +
+                " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void UpdateStatus(int status)
+        public void UpdateStatus(int id, int status)
         {
-            string queryStr = "UPDATE [dbo].[Answer] SET [Status] = " + status;
+            string queryStr = "UPDATE [dbo].[Answer] SET [Status] = " + status +
+                " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(string answer, int questionId, bool status)
+        public void Update(int id, string answer, int questionId, bool status)
         {
             string queryStr = "UPDATE [dbo].[Answer] SET [Answer] = N'" + answer + "'" +
                 ", [QuestionId] = " + questionId +
-                ", [Status] = " + status;
+                ", [Status] = " + status +
+                " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 

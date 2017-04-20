@@ -35,22 +35,25 @@ namespace DataAccess
             return (IDataReader)con.ExecuteScalar(queryStr);
         }
 
-        public void Update(string question)
-        {
-            string queryStr = "UPDATE [dbo].[Question] SET [Question] = N'" + question + "'";
-            con.ExecuteNonQuery(queryStr);
-        }
-
-        public void Update(int projectId)
-        {
-            string queryStr = "UPDATE [dbo].[Question] SET [ProjectId] = " + projectId;
-            con.ExecuteNonQuery(queryStr);
-        }
-
-        public void Update(string question, int projectId)
+        public void Update(int id, string question)
         {
             string queryStr = "UPDATE [dbo].[Question] SET [Question] = N'" + question + "'" +
-                ", [ProjectId] = " + projectId;
+                "WHERE Id = " + id;
+            con.ExecuteNonQuery(queryStr);
+        }
+
+        public void Update(int id, int projectId)
+        {
+            string queryStr = "UPDATE [dbo].[Question] SET [ProjectId] = " + projectId +
+                " WHERE Id = " + id;
+            con.ExecuteNonQuery(queryStr);
+        }
+
+        public void Update(int id, string question, int projectId)
+        {
+            string queryStr = "UPDATE [dbo].[Question] SET [Question] = N'" + question + "'" +
+                ", [ProjectId] = " + projectId +
+                "WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
