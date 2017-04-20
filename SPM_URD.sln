@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Tests", "Business.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Tests", "DataAccess.Tests\DataAccess.Tests.csproj", "{3A4F585F-A8E7-4A6A-8CA4-CDB98E6CD0BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptography", "Cryptography\Cryptography.csproj", "{F7A8EF65-7972-429A-9A1A-D33AA74832EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{3A4F585F-A8E7-4A6A-8CA4-CDB98E6CD0BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A4F585F-A8E7-4A6A-8CA4-CDB98E6CD0BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A4F585F-A8E7-4A6A-8CA4-CDB98E6CD0BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7A8EF65-7972-429A-9A1A-D33AA74832EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7A8EF65-7972-429A-9A1A-D33AA74832EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7A8EF65-7972-429A-9A1A-D33AA74832EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7A8EF65-7972-429A-9A1A-D33AA74832EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,3 +5,5 @@ F:\GST\project\SPM_URD\Business\bin\Debug\DataAccess.pdb
 F:\GST\project\SPM_URD\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
 F:\GST\project\SPM_URD\Business\obj\Debug\Business.dll
 F:\GST\project\SPM_URD\Business\obj\Debug\Business.pdb
+F:\GST\project\SPM_URD\Business\bin\Debug\Cryptography.dll
+F:\GST\project\SPM_URD\Business\bin\Debug\Cryptography.pdb
