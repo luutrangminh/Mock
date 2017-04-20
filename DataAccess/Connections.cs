@@ -58,11 +58,23 @@ namespace DataAccess
         {
             SqlCommand cmd = new SqlCommand(queryStr, con);
             cmd.ExecuteNonQuery();
+            this.CloseConnection();
         }
 
-        public void ExecuteScalar(string queryStr)
+        public int? ExecuteScalar(string queryStr)
         {
-
+            SqlCommand cmd = new SqlCommand(queryStr, con);
+            try
+            {
+                var result = (Int32)cmd.ExecuteScalar();
+                this.CloseConnection();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
         }
 
         public void Dispose()
