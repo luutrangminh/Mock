@@ -11,15 +11,22 @@ namespace DataAccess
 {
     public class Connections : IDisposable
     {
-        string connStr = "Data Source=.;Initial Catalog=SPM_URD;Integrated Security=True";
         SqlConnection con;
+
         public Connections()
         {
-            con = OpenConnection();
-            this.Dispose();
+            string connStr = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            con = OpenConnection(connStr);
+            if (con == null) this.Dispose();
         }
 
-        private SqlConnection OpenConnection()
+        public Connections(string connStr)
+        {
+            con = OpenConnection(connStr);
+            if (con == null) this.Dispose();
+        }
+
+        private SqlConnection OpenConnection(string connStr)
         {
             SqlConnection conn = null;
             try
@@ -60,10 +67,7 @@ namespace DataAccess
 
         public void Dispose()
         {
-            if (con != null)
-            {
-                con.Dispose();
-            }
+          con.Dispose();
         }
     }
 }

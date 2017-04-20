@@ -14,7 +14,7 @@ namespace DataAccess
 
         public IDataReader TestSelect()
         {
-           return con.Read("Select * From Administrator");
+            return con.ExecuteReader("Select * From Administrator");
         }
     }
 }

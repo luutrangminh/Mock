@@ -1,7 +1,0 @@
-F:\GST\project\SPM_URD\Common\bin\Debug\Common.dll
-F:\GST\project\SPM_URD\Common\bin\Debug\Common.pdb
-F:\GST\project\SPM_URD\Common\obj\Debug\Common.dll
-F:\GST\project\SPM_URD\Common\obj\Debug\Common.pdb
-F:\GST\project\SPM_URD\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
-F:\GST\project\SPM_URD\Common\bin\Debug\Business.dll
-F:\GST\project\SPM_URD\Common\bin\Debug\Business.pdb

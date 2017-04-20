@@ -50,5 +50,6 @@ F:\GST\project\SPM_URD\StudenManagement\bin\Microsoft.Owin.Security.OAuth.xml
 F:\GST\project\SPM_URD\StudenManagement\bin\Microsoft.Owin.Security.Google.xml
 F:\GST\project\SPM_URD\StudenManagement\bin\Microsoft.Owin.Security.Twitter.xml
 F:\GST\project\SPM_URD\StudenManagement\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+F:\GST\project\SPM_URD\StudenManagement\obj\Debug\StudenManagement.csprojResolveAssemblyReference.cache
 F:\GST\project\SPM_URD\StudenManagement\obj\Debug\StudenManagement.dll
 F:\GST\project\SPM_URD\StudenManagement\obj\Debug\StudenManagement.pdb
