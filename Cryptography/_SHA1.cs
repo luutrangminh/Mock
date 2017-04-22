@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace Cryptography
 {
-    public class _MD5
+    public class _SHA1
     {
         public static string Hash(string phrase)
         {
             if (phrase == null)
                 return null;
             var encoder = new UTF8Encoding();
-            var sha1Hasher = new MD5CryptoServiceProvider();
+            var sha1Hasher = new SHA1CryptoServiceProvider();
             var hashedDataBytes = sha1Hasher.ComputeHash(encoder.GetBytes(phrase));
             return ByteArrayToHexString(hashedDataBytes);
         }
-
         // Verify a hash against a string.
         public static bool Verify(string phrase, string hash)
         {
