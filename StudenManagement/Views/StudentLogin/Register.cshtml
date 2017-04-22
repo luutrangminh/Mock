@@ -1,0 +1,145 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="~/Content/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="~/Content/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="~/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Đăng Ký</h3>
+                    </div>
+                    <div class="panel-body">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <form role="form">
+                                <div>@ViewBag.Thongbao</div>
+                                <fieldset>
+                                    @ViewBag.Age
+                                    <div class="form-group">
+                                        <label>Tài Khoản:</label>
+                                        <input class="form-control" placeholder="Tài Khoản (*)" name="account" type="text" autofocus required>
+                                        @ViewData["Loi1"]
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mật Khẩu:</label>
+                                        <input class="form-control" placeholder="Mật Khẩu (*)" name="password" type="password" value="" required>
+                                        @ViewData["Loi2"]
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nhập Lại  Mật Khẩu:</label>
+                                        <input class="form-control" placeholder="Nhập Lại Mật Khẩu (*)" name="repassword" type="password" value="" required>
+                                        @ViewData["Loi3"]
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email:</label>
+                                        <input class="form-control" placeholder="Email (*)" name="email" type="email" required>
+                                        @ViewData["Loi4"]
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Họ Tên:</label>
+                                        <input class="form-control" placeholder="Họ Tên (*)" name="name" type="text" autofocus required>
+                                        @ViewData["Loi5"]
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Năm Sinh:</label>
+                                        <input class="form-control" placeholder="Năm Sinh (*)" name="dateofbirth" type="date" autofocus required>
+                                        @ViewData["Loi6"]
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Trường:</label>
+                                        <input class="form-control" placeholder="Trường (*)" name="college" type="text" autofocus required>
+                                        @ViewData["Loi7"]
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Môn Học:</label>
+                                        <input class="form-control" placeholder="Môn Học (*)" name="monhoc" type="text" autofocus required>
+                                        @ViewData["Loi8"]
+                                    </div>
+                                    @*<div class="form-group">
+                                            <input class="form-control" placeholder="Kiến Thức Về Công Nghệ Mới" name="congnghe" type="text" autofocus>
+                                        </div>*@
+                                    @*<div class="form-group">
+                                            <label>Kinh Nghiệm:</label>
+                                            <input class="form-control" placeholder="Kinh Nghiệm" name="exp" type="text" autofocus>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <label>Giảng Viên Hướng Dẩn:</label>
+                                        @Html.DropDownList("AssignBy",null,htmlAttributes: new { @class = "form-control" })
+                                        @*@Html.DropDownList("AssignBy", null, htmlAttributes: new { @class = "form-control" })*@
+                                    </div>
+                                    <div>
+                                        (*) Thông Tin Bắt Buộc Nhập
+                                    </div>
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <input type="submit" class="btn btn-lg btn-success btn-block" name="submit" id="btnSubmit" value="Đăng Ký" />
+                                    <div style="float:right;margin-top:5px;margin-right:20px">
+                                        @Html.ActionLink("Quay Lại", "Login")
+                                    </div>
+                                </fieldset>
+
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/Content/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Content/dist/js/sb-admin-2.js"></script>
+
+
+
+</body>
+
+</html>

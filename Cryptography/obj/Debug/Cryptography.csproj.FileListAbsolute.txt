@@ -3,3 +3,7 @@ F:\GST\project\SPM_URD\Cryptography\bin\Debug\Cryptography.pdb
 F:\GST\project\SPM_URD\Cryptography\obj\Debug\Cryptography.csprojResolveAssemblyReference.cache
 F:\GST\project\SPM_URD\Cryptography\obj\Debug\Cryptography.dll
 F:\GST\project\SPM_URD\Cryptography\obj\Debug\Cryptography.pdb
+D:\GST\baimock\SPM_URD\Cryptography\bin\Debug\Cryptography.dll
+D:\GST\baimock\SPM_URD\Cryptography\bin\Debug\Cryptography.pdb
+D:\GST\baimock\SPM_URD\Cryptography\obj\Debug\Cryptography.dll
+D:\GST\baimock\SPM_URD\Cryptography\obj\Debug\Cryptography.pdb

@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "UpdateInformationStudent";
+    Layout = "~/Views/Shared/LayoutStudentManagement.cshtml";
+}
+<form role="form" style="padding:30px 80px 0 80px">
+
+    <fieldset>
+        <div>@ViewBag.ThongBao</div>
+        <div class="form-group">
+            <label>Email (*):</label>
+            <input class="form-control" readonly="readonly" placeholder="Email" name="email" type="email" value="@ViewBag.Email" autofocus>
+        </div>
+        <div class="form-group">
+            <label>Họ Tên (*):</label>
+            <input class="form-control" placeholder="Họ Tên" name="name" type="text" value="@ViewBag.HoTen" autofocus>
+        </div>
+        <div class="form-group">
+            <label>Năm Sinh (*):</label>
+            <input class="form-control" placeholder="Năm Sinh" name="dateofbirth" type="date" value="@ViewBag.NgaySinh" autofocus>
+        </div>
+        <div class="form-group">
+            <label>Trường (*):</label>
+            <input class="form-control" placeholder="Trường" name="college" type="text" value="@ViewBag.Truong" autofocus>
+        </div>
+
+        <div class="form-group">
+            <label>Môn:</label>
+            <input class="form-control" placeholder="" name="mon" type="text" value="@ViewBag.Mon" autofocus>
+        </div>
+        <div class="form-group">
+            <label>Giảng Viên Hướng Dẩn:</label>
+            @Html.DropDownList("AssignBy", null, htmlAttributes: new { @class = "form-control" })
+
+        </div>
+        <div>
+            (*) Thông Tin Bắt Buộc Nhập
+        </div>
+        <!-- Change this to a button or input when using this as a form -->
+        <input type="submit" class="btn btn-lg btn-success" style="margin-left:430px" name="submit" id="btnSubmit" value="Cập Nhật" />
+    </fieldset>
+
+</form>
+
+
