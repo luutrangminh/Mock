@@ -243,7 +243,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51173</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50931/Professor</IISUrl>
+          <IISUrl>http://localhost:50931/professor</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:50931/professor</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
