@@ -8,7 +8,7 @@ using DataAccess;
 
 namespace Business
 {
-    class propQuestion
+    public class propQuestion
     {
         public int id { get; set; }
         public string question { get; set; }
@@ -48,6 +48,19 @@ namespace Business
             return question;
         }
 
+        public propQuestion Add(int projectId, string questionStr)
+        {
+            var data = questionDAO.Add(projectId, questionStr);
+            propQuestion question = new propQuestion();
+            while(data.Read())
+            {
+                question.id = int.Parse(data["Id"].ToString());
+                question.question = data["Question"].ToString();
+                question.projectId = int.Parse(data["ProjectId"].ToString());
+            }
+            return question;
+        }
+
         public void Update(int id, string question)
         {
             questionDAO.Update(id, question);
@@ -62,6 +75,11 @@ namespace Business
         public void Update(int id, string question, int projectId)
         {
             questionDAO.Update(id, question, projectId);
+        }
+
+        public void Delete(int id)
+        {
+            questionDAO.Delete(id);
         }
     }
 }

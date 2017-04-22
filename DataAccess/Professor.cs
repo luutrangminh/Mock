@@ -36,49 +36,54 @@ namespace DataAccess
             return (IDataReader)con.ExecuteScalar(queryStr);
         }
 
-        public void Update(string fullName)
-        {
-            string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'";
-            con.ExecuteNonQuery(queryStr);
-        }
-
-        public void Update(string fullName, string email)
+        public void Update(int id, string fullName)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
-                ", [Email] = '" + email + "'";
+                " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(string fullName, string email, string username)
+        public void Update(int id, string fullName, string email)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
                 ", [Email] = '" + email + "'" +
-                ", [Username] = '" + username + "'";
+                " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(string fullName, string email, string username,
+        public void Update(int id, string fullName, string email, string username)
+        {
+            string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
+                ", [Email] = '" + email + "'" +
+                ", [Username] = '" + username + "'" +
+                " WHERE Id = " + id;
+            con.ExecuteNonQuery(queryStr);
+        }
+
+        public void Update(int id, string fullName, string email, string username,
             string password)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
                 ", [Email] = '" + email + "'" +
                 ", [Username] = '" + username + "'" +
-                ", [Password] = '" + password + "'";
+                ", [Password] = '" + password + "'" +
+                " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(string fullName, string email, string username,
+        public void Update(int id, string fullName, string email, string username,
             string password, string phoneNumber)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
                 ", [Email] = '" + email + "'" +
                 ", [Username] = '" + username + "'" +
                 ", [Password] = '" + password + "'" +
-                ", [PhoneNumber] = '" + phoneNumber + "'";
+                ", [PhoneNumber] = '" + phoneNumber + "'" +
+                " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(string fullName, string email, string username,
+        public void Update(int id, string fullName, string email, string username,
             string password, string phoneNumber, string address)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
@@ -86,7 +91,8 @@ namespace DataAccess
                 ", [Username] = '" + username + "'" +
                 ", [Password] = '" + password + "'" +
                 ", [PhoneNumber] = '" + phoneNumber + "'" +
-                ", [Address] = N'" + address + "'";
+                ", [Address] = N'" + address + "'" +
+                " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
