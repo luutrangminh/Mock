@@ -71,7 +71,7 @@ namespace DataAccess
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Delete(string questionId)
+        public void DeleteByQuestion(int questionId)
         {
             string queryStr = "DELETE FROM [dbo].[Answer] WHERE [QuestionId] = '" + questionId + "'";
             con.ExecuteNonQuery(queryStr);
