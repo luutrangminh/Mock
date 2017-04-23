@@ -18,6 +18,7 @@ namespace Professor.Models
 
         [Display(Name = "Created By")]
         public string createdBy { get; set; }
+        public int iCreatedBy { get; set; }
         [Display(Name = "Start At")]
         public DateTime startAt { get; set; }
         [Display(Name = "Time")]

@@ -19,12 +19,10 @@ namespace Business
 
     public class Project
     {
-        DataAccess.Project projectDAO = new DataAccess.Project();
-
-        public propProject Get(int id)
+        public static propProject Get(int id)
         {
             var project = new propProject();
-            var data = projectDAO.Get(id);
+            var data = DataAccess.Project.Get(id);
             while (data.Read())
             {
                 project.id = int.Parse(data["Id"].ToString());
@@ -38,10 +36,10 @@ namespace Business
             return project;
         }
 
-        public propProject Get(string projectCode)
+        public static propProject Get(string projectCode)
         {
             var project = new propProject();
-            var data = projectDAO.Get(projectCode);
+            var data = DataAccess.Project.Get(projectCode);
             while (data.Read())
             {
                 project.id = int.Parse(data["Id"].ToString());
@@ -55,10 +53,10 @@ namespace Business
             return project;
         }
 
-        public propProject Add(string projectCode, string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
+        public static propProject Add(string projectCode, string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
         {
             var project = new propProject();
-            var data = projectDAO.Add(projectCode, name, createdAt, createdBy, startAt, time);
+            var data = DataAccess.Project.Add(projectCode, name, createdAt, createdBy, startAt, time);
             while (data.Read())
             {
                 project.id = int.Parse(data["Id"].ToString());
@@ -72,24 +70,24 @@ namespace Business
             return project;
         }
 
-        public void Update(int id, string name)
+        public static void Update(int id, string name)
         {
-            projectDAO.Update(id, name);
+            DataAccess.Project.Update(id, name);
         }
 
-        public void Update(int id, DateTime startAt)
+        public static void Update(int id, DateTime startAt)
         {
-            projectDAO.Update(id, startAt);
+            DataAccess.Project.Update(id, startAt);
         }
 
-        public void Update(int id, int time)
+        public static void Update(int id, int time)
         {
-            projectDAO.Update(id, time);
+            DataAccess.Project.Update(id, time);
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
-            projectDAO.Delete(id);
+            DataAccess.Project.Delete(id);
         }
 
     }

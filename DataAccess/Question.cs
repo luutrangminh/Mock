@@ -9,9 +9,9 @@ namespace DataAccess
 {
     public class Question
     {
-        Connections con = new Connections();
+        private static Connections con = new Connections();
 
-        public IDataReader Get(int id)
+        public static IDataReader Get(int id)
         {
             string queryStr = "SELECT Id, Question, ProjectId" +
             "FROM Question" +
@@ -19,7 +19,7 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader GetByProject(int projectId)
+        public static IDataReader GetByProject(int projectId)
         {
             string queryStr = "SELECT Id, Question, ProjectId" +
             "FROM Question" +
@@ -27,7 +27,7 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader Add(int projectId, string question)
+        public static IDataReader Add(int projectId, string question)
         {
             string queryStr = "INSERT INTO [dbo].[Question] " +
                 "([Question], [ProjectId])" +
@@ -35,21 +35,21 @@ namespace DataAccess
             return (IDataReader)con.ExecuteScalar(queryStr);
         }
 
-        public void Update(int id, string question)
+        public static void Update(int id, string question)
         {
             string queryStr = "UPDATE [dbo].[Question] SET [Question] = N'" + question + "'" +
                 "WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, int projectId)
+        public static void Update(int id, int projectId)
         {
             string queryStr = "UPDATE [dbo].[Question] SET [ProjectId] = " + projectId +
                 " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, string question, int projectId)
+        public static void Update(int id, string question, int projectId)
         {
             string queryStr = "UPDATE [dbo].[Question] SET [Question] = N'" + question + "'" +
                 ", [ProjectId] = " + projectId +
@@ -57,13 +57,13 @@ namespace DataAccess
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
             string queryStr = "DELETE FROM [dbo].[Question] WHERE [Id] = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Delete(string projectId)
+        public static void Delete(string projectId)
         {
             string queryStr = "DELETE FROM [dbo].[Question] WHERE [ProjectId] = '" + projectId + "'";
             con.ExecuteNonQuery(queryStr);

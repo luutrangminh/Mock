@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Business">
+      <HintPath>..\Business\bin\Debug\Business.dll</HintPath>
+    </Reference>
     <Reference Include="Cryptography">
       <HintPath>..\Cryptography\bin\Debug\Cryptography.dll</HintPath>
     </Reference>

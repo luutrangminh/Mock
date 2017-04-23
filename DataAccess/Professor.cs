@@ -9,16 +9,16 @@ namespace DataAccess
 {
     public class Professor
     {
-        Connections con = new Connections();
+        private static Connections con = new Connections();
 
-        public IDataReader Get()
+        public static IDataReader Get()
         {
             string queryStr = "SELECT Id, FullName, Email, Username," +
             "Password, PhoneNumber, Address, CreateBy, CreateAt FROM Professors";
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader Get(string username)
+        public static IDataReader Get(string username)
         {
             string queryStr = "SELECT Id, FullName, Email, Username," +
             "Password, PhoneNumber, Address, CreateBy, CreateAt FROM Professors" +
@@ -26,7 +26,7 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
+        public static IDataReader Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
             string password, string phoneNumber, string address)
         {
             string queryStr = "INSERT INTO [dbo].[Professors] " +
@@ -36,14 +36,14 @@ namespace DataAccess
             return (IDataReader)con.ExecuteScalar(queryStr);
         }
 
-        public void Update(int id, string fullName)
+        public static void Update(int id, string fullName)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
                 " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, string fullName, string email)
+        public static void Update(int id, string fullName, string email)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
                 ", [Email] = '" + email + "'" +
@@ -51,7 +51,7 @@ namespace DataAccess
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, string fullName, string email, string username)
+        public static void Update(int id, string fullName, string email, string username)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
                 ", [Email] = '" + email + "'" +
@@ -60,7 +60,7 @@ namespace DataAccess
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, string fullName, string email, string username,
+        public static void Update(int id, string fullName, string email, string username,
             string password)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
@@ -71,7 +71,7 @@ namespace DataAccess
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, string fullName, string email, string username,
+        public static void Update(int id, string fullName, string email, string username,
             string password, string phoneNumber)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
@@ -83,7 +83,7 @@ namespace DataAccess
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, string fullName, string email, string username,
+        public static void Update(int id, string fullName, string email, string username,
             string password, string phoneNumber, string address)
         {
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
@@ -96,13 +96,13 @@ namespace DataAccess
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
             string queryStr = "DELETE FROM [dbo].[Professors] WHERE [Id] = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Delete(string username)
+        public static void Delete(string username)
         {
             string queryStr = "DELETE FROM [dbo].[Professors] WHERE [Username] = '" + username + "'";
             con.ExecuteNonQuery(queryStr);

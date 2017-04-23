@@ -9,9 +9,9 @@ namespace DataAccess
 {
     public class Project
     {
-        Connections con = new Connections();
+        private static Connections con = new Connections();
 
-        public IDataReader Get(int id)
+        public static IDataReader Get(int id)
         {
             string queryStr = "SELECT Id, ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time" +
             "FROM Project" +
@@ -19,7 +19,7 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader Get(string projectCode)
+        public static IDataReader Get(string projectCode)
         {
             string queryStr = "SELECT Id, ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time" +
             "FROM Project" +
@@ -27,7 +27,7 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader Add(string projectCode,string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
+        public static IDataReader Add(string projectCode, string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
         {
             string queryStr = "INSERT INTO [dbo].[Project] " +
                 "(ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time)" +
@@ -35,28 +35,28 @@ namespace DataAccess
             return (IDataReader)con.ExecuteScalar(queryStr);
         }
 
-        public void Update(int id, string name)
+        public static void Update(int id, string name)
         {
             string queryStr = "UPDATE [dbo].[Project] SET [Name] = N'" + name + "'" +
                 "WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, DateTime startAt)
+        public static void Update(int id, DateTime startAt)
         {
             string queryStr = "UPDATE [dbo].[Project] SET [StartAt] = '" + startAt + "'" +
                 " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, int time)
+        public static void Update(int id, int time)
         {
             string queryStr = "UPDATE [dbo].[Project] SET [Time] = " + time +
                 "WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
             string queryStr = "DELETE FROM [dbo].[Project] WHERE [Id] = " + id;
             con.ExecuteNonQuery(queryStr);

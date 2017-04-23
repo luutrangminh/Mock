@@ -16,12 +16,10 @@ namespace Business
 
     public class Answer
     {
-        DataAccess.Answer answerDAO = new DataAccess.Answer();
-
-        public propAnswer Get(int id)
+        public static propAnswer Get(int id)
         {
             var answer = new propAnswer();
-            var data = answerDAO.Get(id);
+            var data = DataAccess.Answer.Get(id);
             while (data.Read())
             {
                 answer.id = int.Parse(data["Id"].ToString());
@@ -32,10 +30,10 @@ namespace Business
             return answer;
         }
 
-        public propAnswer GetByQuestion(int questionId)
+        public static propAnswer GetByQuestion(int questionId)
         {
             var answer = new propAnswer();
-            var data = answerDAO.GetByQuestion(questionId);
+            var data = DataAccess.Answer.GetByQuestion(questionId);
             while (data.Read())
             {
                 answer.id = int.Parse(data["Id"].ToString());
@@ -46,10 +44,10 @@ namespace Business
             return answer;
         }
 
-        public propAnswer Add(int questionId, string _answer, bool status)
+        public static propAnswer Add(int questionId, string _answer, bool status)
         {
             var answer = new propAnswer();
-            var data = answerDAO.Add(questionId, _answer, status);
+            var data = DataAccess.Answer.Add(questionId, _answer, status);
             while (data.Read())
             {
                 answer.id = int.Parse(data["Id"].ToString());
@@ -60,34 +58,34 @@ namespace Business
             return answer;
         }
 
-        public void Update(int id, string answer)
+        public static void Update(int id, string answer)
         {
-            answerDAO.Update(id, answer);
+            DataAccess.Answer.Update(id, answer);
         }
 
-        public void Update(int id, int questionId)
+        public static void Update(int id, int questionId)
         {
-            answerDAO.Update(id, questionId);
+            DataAccess.Answer.Update(id, questionId);
         }
 
-        public void UpdateStatus(int id, int status)
+        public static void UpdateStatus(int id, int status)
         {
-            answerDAO.UpdateStatus(id, status);
+            DataAccess.Answer.UpdateStatus(id, status);
         }
 
-        public void Update(int id, string answer, int questionId, bool status)
+        public static void Update(int id, string answer, int questionId, bool status)
         {
-            answerDAO.Update(id, answer, questionId, status);
+            DataAccess.Answer.Update(id, answer, questionId, status);
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
-            answerDAO.Delete(id);
+            DataAccess.Answer.Delete(id);
         }
 
-        public void DeleteByQuestion(int questionId)
+        public static void DeleteByQuestion(int questionId)
         {
-            answerDAO.DeleteByQuestion(questionId);
+            DataAccess.Answer.DeleteByQuestion(questionId);
         }
     }
 }

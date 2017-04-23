@@ -5,14 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Cryptography;
+using Business;
 
 namespace Professor.Controllers
 {
     public class ProjectController : Controller
     {
-        //
         // GET: /Project/
-        //[Route("")]
+        [Route("")]
         public ActionResult Index()
         {
             var projectView = new ProjectViewModel();
@@ -41,12 +41,12 @@ namespace Professor.Controllers
         // POST: /Project/Create
         [HttpPost]
         [Route("create")]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProjectViewModel model)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                var project = Project.Add(model.code, model.name, model.createdAt, model.iCreatedBy, model.startAt, model.time);
                 return RedirectToAction("Index");
             }
             catch

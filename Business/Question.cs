@@ -17,12 +17,11 @@ namespace Business
 
     public class Question
     {
-        DataAccess.Question questionDAO = new DataAccess.Question();
 
-        public List<propQuestion> Get(int projectId)
+        public static List<propQuestion> Get(int projectId)
         {
             var listQuestion = new List<propQuestion>();
-            var data = questionDAO.GetByProject(projectId);
+            var data = DataAccess.Question.GetByProject(projectId);
             while (data.Read())
             {
                 propQuestion question = new propQuestion();
@@ -35,9 +34,9 @@ namespace Business
             return listQuestion;
         }
 
-        public propQuestion GetById(int id)
+        public static propQuestion GetById(int id)
         {
-            var data = questionDAO.Get(id);
+            var data = DataAccess.Question.Get(id);
             var question = new propQuestion();
             while (data.Read())
             {
@@ -48,9 +47,9 @@ namespace Business
             return question;
         }
 
-        public propQuestion Add(int projectId, string questionStr)
+        public static propQuestion Add(int projectId, string questionStr)
         {
-            var data = questionDAO.Add(projectId, questionStr);
+            var data = DataAccess.Question.Add(projectId, questionStr);
             propQuestion question = new propQuestion();
             while(data.Read())
             {
@@ -61,25 +60,25 @@ namespace Business
             return question;
         }
 
-        public void Update(int id, string question)
+        public static void Update(int id, string question)
         {
-            questionDAO.Update(id, question);
+            DataAccess.Question.Update(id, question);
         }
 
 
-        public void Update(int id, int projectId)
+        public static void Update(int id, int projectId)
         {
-            questionDAO.Update(id, projectId);
+            DataAccess.Question.Update(id, projectId);
         }
 
-        public void Update(int id, string question, int projectId)
+        public static void Update(int id, string question, int projectId)
         {
-            questionDAO.Update(id, question, projectId);
+            DataAccess.Question.Update(id, question, projectId);
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
-            questionDAO.Delete(id);
+            DataAccess.Question.Delete(id);
         }
     }
 }

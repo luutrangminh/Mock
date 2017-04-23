@@ -9,9 +9,9 @@ namespace DataAccess
 {
     public class Answer
     {
-        Connections con = new Connections();
+        private static Connections con = new Connections();
 
-        public IDataReader Get(int id)
+        public static IDataReader Get(int id)
         {
             string queryStr = "SELECT Id, Answer, QuestionId, Status" +
             "FROM Answer" +
@@ -19,7 +19,7 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader GetByQuestion(int questionId)
+        public static IDataReader GetByQuestion(int questionId)
         {
             string queryStr = "SELECT Id, Answer, QuestionId, Status" +
             "FROM Answer" +
@@ -27,7 +27,7 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public IDataReader Add(int questionId, string answer, bool status)
+        public static IDataReader Add(int questionId, string answer, bool status)
         {
             string queryStr = "INSERT INTO [dbo].[Answer] " +
                 "([Answer], [QuestionId], [Status])" +
@@ -35,28 +35,28 @@ namespace DataAccess
             return (IDataReader)con.ExecuteScalar(queryStr);
         }
 
-        public void Update(int id, string answer)
+        public static void Update(int id, string answer)
         {
             string queryStr = "UPDATE [dbo].[Answer] SET [Answer] = N'" + answer + "'" +
                 "WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, int questionId)
+        public static void Update(int id, int questionId)
         {
             string queryStr = "UPDATE [dbo].[Answer] SET [QuestionId] = " + questionId +
                 " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void UpdateStatus(int id, int status)
+        public static void UpdateStatus(int id, int status)
         {
             string queryStr = "UPDATE [dbo].[Answer] SET [Status] = " + status +
                 " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Update(int id, string answer, int questionId, bool status)
+        public static void Update(int id, string answer, int questionId, bool status)
         {
             string queryStr = "UPDATE [dbo].[Answer] SET [Answer] = N'" + answer + "'" +
                 ", [QuestionId] = " + questionId +
@@ -65,13 +65,13 @@ namespace DataAccess
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
             string queryStr = "DELETE FROM [dbo].[Answer] WHERE [Id] = " + id;
             con.ExecuteNonQuery(queryStr);
         }
 
-        public void DeleteByQuestion(int questionId)
+        public static void DeleteByQuestion(int questionId)
         {
             string queryStr = "DELETE FROM [dbo].[Answer] WHERE [QuestionId] = '" + questionId + "'";
             con.ExecuteNonQuery(queryStr);

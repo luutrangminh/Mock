@@ -21,12 +21,10 @@ namespace Business
 
     public class Professor
     {
-        DataAccess.Professor professorDAO = new DataAccess.Professor();
-
-        public List<propProfessor> Get()
+        public static List<propProfessor> Get()
         {
             var listProfessor = new List<propProfessor>();
-            var data = professorDAO.Get();
+            var data = DataAccess.Professor.Get();
             while (data.Read())
             {
                 propProfessor professor = new propProfessor();
@@ -42,10 +40,10 @@ namespace Business
             return listProfessor;
         }
 
-        public propProfessor Get(string username)
+        public static propProfessor Get(string username)
         {
             propProfessor professor = new propProfessor();
-            var data = professorDAO.Get(username);
+            var data = DataAccess.Professor.Get(username);
             while (data.Read())
             {
                 professor.id = int.Parse(data["Id"].ToString());
@@ -60,11 +58,11 @@ namespace Business
             return professor;
         }
 
-        public propProfessor Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
+        public static propProfessor Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
             string password, string phoneNumber, string address)
         {
             var professor = new propProfessor();
-            var data = professorDAO.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address);
+            var data = DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address);
             while (data.Read())
             {
                 professor.id = int.Parse(data["Id"].ToString());
@@ -79,47 +77,47 @@ namespace Business
             return professor;
         }
 
-        public void Update(int id, string fullName)
+        public static void Update(int id, string fullName)
         {
-            professorDAO.Update(id, fullName);
+            DataAccess.Professor.Update(id, fullName);
         }
 
-        public void Update(int id, string fullName, string email)
+        public static void Update(int id, string fullName, string email)
         {
-            professorDAO.Update(id, fullName, email);
+            DataAccess.Professor.Update(id, fullName, email);
         }
 
-        public void Update(int id, string fullName, string email, string username)
+        public static void Update(int id, string fullName, string email, string username)
         {
-            professorDAO.Update(id, fullName, email, username);
+            DataAccess.Professor.Update(id, fullName, email, username);
         }
 
-        public void Updat(int id, string fullName, string email, string username,
+        public static void Updat(int id, string fullName, string email, string username,
             string password)
         {
-            professorDAO.Update(id, fullName, email, username, password);
+            DataAccess.Professor.Update(id, fullName, email, username, password);
         }
 
-        public void Update(int id, string fullName, string email, string username,
+        public static void Update(int id, string fullName, string email, string username,
             string password, string phoneNumber)
         {
-            professorDAO.Update(id, fullName, email, username, password, phoneNumber);
+            DataAccess.Professor.Update(id, fullName, email, username, password, phoneNumber);
         }
 
-        public void Update(int id, string fullName, string email, string username,
+        public static void Update(int id, string fullName, string email, string username,
             string password, string phoneNumber, string address)
         {
-            professorDAO.Update(id, fullName, email, username, password, phoneNumber, address);
+            DataAccess.Professor.Update(id, fullName, email, username, password, phoneNumber, address);
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
-            professorDAO.Delete(id);
+            DataAccess.Professor.Delete(id);
         }
 
-        public void Delete(string username)
+        public static void Delete(string username)
         {
-            professorDAO.Delete(username);
+            DataAccess.Professor.Delete(username);
         }
     }
 }
