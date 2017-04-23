@@ -27,12 +27,13 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public static IDataReader Add(string projectCode, string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
+        public static void Add(string projectCode, string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
         {
             string queryStr = "INSERT INTO [dbo].[Project] " +
                 "(ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time)" +
-                "VALUES ('" + projectCode + "', N'" + name + "', '" + createdAt + "', " + createdBy + ", '" + startAt + "'" + time + ")";
-            return (IDataReader)con.ExecuteScalar(queryStr);
+                "VALUES ('" + projectCode + "', N'" + name + "', CONVERT(datetime, '" + createdAt + "', 103), " + createdBy + ", CONVERT(datetime, '" + startAt + "', 103), " + time + ")";
+         
+            con.ExecuteScalar(queryStr);
         }
 
         public static void Update(int id, string name)

@@ -53,21 +53,9 @@ namespace Business
             return project;
         }
 
-        public static propProject Add(string projectCode, string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
+        public static void Add(string projectCode, string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
         {
-            var project = new propProject();
-            var data = DataAccess.Project.Add(projectCode, name, createdAt, createdBy, startAt, time);
-            while (data.Read())
-            {
-                project.id = int.Parse(data["Id"].ToString());
-                project.code = data["ProjectCode"].ToString();
-                project.name = data["Name"].ToString();
-                project.startAt = DateTime.Parse(data["StartAt"].ToString());
-                project.time = int.Parse(data["Time"].ToString());
-                project.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
-                project.createdBy = int.Parse(data["CreatedBy"].ToString());
-            }
-            return project;
+            DataAccess.Project.Add(projectCode, name, createdAt, createdBy, startAt, time);
         }
 
         public static void Update(int id, string name)

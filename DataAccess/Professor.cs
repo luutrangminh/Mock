@@ -14,26 +14,26 @@ namespace DataAccess
         public static IDataReader Get()
         {
             string queryStr = "SELECT Id, FullName, Email, Username," +
-            "Password, PhoneNumber, Address, CreateBy, CreateAt FROM Professors";
+            "Password, PhoneNumber, Address, CreatedBy, CreatedAt FROM Professors";
             return con.ExecuteReader(queryStr);
         }
 
         public static IDataReader Get(string username)
         {
             string queryStr = "SELECT Id, FullName, Email, Username," +
-            "Password, PhoneNumber, Address, CreateBy, CreateAt FROM Professors" +
-            "WHERE Username = '" + username + "'";
+            "Password, PhoneNumber, Address, CreatedBy, CreatedAt FROM Professors" +
+            " WHERE Username = '" + username + "'";
             return con.ExecuteReader(queryStr);
         }
 
-        public static IDataReader Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
+        public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
             string password, string phoneNumber, string address)
         {
             string queryStr = "INSERT INTO [dbo].[Professors] " +
                 "([FullName], [Email], [Username], [Password], [PhoneNumber], [Address], [CreatedBy], [CreatedAt])" +
                 "VALUES (N'" + fullName + "', '" + email + "', '" + username + "', '" +
                 password + "', '" + phoneNumber + "', '" + address + "', " + createdBy + ", '" + createdAt + "')";
-            return (IDataReader)con.ExecuteScalar(queryStr);
+            con.ExecuteScalar(queryStr);
         }
 
         public static void Update(int id, string fullName)

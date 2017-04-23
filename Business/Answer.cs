@@ -44,18 +44,9 @@ namespace Business
             return answer;
         }
 
-        public static propAnswer Add(int questionId, string _answer, bool status)
+        public static void Add(int questionId, string _answer, bool status)
         {
-            var answer = new propAnswer();
-            var data = DataAccess.Answer.Add(questionId, _answer, status);
-            while (data.Read())
-            {
-                answer.id = int.Parse(data["Id"].ToString());
-                answer.answer = data["Answer"].ToString();
-                answer.questionId = int.Parse(data["QuestionId"].ToString());
-                answer.status = bool.Parse(data["Status"].ToString());
-            }
-            return answer;
+            DataAccess.Answer.Add(questionId, _answer, status);
         }
 
         public static void Update(int id, string answer)

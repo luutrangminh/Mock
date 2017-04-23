@@ -12,13 +12,12 @@ namespace Professor.Controllers
     public class ProjectController : Controller
     {
         // GET: /Project/
-        [Route("")]
+        //[Route("")]
         public ActionResult Index()
         {
-            var projectView = new ProjectViewModel();
-            projectView.name = "Test View";
-            projectView.code = _SHA1.Hash("ád");
-            return View(projectView);
+            var professor = Business.Professor.Get("nguyenthanh");
+            ViewBag.Professor = professor;
+            return View();
         }
 
         //
@@ -43,16 +42,8 @@ namespace Professor.Controllers
         [Route("create")]
         public ActionResult Create(ProjectViewModel model)
         {
-            try
-            {
-                // TODO: Add insert logic here
-                var project = Project.Add(model.code, model.name, model.createdAt, model.iCreatedBy, model.startAt, model.time);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Project.Add(model.code, model.name, model.createdAt, model.iCreatedBy, model.startAt, model.time);
+            return View();
         }
 
         //

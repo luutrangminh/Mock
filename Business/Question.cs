@@ -47,17 +47,9 @@ namespace Business
             return question;
         }
 
-        public static propQuestion Add(int projectId, string questionStr)
+        public static void Add(int projectId, string questionStr)
         {
-            var data = DataAccess.Question.Add(projectId, questionStr);
-            propQuestion question = new propQuestion();
-            while(data.Read())
-            {
-                question.id = int.Parse(data["Id"].ToString());
-                question.question = data["Question"].ToString();
-                question.projectId = int.Parse(data["ProjectId"].ToString());
-            }
-            return question;
+            DataAccess.Question.Add(projectId, questionStr);
         }
 
         public static void Update(int id, string question)

@@ -27,12 +27,12 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
-        public static IDataReader Add(int projectId, string question)
+        public static void Add(int projectId, string question)
         {
             string queryStr = "INSERT INTO [dbo].[Question] " +
                 "([Question], [ProjectId])" +
                 "VALUES (N'" + question + "', " + projectId + ")";
-            return (IDataReader)con.ExecuteScalar(queryStr);
+            con.ExecuteScalar(queryStr);
         }
 
         public static void Update(int id, string question)

@@ -58,23 +58,10 @@ namespace Business
             return professor;
         }
 
-        public static propProfessor Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
+        public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
             string password, string phoneNumber, string address)
         {
-            var professor = new propProfessor();
-            var data = DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address);
-            while (data.Read())
-            {
-                professor.id = int.Parse(data["Id"].ToString());
-                professor.fullName = data["FullName"].ToString();
-                professor.email = data["Email"].ToString();
-                professor.username = data["Username"].ToString();
-                professor.phoneNumber = data["PhoneNumber"].ToString();
-                professor.address = data["Address"].ToString();
-                professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
-                professor.createdBy = int.Parse(data["CreatedBy"].ToString());
-            }
-            return professor;
+            DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address);
         }
 
         public static void Update(int id, string fullName)
