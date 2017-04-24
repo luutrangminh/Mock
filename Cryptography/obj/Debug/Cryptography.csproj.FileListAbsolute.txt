@@ -2,3 +2,7 @@ F:\GST\project\SPM_URD\Cryptography\bin\Debug\Cryptography.dll
 F:\GST\project\SPM_URD\Cryptography\bin\Debug\Cryptography.pdb
 F:\GST\project\SPM_URD\Cryptography\obj\Debug\Cryptography.dll
 F:\GST\project\SPM_URD\Cryptography\obj\Debug\Cryptography.pdb
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Cryptography\bin\Debug\Cryptography.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Cryptography\bin\Debug\Cryptography.pdb
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Cryptography\obj\Debug\Cryptography.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Cryptography\obj\Debug\Cryptography.pdb

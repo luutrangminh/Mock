@@ -25,6 +25,8 @@ namespace Business
         {
             var listProfessor = new List<propProfessor>();
             var data = DataAccess.Professor.Get();
+            if (data == null)
+                return null;
             while (data.Read())
             {
                 propProfessor professor = new propProfessor();
@@ -36,7 +38,9 @@ namespace Business
                 professor.address = data["Address"].ToString();
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
+                listProfessor.Add(professor);
             }
+            DataAccess.Professor.Close();
             return listProfessor;
         }
 
@@ -44,6 +48,8 @@ namespace Business
         {
             propProfessor professor = new propProfessor();
             var data = DataAccess.Professor.Get(username);
+            if (data == null)
+                return null;
             while (data.Read())
             {
                 professor.id = int.Parse(data["Id"].ToString());
@@ -57,6 +63,27 @@ namespace Business
             }
             return professor;
         }
+
+        public static propProfessor Get(int id)
+        {
+            propProfessor professor = new propProfessor();
+            var data = DataAccess.Professor.Get(id);
+            if (data == null)
+                return null;
+            while (data.Read())
+            {
+                professor.id = int.Parse(data["Id"].ToString());
+                professor.fullName = data["FullName"].ToString();
+                professor.email = data["Email"].ToString();
+                professor.username = data["Username"].ToString();
+                professor.phoneNumber = data["PhoneNumber"].ToString();
+                professor.address = data["Address"].ToString();
+                professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
+                professor.createdBy = int.Parse(data["CreatedBy"].ToString());
+            }
+            return professor;
+        }
+
 
         public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
             string password, string phoneNumber, string address)

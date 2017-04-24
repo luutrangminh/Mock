@@ -42,3 +42,6 @@ F:\GST\project\SPM_URD\Professor.Tests\bin\Debug\Microsoft.Owin.Security.OAuth.x
 F:\GST\project\SPM_URD\Professor.Tests\obj\Debug\Professor.Tests.csprojResolveAssemblyReference.cache
 F:\GST\project\SPM_URD\Professor.Tests\obj\Debug\Professor.Tests.dll
 F:\GST\project\SPM_URD\Professor.Tests\obj\Debug\Professor.Tests.pdb
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Professor.Tests\obj\Debug\Professor.Tests.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Professor.Tests\obj\Debug\Professor.Tests.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Professor.Tests\obj\Debug\Professor.Tests.pdb

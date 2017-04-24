@@ -10,11 +10,33 @@ namespace DataAccess
 {
     public class Administrator
     {
-        Connections con = new Connections();
+        private static Connections con = null;
 
-        public IDataReader TestSelect()
+        public static IDataReader TestSelect()
         {
             return con.ExecuteReader("Select * From Administrator");
+        }
+
+        public static IDataReader Get(string username)
+        {
+            con = new Connections();
+            string queryStr = "SELECT Id, FullName, Email, Username," +
+            "Password FROM Administrator" +
+            " WHERE Username = '" + username + "'";
+            return con.ExecuteReader(queryStr);
+        }
+        public static IDataReader Get(int id)
+        {
+            con = new Connections();
+            string queryStr = "SELECT Id, FullName, Email, Username," +
+            "Password FROM Administrator" +
+            " WHERE Id = " + id;
+            return con.ExecuteReader(queryStr);
+        }
+
+        public static void Close()
+        {
+            con.CloseConnection();
         }
     }
 }

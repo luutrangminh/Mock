@@ -5,3 +5,12 @@ F:\GST\project\SPM_URD\DataAccess.Tests\bin\Debug\DataAccess.pdb
 F:\GST\project\SPM_URD\DataAccess.Tests\obj\Debug\DataAccess.Tests.csprojResolveAssemblyReference.cache
 F:\GST\project\SPM_URD\DataAccess.Tests\obj\Debug\DataAccess.Tests.dll
 F:\GST\project\SPM_URD\DataAccess.Tests\obj\Debug\DataAccess.Tests.pdb
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\DataAccess.Tests\bin\Debug\DataAccess.Tests.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\DataAccess.Tests\bin\Debug\DataAccess.Tests.pdb
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\DataAccess.Tests\bin\Debug\DataAccess.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\DataAccess.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\DataAccess.Tests\bin\Debug\DataAccess.pdb
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\DataAccess.Tests\bin\Debug\fr\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\DataAccess.Tests\obj\Debug\DataAccess.Tests.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\DataAccess.Tests\obj\Debug\DataAccess.Tests.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\DataAccess.Tests\obj\Debug\DataAccess.Tests.pdb
