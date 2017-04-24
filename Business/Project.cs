@@ -33,6 +33,7 @@ namespace Business
                 project.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 project.createdBy = int.Parse(data["CreatedBy"].ToString());
             }
+            data.Close();
             return project;
         }
 
@@ -50,6 +51,7 @@ namespace Business
                 project.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 project.createdBy = int.Parse(data["CreatedBy"].ToString());
             }
+            data.Close();
             return project;
         }
 

@@ -38,6 +38,7 @@ namespace Business
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
                 listProfessor.Add(professor);
             }
+            data.Close();
             return listProfessor;
         }
 
@@ -56,6 +57,7 @@ namespace Business
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
             }
+            data.Close();
             return professor;
         }
 

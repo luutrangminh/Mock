@@ -27,6 +27,7 @@ namespace Business
                 answer.questionId = int.Parse(data["QuestionId"].ToString());
                 answer.status = bool.Parse(data["Status"].ToString());
             }
+            data.Close();
             return answer;
         }
 
@@ -41,6 +42,7 @@ namespace Business
                 answer.questionId = int.Parse(data["QuestionId"].ToString());
                 answer.status = bool.Parse(data["Status"].ToString());
             }
+            data.Close();
             return answer;
         }
 
