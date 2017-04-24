@@ -36,6 +36,7 @@ namespace Business
                 professor.address = data["Address"].ToString();
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
+                listProfessor.Add(professor);
             }
             return listProfessor;
         }
