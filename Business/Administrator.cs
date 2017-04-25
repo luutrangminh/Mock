@@ -39,6 +39,7 @@ namespace Business
                 admin.Id = int.Parse(data["Id"].ToString());
                 admin.Username = data["Username"].ToString();
                 admin.Password = data["Password"].ToString();
+                admin.FullName = data["FullName"].ToString();
             }
             DataAccess.Administrator.Close();
             return admin;

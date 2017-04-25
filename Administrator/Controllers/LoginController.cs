@@ -25,7 +25,7 @@ namespace Administrator.Controllers
             {
                 if (_MD5.Verify(password, item.Password))
                 {
-                    return RedirectToAction("Index", "ProfessorManager");
+                    return RedirectToAction("Index", "ProfessorManager", new { fullName = item.FullName.ToLower().Replace(" ", "-") });
                 }
                 else
                 {

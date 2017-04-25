@@ -30,7 +30,7 @@ namespace Business
                 question.projectId = int.Parse(data["ProjectId"].ToString());
                 listQuestion.Add(question);
             }
-
+            data.Close();
             return listQuestion;
         }
 
@@ -44,6 +44,7 @@ namespace Business
                 question.question = data["Question"].ToString();
                 question.projectId = int.Parse(data["ProjectId"].ToString());
             }
+            data.Close();
             return question;
         }
 

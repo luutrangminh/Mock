@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,13 +34,14 @@ namespace Business
                 professor.fullName = data["FullName"].ToString();
                 professor.email = data["Email"].ToString();
                 professor.username = data["Username"].ToString();
+                professor.password = data["Password"].ToString();
                 professor.phoneNumber = data["PhoneNumber"].ToString();
                 professor.address = data["Address"].ToString();
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
                 listProfessor.Add(professor);
             }
-            DataAccess.Professor.Close();
+            data.Close();
             return listProfessor;
         }
 
@@ -56,11 +57,13 @@ namespace Business
                 professor.fullName = data["FullName"].ToString();
                 professor.email = data["Email"].ToString();
                 professor.username = data["Username"].ToString();
+                professor.password = data["Password"].ToString();
                 professor.phoneNumber = data["PhoneNumber"].ToString();
                 professor.address = data["Address"].ToString();
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
             }
+            data.Close();
             return professor;
         }
 
@@ -76,6 +79,7 @@ namespace Business
                 professor.fullName = data["FullName"].ToString();
                 professor.email = data["Email"].ToString();
                 professor.username = data["Username"].ToString();
+                professor.password = data["Password"].ToString();
                 professor.phoneNumber = data["PhoneNumber"].ToString();
                 professor.address = data["Address"].ToString();
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
@@ -106,7 +110,7 @@ namespace Business
             DataAccess.Professor.Update(id, fullName, email, username);
         }
 
-        public static void Updat(int id, string fullName, string email, string username,
+        public static void Update(int id, string fullName, string email, string username,
             string password)
         {
             DataAccess.Professor.Update(id, fullName, email, username, password);

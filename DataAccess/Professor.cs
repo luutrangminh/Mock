@@ -49,6 +49,16 @@ namespace DataAccess
             con.CloseConnection();
         }
 
+        public static void Update(int id, string username, string password)
+        {
+            con = new Connections();
+            string queryStr = "UPDATE [dbo].[Professors] SET [Username] = N'" + username + "'" +
+                ", [Password] = '" + password + "'" +
+                " WHERE Id = " + id;
+            con.ExecuteNonQuery(queryStr);
+            con.CloseConnection();
+        }
+
         public static void Update(int id, string fullName)
         {
             con = new Connections();
@@ -58,7 +68,7 @@ namespace DataAccess
             con.CloseConnection();
         }
 
-        public static void Update(int id, string fullName, string email)
+        public static void Updat(int id, string fullName, string email)
         {
             con = new Connections();
             string queryStr = "UPDATE [dbo].[Professors] SET [FullName] = N'" + fullName + "'" +
@@ -134,11 +144,6 @@ namespace DataAccess
             con = new Connections();
             string queryStr = "DELETE FROM [dbo].[Professors] WHERE [Username] = '" + username + "'";
             con.ExecuteNonQuery(queryStr);
-            con.CloseConnection();
-        }
-
-        public static void Close()
-        {
             con.CloseConnection();
         }
     }

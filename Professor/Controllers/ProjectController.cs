@@ -16,6 +16,7 @@ namespace Professor.Controllers
         public ActionResult Index()
         {
             var professor = Business.Professor.Get("nguyenthanh");
+            var professor2 = Business.Professor.Get("nguyenthanh");
             ViewBag.Professor = professor;
             return View();
         }

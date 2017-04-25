@@ -19,12 +19,15 @@ namespace Administrator.Models
         public string email { get; set; }
         [Required (ErrorMessage = "Không được để trống.")]
         [Display(Name = "Tài Khoản")]
+        [StringLength(20, ErrorMessage = "Tài khoản có từ 5 ký tự đến 20 ký tự.", MinimumLength = 5)]
         public string username { get; set; }
         [Required (ErrorMessage = "Không được để trống.")]
         [Display(Name = "Mật Khẩu")]
+        [StringLength(32, ErrorMessage = "Mật khẩu có từ 5 ký tự đến 32 ký tự.", MinimumLength = 5)]
         public string password { get; set; }
         [Required (ErrorMessage = "Không được để trống.")]
         [Display(Name = "SĐT")]
+        [Range(0800000001,09999999999,ErrorMessage = "Số điện thoại phải là số và có 10 hoặc 11 ký tự.")]
         public string phoneNumber { get; set; }
         [Required (ErrorMessage = "Không được để trống.")]
         [Display(Name = "Địa Chỉ")]

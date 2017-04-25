@@ -355,7 +355,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\ProfessorManager\Index.cshtml" />
     <Content Include="Views\ProfessorManager\Create.cshtml" />
-    <Content Include="Views\ProfessorManager\Delete.cshtml" />
+    <Content Include="Views\ProfessorManager\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
