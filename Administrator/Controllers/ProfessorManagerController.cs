@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Administrator.Models;
 using Cryptography;
+using EmailSender;
 
 namespace Administrator.Controllers
 {
@@ -62,6 +63,7 @@ namespace Administrator.Controllers
             if (ModelState.IsValid)
             {
                 Business.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address);
+                EmailSender.EmailSender.Send(email, "Có mail kìa");
                 return RedirectToAction("Index", "ProfessorManager");
             }
             return View();

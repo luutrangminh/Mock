@@ -47,6 +47,9 @@
     <Reference Include="Cryptography">
       <HintPath>..\Cryptography\bin\Debug\Cryptography.dll</HintPath>
     </Reference>
+    <Reference Include="EmailSender">
+      <HintPath>..\EmailSender\bin\Debug\EmailSender.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
