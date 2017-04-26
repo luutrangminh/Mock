@@ -2,7 +2,6 @@ Administrator/bin
 Business/bin
 DataAccess/bin
 Professor/bin
-Professor/Web.*
 StudenManagement/bin
 Cryptography/bin
 Administrator/obj
