@@ -42,7 +42,7 @@ namespace Administrator.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime createdAt { get; set; }
 
-        public ProfessorViewModel(Business.propProfessor obj, string createdByStr)
+        public ProfessorViewModel(Business.propProfessor obj)
         {
             this.id = obj.id;
             this.fullName = obj.fullName;
@@ -53,7 +53,7 @@ namespace Administrator.Models
             this.address = obj.address;
             this.createdBy = obj.createdBy;
             this.createdAt = obj.createdAt;
-            this.createdByStr = createdByStr;
+            this.createdByStr = obj.createdByStr;
         }
     }
 }

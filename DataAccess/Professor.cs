@@ -36,6 +36,14 @@ namespace DataAccess
             " WHERE Id = '" + id + "'";
             return con.ExecuteReader(queryStr);
         }
+        public static IDataReader GetByAdmin(int id)
+        {
+            con = new Connections();
+            string queryStr = "SELECT Professors.Id, Professors.FullName, Professors.Email, Professors.Username," +
+            "Professors.Password, Professors.PhoneNumber, Professors.Address, Professors.CreatedBy, Administrator.FullName as CreatedByStr, CreatedAt FROM Professors, Administrator" +
+            " WHERE Administrator.Id = Professors.CreatedBy AND CreatedBy = " + id;
+            return con.ExecuteReader(queryStr);
+        }
 
         public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
             string password, string phoneNumber, string address)

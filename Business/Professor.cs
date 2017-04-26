@@ -16,6 +16,7 @@ namespace Business
         public string phoneNumber { get; set; }
         public string address { get; set; }
         public int createdBy { get; set; }
+        public string createdByStr { get; set; }
         public DateTime createdAt { get; set; }
     }
 
@@ -86,6 +87,30 @@ namespace Business
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
             }
             return professor;
+        }
+        public static List<propProfessor> GetByAdmin(int id)
+        {
+            var listProfessor = new List<propProfessor>();
+            var data = DataAccess.Professor.GetByAdmin(id);
+            if (data == null)
+                return null;
+            while (data.Read())
+            {
+                propProfessor professor = new propProfessor();
+                professor.id = int.Parse(data["Id"].ToString());
+                professor.fullName = data["FullName"].ToString();
+                professor.email = data["Email"].ToString();
+                professor.username = data["Username"].ToString();
+                professor.password = data["Password"].ToString();
+                professor.phoneNumber = data["PhoneNumber"].ToString();
+                professor.address = data["Address"].ToString();
+                professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
+                professor.createdBy = int.Parse(data["CreatedBy"].ToString());
+                professor.createdByStr = data["CreatedByStr"].ToString();
+                listProfessor.Add(professor);
+            }
+            data.Close();
+            return listProfessor;
         }
 
 

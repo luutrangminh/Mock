@@ -14,12 +14,14 @@ namespace Administrator.Controllers
         [Route("{fullName}")]
         public ActionResult Index()
         {
+            var adminSession = (Business.propAdmin)Session["admin"];
+            if (adminSession == null) return RedirectToAction("Index", "Login");
+
             var listProfessorShow = new List<Administrator.Models.ProfessorViewModel>();
-            var listProfessor = Business.Professor.Get();
+            var listProfessor = Business.Professor.GetByAdmin(adminSession.Id);
             listProfessor.ForEach(professor =>
             {
-                var admin = Business.Administrator.Get(professor.createdBy);
-                var professorShow = new Administrator.Models.ProfessorViewModel(professor, admin.FullName);
+                var professorShow = new Administrator.Models.ProfessorViewModel(professor);
                 listProfessorShow.Add(professorShow);
             });
             return View(listProfessorShow);
@@ -44,8 +46,9 @@ namespace Administrator.Controllers
             var email = f["email"];
             var phoneNumber = f["phoneNumber"];
             var address = f["address"];
-            DateTime createdAt = DateTime.Parse(f["createdAt"]);
-            var createdBy = int.Parse(f["createdBy"]);
+            DateTime createdAt = DateTime.Now;
+            var admin = (Business.propAdmin)Session["admin"];
+            int createdBy = admin.Id;
             password = _MD5.Hash(password);
             foreach (var item in Business.Professor.Get())
             {
