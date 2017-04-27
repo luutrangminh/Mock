@@ -58,7 +58,6 @@ namespace DataAccess
         {
             SqlCommand cmd = new SqlCommand(queryStr, con);
             cmd.ExecuteNonQuery();
-            this.CloseConnection();
         }
 
         public object ExecuteScalar(string queryStr)
@@ -67,7 +66,6 @@ namespace DataAccess
             try
             {
                 var result = cmd.ExecuteScalar();
-                this.CloseConnection();
                 return result;
             }
             catch (Exception ex)

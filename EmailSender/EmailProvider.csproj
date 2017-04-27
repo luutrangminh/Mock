@@ -7,7 +7,7 @@
     <ProjectGuid>{C3DEFCD5-43A9-43E1-932E-A61C7CA5A678}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EmailSender</RootNamespace>
+    <RootNamespace>EmailProvider</RootNamespace>
     <AssemblyName>EmailSender</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

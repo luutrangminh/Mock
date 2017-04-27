@@ -52,7 +52,7 @@ namespace DataAccess
         public static void Update(int id, DateTime startAt)
         {
             con = new Connections();
-            string queryStr = "UPDATE [dbo].[Project] SET [StartAt] = '" + startAt + "'" +
+            string queryStr = "UPDATE [dbo].[Project] SET [StartAt] = CONVERT(datetime, '" + startAt + "', 103)" +
                 " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
             con.CloseConnection();

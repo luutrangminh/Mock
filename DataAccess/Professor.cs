@@ -52,8 +52,8 @@ namespace DataAccess
             string queryStr = "INSERT INTO [dbo].[Professors] " +
                 "([FullName], [Email], [Username], [Password], [PhoneNumber], [Address], [CreatedBy], [CreatedAt])" +
                 "VALUES (N'" + fullName + "', '" + email + "', '" + username + "', '" +
-                password + "', '" + phoneNumber + "', '" + address + "', " + createdBy + ", '" + createdAt + "')";
-            con.ExecuteScalar(queryStr);
+                password + "', '" + phoneNumber + "', '" + address + "', " + createdBy + ", CONVERT(datetime, '" + createdAt + "', 103))";
+            con.ExecuteNonQuery(queryStr);
             con.CloseConnection();
         }
 

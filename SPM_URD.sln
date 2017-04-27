@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Administrator", "Administrator\Administrator.csproj", "{5F5131B9-7CFE-44F9-880A-36085E274121}"
 EndProject
@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Tests", "DataAcc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptography", "Cryptography\Cryptography.csproj", "{F7A8EF65-7972-429A-9A1A-D33AA74832EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{C3DEFCD5-43A9-43E1-932E-A61C7CA5A678}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailProvider", "EmailSender\EmailProvider.csproj", "{C3DEFCD5-43A9-43E1-932E-A61C7CA5A678}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

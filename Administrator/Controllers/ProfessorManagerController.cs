@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Administrator.Models;
 using Cryptography;
-using EmailSender;
+using EmailProvider;
 
 namespace Administrator.Controllers
 {
@@ -50,6 +50,11 @@ namespace Administrator.Controllers
             DateTime createdAt = DateTime.Now;
             var admin = (Business.propAdmin)Session["admin"];
             int createdBy = admin.Id;
+            if (!EmailSender.isEmail(email)) {
+                ViewBag.Error = "Email not valid";
+                return View();
+            }
+
             password = _MD5.Hash(password);
             foreach (var item in Business.Professor.Get())
             {
@@ -63,7 +68,15 @@ namespace Administrator.Controllers
             if (ModelState.IsValid)
             {
                 Business.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address);
-                EmailSender.EmailSender.Send(email, "Có mail kìa");
+                string message = "Tài khoản giáo viên của bạn vừa được cấp bởi quản trị viên " + admin.FullName + " lúc " + createdAt.ToShortTimeString() + " ngày " + createdAt.ToShortDateString() + ":"
+                + "<br>Thông tin tài khoản:<br>   - Tên đăng nhập: " + username + "<br>   - Mật khẩu: " + f["password"]
+                + "<br>Vui lòng đăng nhập và hoàn thành thông tin.";
+                var sendStatus = EmailSender.Send(email, "Vui lòng hoàn thành thông tin giáo viên trên FreePay", message);
+                if (!sendStatus)
+                {
+                    ViewBag.Error = "Email chưa được gửi";
+                    return View();
+                }
                 return RedirectToAction("Index", "ProfessorManager");
             }
             return View();
