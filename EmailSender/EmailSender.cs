@@ -11,7 +11,7 @@ namespace EmailProvider
 {
     public class EmailSender
     {
-        static bool mailSent = false;
+        static bool mailSent = true;
         private static void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
         {
             // Get the unique identifier for this asynchronous operation.
@@ -19,17 +19,19 @@ namespace EmailProvider
 
             if (e.Cancelled)
             {
+                mailSent = false;
                 Console.WriteLine("[{0}] Send canceled.", token);
             }
             if (e.Error != null)
             {
+                mailSent = false;
                 Console.WriteLine("[{0}] {1}", token, e.Error.ToString());
             }
             else
             {
+                mailSent = false;
                 Console.WriteLine("Message sent.");
             }
-            mailSent = true;
         }
 
         public static bool isEmail(string email)
@@ -73,7 +75,7 @@ namespace EmailProvider
                 smtp.Send(message);
                 // Clean up.
                 message.Dispose();
-                return true;
+                return mailSent;
             }
             catch (Exception ex)
             {
