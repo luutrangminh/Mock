@@ -29,7 +29,6 @@ namespace EmailProvider
             }
             else
             {
-                mailSent = false;
                 Console.WriteLine("Message sent.");
             }
         }

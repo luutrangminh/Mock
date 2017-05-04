@@ -15,7 +15,7 @@ namespace DataAccess
         {
             con = new Connections();
             string queryStr = "SELECT Id, FullName, Email, Username," +
-            "Password, PhoneNumber, Address, CreatedBy, CreatedAt FROM Professors";
+            "Password, PhoneNumber, Address, CreatedBy, CreatedAt, Status, Status FROM Professors";
             return con.ExecuteReader(queryStr);
         }
 
@@ -23,7 +23,7 @@ namespace DataAccess
         {
             con = new Connections();
             string queryStr = "SELECT Id, FullName, Email, Username," +
-            "Password, PhoneNumber, Address, CreatedBy, CreatedAt FROM Professors" +
+            "Password, PhoneNumber, Address, CreatedBy, CreatedAt, Status, Status FROM Professors" +
             " WHERE Username = '" + username + "'";
             return con.ExecuteReader(queryStr);
         }
@@ -32,27 +32,38 @@ namespace DataAccess
         {
             con = new Connections();
             string queryStr = "SELECT Id, FullName, Email, Username," +
-            "Password, PhoneNumber, Address, CreatedBy, CreatedAt FROM Professors" +
+            "Password, PhoneNumber, Address, CreatedBy, CreatedAt, Status, Status FROM Professors" +
             " WHERE Id = '" + id + "'";
             return con.ExecuteReader(queryStr);
         }
+
+
+        public static IDataReader GetByEmail(string email)
+        {
+            con = new Connections();
+            string queryStr = "SELECT Id, FullName, Email, Username," +
+            "Password, PhoneNumber, Address, CreatedBy, CreatedAt, Status, Status FROM Professors" +
+            " WHERE Email = '" + email + "'";
+            return con.ExecuteReader(queryStr);
+        }
+
         public static IDataReader GetByAdmin(int id)
         {
             con = new Connections();
             string queryStr = "SELECT Professors.Id, Professors.FullName, Professors.Email, Professors.Username," +
-            "Professors.Password, Professors.PhoneNumber, Professors.Address, Professors.CreatedBy, Administrator.FullName as CreatedByStr, CreatedAt FROM Professors, Administrator" +
+            "Professors.Password, Professors.PhoneNumber, Professors.Address, Professors.CreatedBy, Administrator.FullName as CreatedByStr, CreatedAt, Status FROM Professors, Administrator" +
             " WHERE Administrator.Id = Professors.CreatedBy AND CreatedBy = " + id;
             return con.ExecuteReader(queryStr);
         }
 
         public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
-            string password, string phoneNumber, string address)
+            string password, string phoneNumber, string address, bool status)
         {
             con = new Connections();
             string queryStr = "INSERT INTO [dbo].[Professors] " +
-                "([FullName], [Email], [Username], [Password], [PhoneNumber], [Address], [CreatedBy], [CreatedAt])" +
+                "([FullName], [Email], [Username], [Password], [PhoneNumber], [Address], [CreatedBy], [CreatedAt], [Status])" +
                 "VALUES (N'" + fullName + "', '" + email + "', '" + username + "', '" +
-                password + "', '" + phoneNumber + "', '" + address + "', " + createdBy + ", CONVERT(datetime, '" + createdAt + "', 103))";
+                password + "', '" + phoneNumber + "', '" + address + "', " + createdBy + ", CONVERT(datetime, '" + createdAt + "', 103), " + status + ")";
             con.ExecuteNonQuery(queryStr);
             con.CloseConnection();
         }
@@ -62,6 +73,15 @@ namespace DataAccess
             con = new Connections();
             string queryStr = "UPDATE [dbo].[Professors] SET [Username] = N'" + username + "'" +
                 ", [Password] = '" + password + "'" +
+                " WHERE Id = " + id;
+            con.ExecuteNonQuery(queryStr);
+            con.CloseConnection();
+        }
+
+        public static void Update(int id, bool status)
+        {
+            con = new Connections();
+            string queryStr = "UPDATE [dbo].[Professors] SET [Status] = " + status +
                 " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
             con.CloseConnection();
