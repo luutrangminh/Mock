@@ -998,6 +998,8 @@
     <Content Include="Content\plugins\pace\pace.js" />
     <Content Include="Content\plugins\pace\pace.min.css" />
     <Content Include="Content\plugins\pace\pace.min.js" />
+    <Content Include="Content\plugins\project\css\project.css" />
+    <Content Include="Content\plugins\project\js\project.js" />
     <Content Include="Content\plugins\select2\i18n\ar.js" />
     <Content Include="Content\plugins\select2\i18n\az.js" />
     <Content Include="Content\plugins\select2\i18n\bg.js" />
@@ -1132,12 +1134,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
-    <Content Include="Views\Project\Create.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

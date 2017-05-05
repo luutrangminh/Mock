@@ -57,7 +57,7 @@
                 console.log(resp.replace('data:image/png;base64,', ''));
                 $.post('@Url.Action("Avatar", "Account")', { avatar: resp.replace('data:image/png;base64,', '') })
                 .done(function () {
-                    location.href = '@Url.Action("Index", "Account")';
+                    window.location.reload();
                 });
             });
         });

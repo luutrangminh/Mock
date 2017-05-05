@@ -15,9 +15,11 @@ namespace Professor.Controllers
         [Route("project")]
         public ActionResult Index()
         {
-            var professor = Business.Professor.Get("nguyenthanh");
-            var professor2 = Business.Professor.Get("nguyenthanh");
-            ViewBag.Professor = professor;
+            var account = (propProfessor)Session["account"];
+            if (account == null) return RedirectToAction("Login", "Authenticate");
+            ViewBag.Account = account;
+            var projectList = Business.Project.GetByProfessor(account.id);
+            ViewBag.ProjectList = projectList;
             return View();
         }
 
@@ -26,6 +28,9 @@ namespace Professor.Controllers
         [Route("project/details")]
         public ActionResult Details(int id)
         {
+            var account = (propProfessor)Session["account"];
+            if (account == null) return RedirectToAction("Login", "Authenticate");
+            ViewBag.Account = account;
             return View();
         }
 
@@ -34,6 +39,9 @@ namespace Professor.Controllers
         [Route("project/create")]
         public ActionResult Create()
         {
+            var account = (propProfessor)Session["account"];
+            if (account == null) return RedirectToAction("Login", "Authenticate");
+            ViewBag.Account = account;
             return View();
         }
 
@@ -43,7 +51,10 @@ namespace Professor.Controllers
         [Route("project/create")]
         public ActionResult Create(ProjectViewModel model)
         {
-            Project.Add(model.code, model.name, model.createdAt, model.iCreatedBy, model.startAt, model.time);
+            var account = (propProfessor)Session["account"];
+            if (account == null) return RedirectToAction("Login", "Authenticate");
+            ViewBag.Account = account;
+            Project.Add(model.name, model.createdAt, model.iCreatedBy, model.startAt, model.time);
             return View();
         }
 
@@ -52,6 +63,9 @@ namespace Professor.Controllers
         [Route("project/edit/{id}")]
         public ActionResult Edit(int id)
         {
+            var account = (propProfessor)Session["account"];
+            if (account == null) return RedirectToAction("Login", "Authenticate");
+            ViewBag.Account = account;
             return View();
         }
 
@@ -61,6 +75,9 @@ namespace Professor.Controllers
         [Route("project/edit/{id}")]
         public ActionResult Edit(int id, FormCollection collection)
         {
+            var account = (propProfessor)Session["account"];
+            if (account == null) return RedirectToAction("Login", "Authenticate");
+            ViewBag.Account = account;
             try
             {
                 // TODO: Add update logic here
@@ -75,27 +92,33 @@ namespace Professor.Controllers
 
         //
         // GET: /Project/Delete/5
-        [Route("project/del/{id}")]
-        public ActionResult Delete(int id)
+        [Route("project/del")]
+        public ActionResult Delete()
         {
+            var account = (propProfessor)Session["account"];
+            if (account == null) return RedirectToAction("Login", "Authenticate");
+            ViewBag.Account = account;
             return View();
         }
 
         //
         // POST: /Project/Delete/5
         [HttpPost]
-        [Route("project/del/{id}")]
-        public ActionResult Delete(int id, FormCollection collection)
+        [Route("project/del")]
+        public ActionResult Delete(FormCollection collection)
         {
-            try
+            var account = (propProfessor)Session["account"];
+            if (account == null) return RedirectToAction("Login", "Authenticate");
+            ViewBag.Account = account;
+            var projectId = int.Parse(collection["id"]);
+            if (!Project.VerifyByProfessor(account.id, projectId))
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                return Json("Permission Denied", JsonRequestBehavior.AllowGet);
             }
-            catch
+            else
             {
-                return View();
+                Project.Delete(projectId);
+                return Json(null, JsonRequestBehavior.AllowGet);
             }
         }
     }

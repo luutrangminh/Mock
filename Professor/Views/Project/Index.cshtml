@@ -1,32 +1,98 @@
 ﻿@{
-    ViewBag.Title = "Project Page";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var account = (Business.propProfessor)ViewBag.Account;
+    var projectList = (List<Business.propProject>)ViewBag.ProjectList;
 }
-@using Business;
-@{
-    var professor = (propProfessor)ViewBag.Professor;
-}
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>@professor.fullName</h2>
-        <p>
-            @professor
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+@section AddToHead {
+    <link href="~/Content/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/plugins/project/css/project.css" rel="stylesheet" />
+}
+
+@section AddToBody{
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/plugins/project/js/project.js"></script>
+}
+<section class="content-header">
+    <h1>
+        Project list
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Projects</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="container" style="margin: 10px;">
+                    <a href="@Url.Action("Create", "Project")" class="add-new button-arrow">Add new</a>
+                    <a href="@Url.Action("Delete", "Project")" class="del-all button-arrow" style="margin: 0px 5px;"
+                       data-record-id="ce" data-record-title="product.name" data-toggle="modal" data-target="#confirm-delete">Delete All</a>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="project-data" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="no-sort" style="padding: 8px;">
+                                    <input name="select_all" value="1" id="project-select-all" type="checkbox" />
+                                </th>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Created at</th>
+                                <th>Start at</th>
+                                <th>Time</th>
+                                <th style="padding-right: 8px; text-align: center;">Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var project in projectList) {
+                            <tr role="row">
+                                <td><input type="checkbox" class="editor-active" value="@project.id"></td>
+                                <td>@project.code</td>
+                                <td>@project.name</td>
+                                <td>@project.createdAt.ToShortDateString()</td>
+                                <td>@project.startAt.ToShortDateString() @project.startAt.ToShortTimeString()</td>
+                                <td>@project.time</td>
+                                <td style="text-align: center;">
+                                    <a href="@Url.Action("Edit", "Project", new { id = project.id })" class="edit-button button" style="margin: 0px 5px;"> </a>
+                                    <a href="" class="del-button button" style="margin: 0px 5px;"
+                                       data-id="@project.id" data-title="@project.code" data-url="@Url.Action("Delete", "Project").ToLower()" data-toggle="modal" data-target="#confirm-delete"></a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <!-- /.row -->
+</section>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Delete project</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete <b><span class="title" id="title"></span></b>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="submit">Yes</button>
+            </div>
+        </div>
     </div>
 </div>

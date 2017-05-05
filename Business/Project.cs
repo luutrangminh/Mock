@@ -19,6 +19,17 @@ namespace Business
 
     public class Project
     {
+        public static bool VerifyByProfessor(int professorId, int projectId)
+        {
+            var data = DataAccess.Project.Get(projectId);
+            while(data.Read()) 
+            {
+                if (int.Parse(data["CreatedBy"].ToString()) == professorId) return true;    
+            }
+
+            return false;
+        }
+
         public static propProject Get(int id)
         {
             var project = new propProject();
@@ -35,6 +46,26 @@ namespace Business
             }
             data.Close();
             return project;
+        }
+
+        public static List<propProject> GetByProfessor(int id)
+        {
+            var projectList = new List<propProject>();
+            var data = DataAccess.Project.GetByProfessor(id);
+            while (data.Read())
+            {
+                var project = new propProject();
+                project.id = int.Parse(data["Id"].ToString());
+                project.code = data["ProjectCode"].ToString();
+                project.name = data["Name"].ToString();
+                project.startAt = DateTime.Parse(data["StartAt"].ToString());
+                project.time = int.Parse(data["Time"].ToString());
+                project.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
+                project.createdBy = int.Parse(data["CreatedBy"].ToString());
+                projectList.Add(project);
+            }
+            data.Close();
+            return projectList;
         }
 
         public static propProject Get(string projectCode)
@@ -55,9 +86,9 @@ namespace Business
             return project;
         }
 
-        public static void Add(string projectCode, string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
+        public static void Add(string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
         {
-            DataAccess.Project.Add(projectCode, name, createdAt, createdBy, startAt, time);
+            DataAccess.Project.Add(name, createdAt, createdBy, startAt, time);
         }
 
         public static void Update(int id, string name)
