@@ -14,10 +14,11 @@ namespace Professor.Controllers
         // GET: /Login/
         [HttpGet]
         [Route("login")]
-        public ActionResult Login()
+        public ActionResult Login(string returnURL)
         {
+            ViewBag.ReturnUrl = returnURL;
             var account = (propProfessor)Session["account"];
-            if (account != null) return RedirectToAction("Index", "Home");
+            if (account != null) return RedirectToLocal(returnURL);
             return View();
         }
 
@@ -40,6 +41,14 @@ namespace Professor.Controllers
 
             ModelState.AddModelError("login", "Invalid username or password.");
             return View();
+        }
+
+        [HttpGet]
+        [Route("logout")]
+        public ActionResult Logout()
+        {
+            Session["account"] = null;
+            return RedirectToAction("Login");
         }
 
         #region Helper

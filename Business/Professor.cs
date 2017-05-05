@@ -19,6 +19,7 @@ namespace Business
         public string createdByStr { get; set; }
         public DateTime createdAt { get; set; }
         public bool status { get; set; }
+        public byte[] avatar { get; set; }
     }
 
     public class Professor
@@ -42,6 +43,7 @@ namespace Business
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
                 professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
                 listProfessor.Add(professor);
             }
             data.Close();
@@ -66,6 +68,7 @@ namespace Business
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
                 professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
             }
             data.Close();
             return professor;
@@ -89,6 +92,7 @@ namespace Business
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
                 professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
             }
             return professor;
         }
@@ -113,6 +117,7 @@ namespace Business
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
                 professor.createdByStr = data["CreatedByStr"].ToString();
                 professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
                 listProfessor.Add(professor);
             }
             data.Close();
@@ -138,15 +143,16 @@ namespace Business
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
                 professor.createdByStr = data["CreatedByStr"].ToString();
                 professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
             }
             data.Close();
             return professor;
         }
 
         public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
-            string password, string phoneNumber, string address, bool status)
+            string password, string phoneNumber, string address, bool status, byte[] avatar)
         {
-            DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address, status);
+            DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address, status, avatar);
         }
 
         public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
@@ -158,6 +164,11 @@ namespace Business
         public static void Update(int id, string fullName)
         {
             DataAccess.Professor.Update(id, fullName);
+        }
+
+        public static void Update(int id, byte[] avatar)
+        {
+            DataAccess.Professor.Update(id, avatar);
         }
 
         public static void Update(int id, bool status)
@@ -173,6 +184,12 @@ namespace Business
         public static void Update(int id, string fullName, string email, string username)
         {
             DataAccess.Professor.Update(id, fullName, email, username);
+        }
+
+
+        public static void Update(int id, string fullName, string email, string address, string phoneNumber, byte[] avatar)
+        {
+            DataAccess.Professor.Update(id, fullName, email, address, phoneNumber, avatar);
         }
 
         public static void Update(int id, string fullName, string email, string username,

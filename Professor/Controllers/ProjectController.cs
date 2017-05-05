@@ -12,7 +12,7 @@ namespace Professor.Controllers
     public class ProjectController : Controller
     {
         // GET: /Project/
-        //[Route("")]
+        [Route("project")]
         public ActionResult Index()
         {
             var professor = Business.Professor.Get("nguyenthanh");
@@ -23,7 +23,7 @@ namespace Professor.Controllers
 
         //
         // GET: /Project/Details/5
-        [Route("details")]
+        [Route("project/details")]
         public ActionResult Details(int id)
         {
             return View();
@@ -31,7 +31,7 @@ namespace Professor.Controllers
 
         //
         // GET: /Project/Create
-        [Route("create")]
+        [Route("project/create")]
         public ActionResult Create()
         {
             return View();
@@ -40,7 +40,7 @@ namespace Professor.Controllers
         //
         // POST: /Project/Create
         [HttpPost]
-        [Route("create")]
+        [Route("project/create")]
         public ActionResult Create(ProjectViewModel model)
         {
             Project.Add(model.code, model.name, model.createdAt, model.iCreatedBy, model.startAt, model.time);
@@ -49,7 +49,7 @@ namespace Professor.Controllers
 
         //
         // GET: /Project/Edit/5
-        [Route("edit/{id}")]
+        [Route("project/edit/{id}")]
         public ActionResult Edit(int id)
         {
             return View();
@@ -58,7 +58,7 @@ namespace Professor.Controllers
         //
         // POST: /Project/Edit/5
         [HttpPost]
-        [Route("edit/{id}")]
+        [Route("project/edit/{id}")]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -75,7 +75,7 @@ namespace Professor.Controllers
 
         //
         // GET: /Project/Delete/5
-        [Route("del/{id}")]
+        [Route("project/del/{id}")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -84,7 +84,7 @@ namespace Professor.Controllers
         //
         // POST: /Project/Delete/5
         [HttpPost]
-        [Route("del/{id}")]
+        [Route("project/del/{id}")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
