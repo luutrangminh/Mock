@@ -73,7 +73,7 @@ namespace EmailProvider
                 smtp.Send(message);
                 // Clean up.
                 message.Dispose();
-                return true;
+                return mailSent;
             }
             catch (Exception ex)
             {

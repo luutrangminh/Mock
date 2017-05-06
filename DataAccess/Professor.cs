@@ -28,6 +28,15 @@ namespace DataAccess
             return con.ExecuteReader(queryStr);
         }
 
+        public static IDataReader GetByEmail(string email)
+        {
+            con = new Connections();
+            string queryStr = "SELECT Id, FullName, Email, Username," +
+            "Password, PhoneNumber, Address, CreatedBy, CreatedAt FROM Professors" +
+            " WHERE Email = '" + email + "'";
+            return con.ExecuteReader(queryStr);
+        }
+
         public static IDataReader Get(int id)
         {
             con = new Connections();

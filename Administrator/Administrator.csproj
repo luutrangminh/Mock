@@ -187,6 +187,7 @@
     <Content Include="Content\dist\css\sb-admin-2.min.css" />
     <Content Include="Content\dist\js\sb-admin-2.js" />
     <Content Include="Content\dist\js\sb-admin-2.min.js" />
+    <Content Include="Content\ic_settings.png" />
     <Content Include="Content\js\sb-admin-2.js" />
     <Content Include="Content\vendor\bootstrap-social\bootstrap-social.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
@@ -336,6 +337,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -357,8 +359,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\ProfessorManager\Index.cshtml" />
-    <Content Include="Views\ProfessorManager\Create.cshtml" />
     <Content Include="Views\ProfessorManager\Edit.cshtml" />
+    <Content Include="Views\ProfessorManager\CreateNew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

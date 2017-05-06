@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Business
 {
     public class propProfessor
@@ -41,6 +42,34 @@ namespace Business
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
                 listProfessor.Add(professor);
+            }
+            data.Close();
+            return listProfessor;
+        }
+
+        public static List<string> GetEmail()
+        {
+            var listProfessor = new List<string>();
+            var data = DataAccess.Professor.Get();
+            if (data == null)
+                return null;
+            while (data.Read())
+            {
+                listProfessor.Add(data["Email"].ToString());
+            }
+            data.Close();
+            return listProfessor;
+        }
+
+        public static List<string> GetUserName()
+        {
+            var listProfessor = new List<string>();
+            var data = DataAccess.Professor.Get();
+            if (data == null)
+                return null;
+            while (data.Read())
+            {
+                listProfessor.Add(data["Username"].ToString());
             }
             data.Close();
             return listProfessor;

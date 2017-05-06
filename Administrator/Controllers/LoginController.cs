@@ -42,5 +42,11 @@ namespace Administrator.Controllers
                 return View();
             }
         }
+
+        public ActionResult Logout()
+        {
+            Session.Remove("admin");
+            return RedirectToAction("Index", "Login");
+        }
     }
 }
