@@ -43,16 +43,17 @@ var table = $('#project-data').DataTable({
         className: "dt-body-center"
     },
     {
-        "targets": 4,
+        "targets": 7,
         "orderable": false,
         'searchable': false,
     }],
     'order': [1, 'asc']
 });
 
-function postDelete(url, projectId, $modalDiv) {
+function $_post(url, data, $modalDiv, postMsg) {
+    $modalDiv.find('.modal-content').attr('data-msg', postMsg);
     $modalDiv.addClass('loading');
-    $.post(url, { id: projectId }, function (msg) {
+    $.post(url, data, function (msg) {
         if (msg) {
             setTimeout(function () {
                 $modalDiv.find('.modal-content').attr('data-error', msg);
@@ -61,7 +62,7 @@ function postDelete(url, projectId, $modalDiv) {
             $modalDiv.addClass('err');
             setTimeout(function () {
                 $modalDiv.removeClass('err');
-            }, 3000);
+            }, 5000);
         }
         else window.location.reload();
     });
@@ -73,11 +74,11 @@ $('#confirm-delete').on('click', '#submit', function (e) {
     var url = $(this).data('url');
     if (projectId != 'all') {
         var ids = [projectId];
-        postDelete(url, JSON.stringify(ids), $modalDiv);
+        $_post(url, { id: JSON.stringify(ids) }, $modalDiv, 'Deleting');
     } else {
         var ids = [];
         $('#project-data tbody input[type="checkbox"]:checked').each(function () { ids.push($(this).val()); });
-        postDelete(url, JSON.stringify(ids), $modalDiv);
+        $_post(url,  { id: JSON.stringify(ids) }, $modalDiv, 'Deleting');
     }
 });
 
@@ -87,4 +88,44 @@ $('#confirm-delete').on('show.bs.modal', function (e) {
     var data = $(e.relatedTarget).data();
     $('#title', this).text(data.title);
     $('#submit', this).data({ id: data.id, url: data.url });
+});
+
+
+// Bind to modal opening to set necessary data properties to be used to make request
+$('#confirm-add').on('show.bs.modal', function (e) {
+    var data = $(e.relatedTarget).data();
+    $('#submit', this).data({ url: data.url });
+});
+
+$('#confirm-add').on('click', '#submit', function (e) {
+    var $modalDiv = $(e.delegateTarget);
+    var url = $(this).data('url');
+
+    var startDate = $('#addDate').data('daterangepicker').startDate.format("DD/MM/YYYY h:mm A");
+    var endDate = $('#addDate').data('daterangepicker').endDate.format("DD/MM/YYYY h:mm A");
+    var title = $modalDiv.find('#title').val();
+    $_post(url, { name: title, startDate: startDate, endDate: endDate }, $modalDiv, 'Adding');
+});
+
+
+// Bind to modal opening to set necessary data properties to be used to make request
+$('#confirm-edit').on('show.bs.modal', function (e) {
+    var data = $(e.relatedTarget).data();
+    $('#title', this).text(data.title);
+    $('#name', this).val(data.name);
+    $('#editDate').data('daterangepicker').setStartDate(data.startDate);
+    $('#editDate').data('daterangepicker').setEndDate(data.endDate);
+    $('#submit', this).data({ url: data.url, id: data.id, name: data.name, createdBy: data.createdBy });
+});
+
+$('#confirm-edit').on('click', '#submit', function (e) {
+    var $modalDiv = $(e.delegateTarget);
+    var url = $(this).data('url');
+
+    var startDate = $('#editDate').data('daterangepicker').startDate.format("DD/MM/YYYY h:mm A");
+    var endDate = $('#editDate').data('daterangepicker').endDate.format("DD/MM/YYYY h:mm A");
+    var name = $modalDiv.find('#name').val();
+    var createdBy = $(this).data('createdBy');
+    var id = $(this).data('id');
+    $_post(url, { id: id, createdBy: createdBy, name: name, startDate: startDate, endDate: endDate }, $modalDiv, 'Updating');
 });

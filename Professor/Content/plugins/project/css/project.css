@@ -1,12 +1,11 @@
 ﻿@keyframes Deleting {
-    0%   {content: 'Deleting.';}
-    50%  {content: 'Deleting..';}
-    100%  {content: 'Deleting...';}
+    0%   {content: attr(data-msg)'.';}
+    50%  {content: attr(data-msg)'..';}
+    100%  {content: attr(data-msg)'...';}
 }
 
 .selected {
-    color: rgba(0, 36, 255, 0.79) !important;
-    border: #f32121 solid 1px;
+    color: #f32121 !important;
 }
 
 .box .container {
@@ -83,7 +82,7 @@
 }
 
 .modal.loading .modal-content:before {
-    content: 'Deleting';
+    content: attr(data-msg);
     text-align: center;
     line-height: 155px;
     font-size: 20px;

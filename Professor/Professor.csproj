@@ -818,6 +818,12 @@
     <Content Include="Content\plugins\daterangepicker\daterangepicker.js" />
     <Content Include="Content\plugins\daterangepicker\moment.js" />
     <Content Include="Content\plugins\daterangepicker\moment.min.js" />
+    <Content Include="Content\plugins\datetimepicker\jquery.datetimepicker.css" />
+    <Content Include="Content\plugins\datetimepicker\jquery.datetimepicker.full.js" />
+    <Content Include="Content\plugins\datetimepicker\jquery.datetimepicker.full.min.js" />
+    <Content Include="Content\plugins\datetimepicker\jquery.datetimepicker.js" />
+    <Content Include="Content\plugins\datetimepicker\jquery.datetimepicker.min.css" />
+    <Content Include="Content\plugins\datetimepicker\jquery.datetimepicker.min.js" />
     <Content Include="Content\plugins\fastclick\fastclick.js" />
     <Content Include="Content\plugins\fastclick\fastclick.min.js" />
     <Content Include="Content\plugins\flot\excanvas.js" />

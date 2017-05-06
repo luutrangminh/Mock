@@ -14,8 +14,10 @@
     <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">*@
+    <link href="~/Content/ionicons.min.css" rel="stylesheet" />
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Content/dist/css/AdminLTE.css">
     @if (IsSectionDefined("AddToHead"))
@@ -369,30 +371,9 @@
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a href="@Url.Action("Index", "Project").ToLower()">
                             <i class="fa fa-table"></i> <span>Project management</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="@Url.Action("Index", "Project").ToLower()"><i class="fa fa-table"></i>Projects</a></li>
-                            <li><a href="@Url.Action("Create", "Project").ToLower()"><i class="fa fa-plus"></i>New</a></li>
-                            <li><a href="@Url.Action("Edit", "Project").ToLower()"><i class="fa fa-edit"></i>Edit</a></li>
-                            <li class="treeview">
-                                <a href="@Url.Action("Index", "Answer").ToLower()">
-                                    <i class="fa fa-table"></i> <span>Question & Answers</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="@Url.Action("Index", "Answer").ToLower()"><i class="fa fa-table"></i>Questio & Answers</a></li>
-                                    <li><a href="@Url.Action("Create", "Answer").ToLower()"><i class="fa fa-plus"></i>New Question & Answer</a></li>
-                                    <li><a href="@Url.Action("Edit", "Answer").ToLower()"><i class="fa fa-edit"></i>Edit Question & Answer</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <a href="pages/calendar.html">
