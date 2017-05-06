@@ -1,12 +1,18 @@
 ﻿$('#project-select-all').on('click', function () {
     // Check/uncheck all checkboxes in the table
+    var that = this;
     var rows = table.rows({ 'search': 'applied' }).nodes();
-    $('input[type="checkbox"]', rows).prop('checked', this.checked);
+    $('input[type="checkbox"]', rows).prop('checked', function (index, oldPropertice) {
+        this.checked = that.checked;
+        var elm = $(this).parents('tr');
+        !this.checked ? elm.removeClass('selected') : elm.addClass('selected');
+    });
 });
 
 // Handle click on checkbox to set state of "Select all" control
 $('#project-data tbody').on('change', 'input[type="checkbox"]', function () {
     // If checkbox is not checked
+    var elm = $(this).parents('tr');
     if (!this.checked) {
         var el = $('#project-select-all').get(0);
         // If "Select all" control is checked and has 'indeterminate' property
@@ -15,6 +21,10 @@ $('#project-data tbody').on('change', 'input[type="checkbox"]', function () {
             // as 'indeterminate'
             el.indeterminate = true;
         }
+
+        elm.removeClass('selected');
+    } else {
+        elm.addClass('selected');
     }
 });
 var table = $('#project-data').DataTable({
@@ -40,12 +50,9 @@ var table = $('#project-data').DataTable({
     'order': [1, 'asc']
 });
 
-$('#confirm-delete').on('click', '#submit', function (e) {
-    var $modalDiv = $(e.delegateTarget);
-    var id = $(this).data('id');
-    var url = $(this).data('url');
+function postDelete(url, projectId, $modalDiv) {
     $modalDiv.addClass('loading');
-    $.post(url, { id: id }, function (msg) {
+    $.post(url, { id: projectId }, function (msg) {
         if (msg) {
             setTimeout(function () {
                 $modalDiv.find('.modal-content').attr('data-error', msg);
@@ -55,8 +62,23 @@ $('#confirm-delete').on('click', '#submit', function (e) {
             setTimeout(function () {
                 $modalDiv.removeClass('err');
             }, 3000);
-        } else location.reload();
+        }
+        else window.location.reload();
     });
+} 
+
+$('#confirm-delete').on('click', '#submit', function (e) {
+    var $modalDiv = $(e.delegateTarget);
+    var projectId = $(this).data('id');
+    var url = $(this).data('url');
+    if (projectId != 'all') {
+        var ids = [projectId];
+        postDelete(url, JSON.stringify(ids), $modalDiv);
+    } else {
+        var ids = [];
+        $('#project-data tbody input[type="checkbox"]:checked').each(function () { ids.push($(this).val()); });
+        postDelete(url, JSON.stringify(ids), $modalDiv);
+    }
 });
 
 

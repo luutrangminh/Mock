@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Cryptography;
 using Business;
+using System.Web.Script.Serialization;
 
 namespace Professor.Controllers
 {
@@ -110,15 +111,25 @@ namespace Professor.Controllers
             var account = (propProfessor)Session["account"];
             if (account == null) return RedirectToAction("Login", "Authenticate");
             ViewBag.Account = account;
-            var projectId = int.Parse(collection["id"]);
-            if (!Project.VerifyByProfessor(account.id, projectId))
+            var ids = new JavaScriptSerializer().Deserialize<List<int>>(collection["id"].ToString());
+            var status = true;
+            var errIds = new List<int>();
+            foreach (var id in ids)
             {
-                return Json("Permission Denied", JsonRequestBehavior.AllowGet);
+                if (!Project.VerifyByProfessor(account.id, id))
+                {
+                    status = false;
+                    errIds.Add(id);
+                }
+                else Project.Delete(id);
             }
+
+            if (status) return Json(false, JsonRequestBehavior.AllowGet);
             else
             {
-                Project.Delete(projectId);
-                return Json(null, JsonRequestBehavior.AllowGet);
+                string errIdsStr = null;
+                errIds.ForEach(errId => errIdsStr += errId + ", ");
+                return Json("Permission Denied " + errIdsStr, JsonRequestBehavior.AllowGet);
             }
         }
     }
