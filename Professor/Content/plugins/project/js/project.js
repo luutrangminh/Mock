@@ -36,16 +36,11 @@ var table = $('#project-data').DataTable({
     "autoWidth": true,
     "visible": true,
     "columnDefs": [{
-        "targets": 'no-sort',
-        "orderable": false,
-        'searchable': true,
-        data: "active",
-        className: "dt-body-center"
-    },
-    {
-        "targets": 7,
+        "targets": 'nosort',
         "orderable": false,
         'searchable': false,
+        "data": "active",
+        "className": "dt-body-center"
     }],
     'order': [1, 'asc']
 });

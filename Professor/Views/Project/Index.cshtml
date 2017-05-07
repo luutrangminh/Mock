@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Project";
+    ViewBag.Title = "Projects management";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var account = (Business.propProfessor)ViewBag.Account;
     var projectList = (List<Business.propProject>)ViewBag.ProjectList;
@@ -40,7 +40,7 @@
                     "@DateTime.Now.ToShortDateString()",
                     "@DateTime.Now.AddDays(7).ToShortDateString()"
                 ],
-                "3 Week": [
+                "3 Weeks": [
                     "@DateTime.Now.ToShortDateString()",
                     "@DateTime.Now.AddDays(21).ToShortDateString()"
                 ],
@@ -48,13 +48,17 @@
                     "@DateTime.Now.ToShortDateString()",
                     "@DateTime.Now.AddMonths(1).ToShortDateString()"
                 ],
-                "2 Month": [
+                "2 Months": [
                     "@DateTime.Now.ToShortDateString()",
                     "@DateTime.Now.AddMonths(2).ToShortDateString()"
                 ],
                 "A Year": [
                     "@DateTime.Now.ToShortDateString()",
                     "@DateTime.Now.AddYears(1).ToShortDateString()"
+                ],
+                "2 Years": [
+                    "@DateTime.Now.ToShortDateString()",
+                    "@DateTime.Now.AddYears(2).ToShortDateString()"
                 ]
             },
             "minDate": "@DateTime.Now.ToShortDateString()",
@@ -68,11 +72,11 @@
 }
 <section class="content-header">
     <h1>
-        Project list
+        Projects Management
     </h1>
     <ol class="breadcrumb">
         <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Projects</li>
+        <li class="active">Projects Management</li>
     </ol>
 </section>
 
@@ -104,8 +108,9 @@
                                 <th>Created at</th>
                                 <th>Start date</th>
                                 <th>End date</th>
-                                <th>Date diff</th>
-                                <th style="padding-right: 8px; text-align: center;">Options</th>
+                                @*<th>Datediff</th>*@
+                                <th>Days left</th>
+                                <th class="nosort" style="padding-right: 8px; text-align: center;">Options</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -118,28 +123,48 @@
                                     <td>@project.createdAt.ToShortDateString()</td>
                                     <td><span style="color: #0613f7;">@project.startDate.ToString("dddd")</span> @project.startDate.ToString("dd/MM/yyyy h:mm tt")</td>
                                     <td><span style="color: #0613f7;">@project.endDate.ToString("dddd")</span> @project.endDate.ToString("dd/MM/yyyy h:mm tt")</td>
-                                    @{ 
-                                        var diff = project.endDate.Subtract(project.startDate);
-                                        string diffStr = null;
+                                    @functions { 
+                                        private string ConvertDateToString(DateTime startDate, DateTime endDate)
+                                        {
+                                            if (startDate > endDate) { return null; }
+                                            var diff = endDate.Subtract(startDate);
+                                            string diffStr = null;
 
-                                        if (diff.TotalDays == 365) { diffStr = "1 year "; }
-                                        if (diff.TotalDays > 365) { diffStr = (int)(diff.TotalDays / 365) + " years "; }
-                                        var prevDays = diff.TotalDays - (int)(diff.TotalDays / 365) * 365;
-                                        var prevMonths = (int)(prevDays / 30);
-                                        if (prevMonths == 1) { diffStr += "1 month "; }
-                                        if (prevMonths <= 12 && prevMonths > 1) { diffStr += prevMonths + " months "; }
-                                        prevDays = prevDays - (prevMonths * 30);
-                                        if (prevDays == 1) { diffStr += "1 day "; }
-                                        if (prevDays < 365 && prevDays > 1) { diffStr += prevDays + " days "; }
-                                        if (diff.TotalDays < 1) {
-                                            if (diff.Hours == 1) { diffStr = "1 hour "; }
-                                            else if (diff.Hours > 1) { diffStr = diff.Hours + " hours "; }
-                                            if (diff.Minutes == 1) { diffStr += "1 minute"; }
-                                            else if (diff.Minutes > 1) { diffStr += diff.Minutes + " minutes"; }
+                                            if (diff.TotalDays == 365) { diffStr = "1 year "; }
+                                            if (diff.TotalDays > 365) { diffStr = (int)(diff.TotalDays / 365) + " years "; }
+                                            var prevDays = diff.TotalDays - (int)(diff.TotalDays / 365) * 365;
+                                            var prevMonths = (int)(prevDays / 30);
+                                            if (prevMonths == 1) { diffStr += "1 month "; }
+                                            if (prevMonths <= 12 && prevMonths > 1) { diffStr += prevMonths + " months "; }
+                                            prevDays = diff.Days - (prevMonths * 30);
+                                            if (prevDays == 1) { diffStr += "1 day "; }
+                                            if (prevDays < 31 && prevDays > 1) { diffStr += prevDays + " days "; }
+                                            if (diff.TotalDays < 1)
+                                            {
+                                                if (diff.Hours == 1) { diffStr = "1 hour "; }
+                                                else if (diff.Hours > 1) { diffStr = diff.Hours + " hours "; }
+                                                if (diff.Minutes == 1) { diffStr += "1 minute"; }
+                                                else if (diff.Minutes > 1) { diffStr += diff.Minutes + " minutes"; }
+                                            }
+                                            return diffStr;
                                         }
                                      }
-                                    <td style="text-align: right;">@diffStr</td>
-                                    <td style="text-align: center;">
+                                    @*<td style="text-align: right;">@ConvertDateToString(project.startDate, project.endDate)</td>*@
+                                    @{ 
+                                        string status = null;
+                                        if (@project.startDate < DateTime.Now)
+                                        {
+                                            status = @ConvertDateToString(DateTime.Now, project.endDate) != null ?
+                                                @ConvertDateToString(DateTime.Now, project.endDate) :
+                                                "<span style='color: #ff0000;' >Closed</span>";
+                                        }
+                                        else
+                                        {
+                                            status = "<span style='color: #0026ff;' >Not Open Yet</span>";
+                                        }
+                                     }
+                                    <td style="text-align: right;">@Html.Raw(status)</td>
+                                    <td class="nosort" style="text-align: center;">
                                         <span data-url="@Url.Action("Edit", "Project").ToLower()" style="margin: 0px 5px;"
                                               data-created-by="@project.createdBy" data-id="@project.id" data-name="@project.name" data-start-date="@project.startDate" data-end-date="@project.endDate" data-title="@project.code" class="edit-button button" data-toggle="modal" data-target="#confirm-edit"></span>
                                         <span class="del-button button" style="margin: 0px 5px;"
