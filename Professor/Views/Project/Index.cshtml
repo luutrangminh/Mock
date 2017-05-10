@@ -100,7 +100,7 @@
                     <table id="project-data" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th class="no-sort" style="padding: 8px;">
+                                <th class="nosort" style="padding: 8px;">
                                     <input name="select_all" value="1" id="project-select-all" type="checkbox" />
                                 </th>
                                 <th>Code</th>
@@ -164,7 +164,7 @@
                                         }
                                      }
                                     <td style="text-align: right;">@Html.Raw(status)</td>
-                                    <td class="nosort" style="text-align: center;">
+                                    <td style="text-align: center;">
                                         <span data-url="@Url.Action("Edit", "Project").ToLower()" style="margin: 0px 5px;"
                                               data-created-by="@project.createdBy" data-id="@project.id" data-name="@project.name" data-start-date="@project.startDate" data-end-date="@project.endDate" data-title="@project.code" class="edit-button button" data-toggle="modal" data-target="#confirm-edit"></span>
                                         <span class="del-button button" style="margin: 0px 5px;"

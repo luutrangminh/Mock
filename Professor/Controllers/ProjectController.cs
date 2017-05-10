@@ -82,17 +82,6 @@ namespace Professor.Controllers
         }
 
         //
-        // GET: /Project/Delete/5
-        [Route("project/del")]
-        public ActionResult Delete()
-        {
-            var account = (propProfessor)Session["account"];
-            if (account == null) return RedirectToAction("Login", "Authenticate");
-            ViewBag.Account = account;
-            return View();
-        }
-
-        //
         // POST: /Project/Delete/5
         [HttpPost]
         [Route("project/del")]
