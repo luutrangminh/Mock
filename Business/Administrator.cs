@@ -14,6 +14,7 @@ namespace Business
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
+        public byte[] Avatar { get; set; }
     }
 
 
@@ -40,6 +41,7 @@ namespace Business
                 admin.Username = data["Username"].ToString();
                 admin.Password = data["Password"].ToString();
                 admin.FullName = data["FullName"].ToString();
+                admin.Avatar = (byte[])(data["Avatar"]);
             }
             DataAccess.Administrator.Close();
             return admin;
@@ -55,6 +57,7 @@ namespace Business
                 admin.Username = data["Username"].ToString();
                 admin.Password = data["Password"].ToString();
                 admin.FullName = data["FullName"].ToString();
+                admin.Avatar = (byte[])(data["Avatar"]);
             }
             DataAccess.Administrator.Close();
             return admin;

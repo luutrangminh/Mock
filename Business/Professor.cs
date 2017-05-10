@@ -19,6 +19,8 @@ namespace Business
         public int createdBy { get; set; }
         public string createdByStr { get; set; }
         public DateTime createdAt { get; set; }
+        public bool status { get; set; }
+        public byte[] avatar { get; set; }
     }
 
     public class Professor
@@ -41,6 +43,8 @@ namespace Business
                 professor.address = data["Address"].ToString();
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
+                professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
                 listProfessor.Add(professor);
             }
             data.Close();
@@ -92,6 +96,8 @@ namespace Business
                 professor.address = data["Address"].ToString();
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
+                professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
             }
             data.Close();
             return professor;
@@ -114,9 +120,12 @@ namespace Business
                 professor.address = data["Address"].ToString();
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
+                professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
             }
             return professor;
         }
+
         public static List<propProfessor> GetByAdmin(int id)
         {
             var listProfessor = new List<propProfessor>();
@@ -136,22 +145,64 @@ namespace Business
                 professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 professor.createdBy = int.Parse(data["CreatedBy"].ToString());
                 professor.createdByStr = data["CreatedByStr"].ToString();
+                professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
                 listProfessor.Add(professor);
             }
             data.Close();
             return listProfessor;
         }
 
+        public static propProfessor GetByEmail(string email)
+        {
+            propProfessor professor = new propProfessor();
+            var data = DataAccess.Professor.GetByEmail(email);
+            if (data == null)
+                return null;
+            while (data.Read())
+            {
+                professor.id = int.Parse(data["Id"].ToString());
+                professor.fullName = data["FullName"].ToString();
+                professor.email = data["Email"].ToString();
+                professor.username = data["Username"].ToString();
+                professor.password = data["Password"].ToString();
+                professor.phoneNumber = data["PhoneNumber"].ToString();
+                professor.address = data["Address"].ToString();
+                professor.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
+                professor.createdBy = int.Parse(data["CreatedBy"].ToString());
+                professor.createdByStr = data["CreatedByStr"].ToString();
+                professor.status = bool.Parse(data["Status"].ToString());
+                professor.avatar = (byte[])(data["avatar"]);
+            }
+            data.Close();
+            return professor;
+        }
+
+        public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
+            string password, string phoneNumber, string address, bool status)
+        {
+            DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address, status);
+        }
 
         public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
             string password, string phoneNumber, string address)
         {
-            DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address);
+            DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address, false);
         }
 
         public static void Update(int id, string fullName)
         {
             DataAccess.Professor.Update(id, fullName);
+        }
+
+        public static void Update(int id, byte[] avatar)
+        {
+            DataAccess.Professor.Update(id, avatar);
+        }
+
+        public static void Update(int id, bool status)
+        {
+            DataAccess.Professor.Update(id, status);
         }
 
         public static void Update(int id, string fullName, string email)
@@ -162,6 +213,12 @@ namespace Business
         public static void Update(int id, string fullName, string email, string username)
         {
             DataAccess.Professor.Update(id, fullName, email, username);
+        }
+
+
+        public static void Update(int id, string fullName, string email, string address, string phoneNumber, byte[] avatar)
+        {
+            DataAccess.Professor.Update(id, fullName, email, address, phoneNumber, avatar);
         }
 
         public static void Update(int id, string fullName, string email, string username,

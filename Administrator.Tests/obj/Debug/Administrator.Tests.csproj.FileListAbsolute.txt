@@ -46,6 +46,3 @@ F:\GST\project\SPM_URD\Administrator.Tests\bin\Debug\Microsoft.Owin.Security.OAu
 F:\GST\project\SPM_URD\Administrator.Tests\obj\Debug\Administrator.Tests.csprojResolveAssemblyReference.cache
 F:\GST\project\SPM_URD\Administrator.Tests\obj\Debug\Administrator.Tests.dll
 F:\GST\project\SPM_URD\Administrator.Tests\obj\Debug\Administrator.Tests.pdb
-C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Administrator.Tests\obj\Debug\Administrator.Tests.csprojResolveAssemblyReference.cache
-C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Administrator.Tests\obj\Debug\Administrator.Tests.dll
-C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Administrator.Tests\obj\Debug\Administrator.Tests.pdb

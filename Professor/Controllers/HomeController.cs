@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Business;
 
 namespace Professor.Controllers
 {
@@ -11,6 +12,9 @@ namespace Professor.Controllers
         [Route("")]
         public ActionResult Index()
         {
+            var account = (propProfessor)Session["account"];
+            if (account == null) return RedirectToAction("Login", "Authenticate", new { returnURL = new Uri(HttpContext.Request.Url.AbsoluteUri).OriginalString });
+            ViewBag.Account = account;
             return View();
         }
 

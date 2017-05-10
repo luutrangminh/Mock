@@ -21,7 +21,7 @@ namespace DataAccess
         {
             con = new Connections();
             string queryStr = "SELECT Id, FullName, Email, Username," +
-            "Password FROM Administrator" +
+            "Password, Avatar FROM Administrator" +
             " WHERE Username = '" + username + "'";
             return con.ExecuteReader(queryStr);
         }
@@ -29,7 +29,7 @@ namespace DataAccess
         {
             con = new Connections();
             string queryStr = "SELECT Id, FullName, Email, Username," +
-            "Password FROM Administrator" +
+            "Password, Avatar FROM Administrator" +
             " WHERE Id = " + id;
             return con.ExecuteReader(queryStr);
         }

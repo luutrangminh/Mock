@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication</title>
+    <link href="~/Content/Login/style.css" rel="stylesheet" />
+
+</head>
+<body>
+    <hgroup>
+        <h1>Login</h1>
+        <h3>FreePay Solution</h3>
+    </hgroup>
+    @using (Html.BeginForm("login", "authenticate", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        
+        @Html.ValidationSummary(true)
+        <div style="color: red; position: relative; margin-bottom: 30px; text-align: center;">@Html.ValidationMessage("login")</div>
+        <div class="group">
+            <input type="text" name="username" ><span class="highlight"></span><span class="bar"></span>
+            <label for="username">Username</label>
+        </div>
+        <div class="group">
+            <input type="password" name="password"><span class="highlight"></span><span class="bar"></span>
+            <label for="password">Password</label>
+        </div>
+        <button type="submit" class="button buttonBlue">
+            Login
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+        </button>
+    }
+    <footer>
+        <a href="http://www.polymer-project.org/" target="_blank"><img src="https://www.polymer-project.org/images/logos/p-logo.svg"></a>
+        <p>You Gotta Love <a href="http://www.polymer-project.org/" target="_blank">Google</a></p>
+    </footer>
+    <script src="~/Content/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/Login/index.js"></script>
+</body>
+</html>
+
+

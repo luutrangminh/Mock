@@ -130,7 +130,7 @@ namespace Administrator.Controllers
         }
 
         // GET: ProfessorManager
-        [Route("{fullName}")]
+        [Route("professor")]
         public ActionResult Index()
         {
             var adminSession = (Business.propAdmin)Session["admin"];
@@ -160,17 +160,17 @@ namespace Administrator.Controllers
         }
 
         [HttpPost]
-        public JsonResult CreateNew(string fullName, string email, string userName, string password, string passwordConfirm, string phoneNumber, string address)
+        public JsonResult CreateNew(string fullName, string email, string userName, string password, string passwordConfirm, string phoneNumber, string address,bool statusProfessor)
         {
             var status = CheckValidate(fullName, email, userName, password, passwordConfirm, phoneNumber, address);
-
+            statusProfessor = false;
             if (status)
             {
                 DateTime createdAt = DateTime.Now;
                 var admin = (Business.propAdmin)Session["admin"];
                 int createdBy = admin.Id;
                 password = _MD5.Hash(password);
-                Business.Professor.Add(createdBy, createdAt, fullName, email, userName, password, phoneNumber, address);
+                Business.Professor.Add(createdBy, createdAt, fullName, email, userName, password, phoneNumber, address, statusProfessor);
 
                 //Send Email
                 string message = "Tài khoản giáo viên của bạn vừa được cấp bởi quản trị viên " + admin.FullName + " lúc " + createdAt.ToShortTimeString() + " ngày " + createdAt.ToShortDateString() + ":"
@@ -192,7 +192,7 @@ namespace Administrator.Controllers
             });
         }
 
-        [Route("del/{id}")]
+        [Route("professor/del/{id}")]
         public ActionResult Delete(int id)
         {
             Business.Professor.Delete(id);

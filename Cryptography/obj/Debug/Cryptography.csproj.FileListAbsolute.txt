@@ -6,4 +6,3 @@ C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Cryptography\bin\Debug\Cryptography.dl
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Cryptography\bin\Debug\Cryptography.pdb
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Cryptography\obj\Debug\Cryptography.dll
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Cryptography\obj\Debug\Cryptography.pdb
-C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Cryptography\obj\Debug\Cryptography.csprojResolveAssemblyReference.cache

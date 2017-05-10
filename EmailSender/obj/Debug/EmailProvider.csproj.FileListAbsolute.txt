@@ -5,6 +5,5 @@ F:\GST\project\SPM_URD\EmailSender\obj\Debug\EmailSender.dll
 F:\GST\project\SPM_URD\EmailSender\obj\Debug\EmailSender.pdb
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\EmailSender\bin\Debug\EmailSender.dll
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\EmailSender\bin\Debug\EmailSender.pdb
-C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\EmailSender\obj\Debug\EmailProvider.csprojResolveAssemblyReference.cache
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\EmailSender\obj\Debug\EmailSender.dll
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\EmailSender\obj\Debug\EmailSender.pdb

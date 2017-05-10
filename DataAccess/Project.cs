@@ -14,27 +14,36 @@ namespace DataAccess
         public static IDataReader Get(int id)
         {
             con = new Connections();
-            string queryStr = "SELECT Id, ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time" +
-            "FROM Project" +
+            string queryStr = "SELECT Id, ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time " +
+            "FROM Project " +
             "WHERE Id = " + id;
+            return con.ExecuteReader(queryStr);
+        }
+
+        public static IDataReader GetByProfessor(int id)
+        {
+            con = new Connections();
+            string queryStr = "SELECT Id, ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time " +
+            "FROM Project" +
+            " WHERE CreatedBy = " + id;
             return con.ExecuteReader(queryStr);
         }
 
         public static IDataReader Get(string projectCode)
         {
             con = new Connections();
-            string queryStr = "SELECT Id, ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time" +
-            "FROM Project" +
+            string queryStr = "SELECT Id, ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time " +
+            "FROM Project " +
             "WHERE ProjectCode = '" + projectCode + "'";
             return con.ExecuteReader(queryStr);
         }
 
-        public static void Add(string projectCode, string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
+        public static void Add(string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
         {
             con = new Connections();
             string queryStr = "INSERT INTO [dbo].[Project] " +
                 "(ProjectCode, Name, CreatedAt, CreatedBy, StartAt, Time)" +
-                "VALUES ('" + projectCode + "', N'" + name + "', CONVERT(datetime, '" + createdAt + "', 103), " + createdBy + ", CONVERT(datetime, '" + startAt + "', 103), " + time + ")";
+                "VALUES ('PJ' + CONVERT(VARCHAR, (SELECT IDENT_CURRENT('Project') AS INDENTITY)), N'" + name + "', CONVERT(datetime, '" + createdAt + "', 103), " + createdBy + ", CONVERT(datetime, '" + startAt + "', 103), " + time + ")";
          
             con.ExecuteScalar(queryStr);
             con.CloseConnection();
