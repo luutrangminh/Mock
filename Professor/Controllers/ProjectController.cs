@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Cryptography;
 using Business;
+using System.Web.Script.Serialization;
 
 namespace Professor.Controllers
 {
@@ -35,70 +36,49 @@ namespace Professor.Controllers
         }
 
         //
-        // GET: /Project/Create
-        [Route("project/create")]
-        public ActionResult Create()
-        {
-            var account = (propProfessor)Session["account"];
-            if (account == null) return RedirectToAction("Login", "Authenticate");
-            ViewBag.Account = account;
-            return View();
-        }
-
-        //
         // POST: /Project/Create
         [HttpPost]
         [Route("project/create")]
-        public ActionResult Create(ProjectViewModel model)
+        public ActionResult Create(FormCollection collection)
         {
             var account = (propProfessor)Session["account"];
             if (account == null) return RedirectToAction("Login", "Authenticate");
             ViewBag.Account = account;
-            Project.Add(model.name, model.createdAt, model.iCreatedBy, model.startAt, model.time);
-            return View();
-        }
-
-        //
-        // GET: /Project/Edit/5
-        [Route("project/edit/{id}")]
-        public ActionResult Edit(int id)
-        {
-            var account = (propProfessor)Session["account"];
-            if (account == null) return RedirectToAction("Login", "Authenticate");
-            ViewBag.Account = account;
-            return View();
+            var name = collection["name"].ToString();
+            var startDate = DateTime.Parse(collection["startDate"].ToString());
+            var endDate = DateTime.Parse(collection["endDate"].ToString());
+            var result = Project.Add(name, DateTime.Now, account.id, startDate, endDate);
+            if (result == null) return Json(false, JsonRequestBehavior.AllowGet);
+            else
+            {
+                return Json(result + ".Please try agian!", JsonRequestBehavior.AllowGet);
+            }
         }
 
         //
         // POST: /Project/Edit/5
         [HttpPost]
-        [Route("project/edit/{id}")]
-        public ActionResult Edit(int id, FormCollection collection)
+        [Route("project/edit")]
+        public ActionResult Edit(FormCollection collection)
         {
             var account = (propProfessor)Session["account"];
             if (account == null) return RedirectToAction("Login", "Authenticate");
             ViewBag.Account = account;
-            try
-            {
-                // TODO: Add update logic here
+            var createdBy = int.Parse(collection["createdBy"].ToString());
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            if (createdBy != account.id) return Json("Permission denied", JsonRequestBehavior.AllowGet); 
 
-        //
-        // GET: /Project/Delete/5
-        [Route("project/del")]
-        public ActionResult Delete()
-        {
-            var account = (propProfessor)Session["account"];
-            if (account == null) return RedirectToAction("Login", "Authenticate");
-            ViewBag.Account = account;
-            return View();
+            var id = int.Parse(collection["id"].ToString());
+            var name = collection["name"].ToString();
+            var startDate = DateTime.Parse(collection["startDate"].ToString());
+            var endDate = DateTime.Parse(collection["endDate"].ToString());
+            var result = Project.Update(id, name, startDate, endDate);
+
+            if (result == null) return Json(false, JsonRequestBehavior.AllowGet);
+            else
+            {
+                return Json(result + ".Please try agian!", JsonRequestBehavior.AllowGet);
+            }
         }
 
         //
@@ -110,15 +90,31 @@ namespace Professor.Controllers
             var account = (propProfessor)Session["account"];
             if (account == null) return RedirectToAction("Login", "Authenticate");
             ViewBag.Account = account;
-            var projectId = int.Parse(collection["id"]);
-            if (!Project.VerifyByProfessor(account.id, projectId))
+            var ids = new JavaScriptSerializer().Deserialize<List<int>>(collection["id"].ToString());
+
+            if (ids.Count == 0)
             {
-                return Json("Permission Denied", JsonRequestBehavior.AllowGet);
+                return Json("Don't have anything to delete. Are you ok?", JsonRequestBehavior.AllowGet);
             }
+
+            var status = true;
+            var errIds = new List<int>();
+            foreach (var id in ids)
+            {
+                if (!Project.VerifyByProfessor(account.id, id))
+                {
+                    status = false;
+                    errIds.Add(id);
+                }
+                else Project.Delete(id);
+            }
+
+            if (status) return Json(false, JsonRequestBehavior.AllowGet);
             else
             {
-                Project.Delete(projectId);
-                return Json(null, JsonRequestBehavior.AllowGet);
+                string errIdsStr = null;
+                errIds.ForEach(errId => errIdsStr += errId + ", ");
+                return Json("Permission Denied " + errIdsStr, JsonRequestBehavior.AllowGet);
             }
         }
     }

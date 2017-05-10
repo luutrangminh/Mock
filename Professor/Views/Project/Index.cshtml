@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Projects management";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var account = (Business.propProfessor)ViewBag.Account;
     var projectList = (List<Business.propProject>)ViewBag.ProjectList;
@@ -8,20 +8,75 @@
 @section AddToHead {
     <link href="~/Content/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
     <link href="~/Content/plugins/project/css/project.css" rel="stylesheet" />
+    <link href="~/Content/plugins/iCheck/all.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/select2.min.css" rel="stylesheet" />
 }
 
 @section AddToBody{
     <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/Content/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/plugins/select2/select2.full.min.js"></script>
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
     <script src="~/Content/plugins/project/js/project.js"></script>
+    <script type="text/javascript">
+        //Date picker
+        $('.dateRange').daterangepicker({
+            "showDropdowns": true,
+            "showWeekNumbers": true,
+            "timePicker": true,
+            "autoApply": true,
+            "dateLimit": {
+                "years": 6
+            },
+            "locale": {
+                "format": 'DD/MM/YYYY h:mm A'
+            },
+            "ranges": {
+                "Tomorrow": [
+                    "@DateTime.Now.ToShortDateString()",
+                    "@DateTime.Now.AddDays(1).ToShortDateString()"
+                ],
+                "A Week": [
+                    "@DateTime.Now.ToShortDateString()",
+                    "@DateTime.Now.AddDays(7).ToShortDateString()"
+                ],
+                "3 Weeks": [
+                    "@DateTime.Now.ToShortDateString()",
+                    "@DateTime.Now.AddDays(21).ToShortDateString()"
+                ],
+                "A Month": [
+                    "@DateTime.Now.ToShortDateString()",
+                    "@DateTime.Now.AddMonths(1).ToShortDateString()"
+                ],
+                "2 Months": [
+                    "@DateTime.Now.ToShortDateString()",
+                    "@DateTime.Now.AddMonths(2).ToShortDateString()"
+                ],
+                "A Year": [
+                    "@DateTime.Now.ToShortDateString()",
+                    "@DateTime.Now.AddYears(1).ToShortDateString()"
+                ],
+                "2 Years": [
+                    "@DateTime.Now.ToShortDateString()",
+                    "@DateTime.Now.AddYears(2).ToShortDateString()"
+                ]
+            },
+            "minDate": "@DateTime.Now.ToShortDateString()",
+            "maxDate": "@DateTime.Now.AddYears(6).ToShortDateString()",
+            "opens": "center",
+            "applyClass": "btn-info"
+        }, function (start, end, label) {
+            console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+        });
+    </script>
 }
 <section class="content-header">
     <h1>
-        Project list
+        Projects Management
     </h1>
     <ol class="breadcrumb">
         <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Projects</li>
+        <li class="active">Projects Management</li>
     </ol>
 </section>
 
@@ -31,41 +86,91 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="container" style="margin: 10px;">
-                    <a href="@Url.Action("Create", "Project")" class="add-new button-arrow">Add new</a>
-                    <a href="@Url.Action("Delete", "Project")" class="del-all button-arrow" style="margin: 0px 5px;"
-                       data-record-id="ce" data-record-title="product.name" data-toggle="modal" data-target="#confirm-delete">Delete All</a>
+                    <button data-url="@Url.Action("Create", "Project")" class="btn add-new button-arrow" style="margin: 0px 5px;"
+                            data-toggle="modal" data-target="#confirm-add">
+                        Add new
+                    </button>
+                    <button data-url="@Url.Action("Delete", "Project")" class=" btn del-all button-arrow" style="margin: 0px 5px;"
+                            data-id="all" data-title="all selected project" data-toggle="modal" data-target="#confirm-delete">
+                        Delete All
+                    </button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <table id="project-data" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th class="no-sort" style="padding: 8px;">
+                                <th class="nosort" style="padding: 8px;">
                                     <input name="select_all" value="1" id="project-select-all" type="checkbox" />
                                 </th>
                                 <th>Code</th>
                                 <th>Name</th>
                                 <th>Created at</th>
-                                <th>Start at</th>
-                                <th>Time</th>
-                                <th style="padding-right: 8px; text-align: center;">Options</th>
+                                <th>Start date</th>
+                                <th>End date</th>
+                                @*<th>Datediff</th>*@
+                                <th>Days left</th>
+                                <th class="nosort" style="padding-right: 8px; text-align: center;">Options</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var project in projectList) {
-                            <tr role="row">
-                                <td><input type="checkbox" class="editor-active" value="@project.id"></td>
-                                <td>@project.code</td>
-                                <td>@project.name</td>
-                                <td>@project.createdAt.ToShortDateString()</td>
-                                <td>@project.startAt.ToShortDateString() @project.startAt.ToShortTimeString()</td>
-                                <td>@project.time</td>
-                                <td style="text-align: center;">
-                                    <a href="@Url.Action("Edit", "Project", new { id = project.id })" class="edit-button button" style="margin: 0px 5px;"> </a>
-                                    <a href="" class="del-button button" style="margin: 0px 5px;"
-                                       data-id="@project.id" data-title="@project.code" data-url="@Url.Action("Delete", "Project").ToLower()" data-toggle="modal" data-target="#confirm-delete"></a>
-                                </td>
-                            </tr>
+                            @foreach (var project in projectList)
+                            {
+                                <tr role="row">
+                                    <td><input type="checkbox" class="editor-active" value="@project.id"></td>
+                                    <td>@project.code</td>
+                                    <td>@project.name</td>
+                                    <td>@project.createdAt.ToShortDateString()</td>
+                                    <td><span style="color: #0613f7;">@project.startDate.ToString("dddd")</span> @project.startDate.ToString("dd/MM/yyyy h:mm tt")</td>
+                                    <td><span style="color: #0613f7;">@project.endDate.ToString("dddd")</span> @project.endDate.ToString("dd/MM/yyyy h:mm tt")</td>
+                                    @functions { 
+                                        private string ConvertDateToString(DateTime startDate, DateTime endDate)
+                                        {
+                                            if (startDate > endDate) { return null; }
+                                            var diff = endDate.Subtract(startDate);
+                                            string diffStr = null;
+
+                                            if (diff.TotalDays == 365) { diffStr = "1 year "; }
+                                            if (diff.TotalDays > 365) { diffStr = (int)(diff.TotalDays / 365) + " years "; }
+                                            var prevDays = diff.TotalDays - (int)(diff.TotalDays / 365) * 365;
+                                            var prevMonths = (int)(prevDays / 30);
+                                            if (prevMonths == 1) { diffStr += "1 month "; }
+                                            if (prevMonths <= 12 && prevMonths > 1) { diffStr += prevMonths + " months "; }
+                                            prevDays = diff.Days - (prevMonths * 30);
+                                            if (prevDays == 1) { diffStr += "1 day "; }
+                                            if (prevDays < 31 && prevDays > 1) { diffStr += prevDays + " days "; }
+                                            if (diff.TotalDays < 1)
+                                            {
+                                                if (diff.Hours == 1) { diffStr = "1 hour "; }
+                                                else if (diff.Hours > 1) { diffStr = diff.Hours + " hours "; }
+                                                if (diff.Minutes == 1) { diffStr += "1 minute"; }
+                                                else if (diff.Minutes > 1) { diffStr += diff.Minutes + " minutes"; }
+                                            }
+                                            return diffStr;
+                                        }
+                                     }
+                                    @*<td style="text-align: right;">@ConvertDateToString(project.startDate, project.endDate)</td>*@
+                                    @{ 
+                                        string status = null;
+                                        if (@project.startDate < DateTime.Now)
+                                        {
+                                            status = @ConvertDateToString(DateTime.Now, project.endDate) != null ?
+                                                @ConvertDateToString(DateTime.Now, project.endDate) :
+                                                "<span style='color: #ff0000;' >Closed</span>";
+                                        }
+                                        else
+                                        {
+                                            status = "<span style='color: #0026ff;' >Not Open Yet</span>";
+                                        }
+                                     }
+                                    <td style="text-align: right;">@Html.Raw(status)</td>
+                                    <td style="text-align: center;">
+                                        <span data-url="@Url.Action("Edit", "Project").ToLower()" style="margin: 0px 5px;"
+                                              data-created-by="@project.createdBy" data-id="@project.id" data-name="@project.name" data-start-date="@project.startDate" data-end-date="@project.endDate" data-title="@project.code" class="edit-button button" data-toggle="modal" data-target="#confirm-edit"></span>
+                                        <span class="del-button button" style="margin: 0px 5px;"
+                                              data-id="@project.id" data-title="@project.code" data-url="@Url.Action("Delete", "Project").ToLower()" data-toggle="modal" data-target="#confirm-delete"></span>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -78,8 +183,8 @@
     </div>
     <!-- /.row -->
 </section>
-
-<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Delete modal -->
+<div class="modal fade delete" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -96,3 +201,116 @@
         </div>
     </div>
 </div>
+<!-- /.Delete modal -->
+<!-- edit modal -->
+<div class="modal fade edit" id="confirm-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: rgba(39, 37, 37, 0.25);">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-info">
+                            <div class="box-header">
+                                <h3 class="box-title">Update project <span class="title" id="title" style="color: #0613f7;"></span></h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="box-body">
+                                <!-- Date dd/mm/yyyy -->
+                                <div class="form-group">
+                                    <label>Start Date:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="dateRange form-control pull-right" id="editDate">
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                                <!-- /.form group -->
+                                <!-- Date mm/dd/yyyy -->
+                                <div class="form-group">
+                                    <label>Title:</label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-info"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                                <!-- /.form group -->
+                                <!-- /.form group -->
+                                <div class="form-group" style="text-align: right;">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    <button type="button" class="btn btn-danger" id="submit">Yes</button>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.edit modal -->
+<!-- add modal -->
+<div class="modal fade add" id="confirm-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: rgba(39, 37, 37, 0.25);">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-info">
+                            <div class="box-header">
+                                <h3 class="box-title">New project</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="box-body">
+                                <!-- Date dd/mm/yyyy -->
+                                <div class="form-group">
+                                    <label>Start Date:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="dateRange form-control pull-right" id="addDate">
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                                <!-- /.form group -->
+                                <!-- Date mm/dd/yyyy -->
+                                <div class="form-group">
+                                    <label>Title:</label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-info"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="title" name="name">
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                                <!-- /.form group -->
+                                <!-- /.form group -->
+                                <div class="form-group" style="text-align: right;">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    <button type="button" class="btn btn-danger" id="submit">Yes</button>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.add modal -->

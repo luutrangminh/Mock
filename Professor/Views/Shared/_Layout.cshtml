@@ -9,12 +9,15 @@
     <title>@ViewBag.Title</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="~/Content/insert_coin_i4A_icon.ico" type="image/x-icon">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">*@
+    <link href="~/Content/ionicons.min.css" rel="stylesheet" />
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Content/dist/css/AdminLTE.css">
     @if (IsSectionDefined("AddToHead"))
@@ -279,10 +282,10 @@
                                 <li class="user-body">
                                     <div class="row">
                                         <div class="col-xs-4 text-center">
-                                            <a href="@Url.Action("Index", "Project")">Projects</a>
+                                            <a href="@Url.Action("Index", "Project").ToLower()">Projects</a>
                                         </div>
                                         <div class="col-xs-4 text-center">
-                                            <a href="@Url.Action("Index", "Student")">Student</a>
+                                            <a href="@Url.Action("Index", "Student").ToLower()">Student</a>
                                         </div>
                                         <div class="col-xs-4 text-center">
                                             <a href="#">Friends</a>
@@ -293,10 +296,10 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="@Url.Action("Index", "Account")" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="@Url.Action("Index", "Account").ToLower()" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="@Url.Action("Logout", "Authenticate")" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="@Url.Action("Logout", "Authenticate").ToLower()" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -320,7 +323,7 @@
                     </div>
                     <div class="pull-left info">
                         <p>
-                            <a href="@Url.Action("Index", "Account")">@account.fullName</a>
+                            <a href="@Url.Action("Index", "Account").ToLower()">@account.fullName</a>
                         </p>
                         @{
                             var statusBtn = "text-success";
@@ -331,11 +334,11 @@
                                 statusText = "Deactive";
                             }
                         }
-                        <a href="@Url.Action("Status", "Account", new { returnURL = new Uri(HttpContext.Current.Request.Url.AbsoluteUri).OriginalString })"><i class="fa fa-circle @statusBtn" ></i>@statusText</a>
+                        <a href="@Url.Action("Status", "Account", new { returnURL = new Uri(HttpContext.Current.Request.Url.AbsoluteUri).OriginalString }).ToLower()"><i class="fa fa-circle @statusBtn" ></i>@statusText</a>
                     </div>
                 </div>
                 <!-- search form -->
-                <form action="@Url.Action("Search", "Project")" method="get" class="sidebar-form">
+                <form action="@Url.Action("Search", "Project").ToLower()" method="get" class="sidebar-form">
                     <div class="input-group">
                         <input type="text" name="key" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
@@ -349,12 +352,9 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active treeview">
-                        <a href="@Url.Action("Index", "Home")">
+                    <li class="treeview">
+                        <a href="@Url.Action("Index", "Home").ToLower()">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
                         </a>
                     </li>
                     <li class="treeview">
@@ -366,35 +366,14 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="@Url.Action("Index", "Student")"><i class="fa fa-table"></i>Students</a></li>
-                            <li><a href="@Url.Action("Assign", "Student")"><i class="fa fa-circle-o"></i>Assigned</a></li>
+                            <li><a href="@Url.Action("Index", "Student").ToLower()"><i class="fa fa-table"></i>Students</a></li>
+                            <li><a href="@Url.Action("Assign", "Student").ToLower()"><i class="fa fa-circle-o"></i>Assigned</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-table"></i> <span>Project management</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
+                        <a href="@Url.Action("Index", "Project").ToLower()">
+                            <i class="fa fa-table"></i> <span>Projects management</span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="@Url.Action("Index", "Project")"><i class="fa fa-table"></i>Projects</a></li>
-                            <li><a href="@Url.Action("Create", "Project")"><i class="fa fa-plus"></i>New</a></li>
-                            <li><a href="@Url.Action("Edit", "Project")"><i class="fa fa-edit"></i>Edit</a></li>
-                            <li class="treeview">
-                                <a href="@Url.Action("Index", "Answer")">
-                                    <i class="fa fa-table"></i> <span>Answers</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="@Url.Action("Index", "Answer")"><i class="fa fa-table"></i>Answers</a></li>
-                                    <li><a href="@Url.Action("Create", "Answer")"><i class="fa fa-plus"></i>New Answer</a></li>
-                                    <li><a href="@Url.Action("Edit", "Answer")"><i class="fa fa-edit"></i>Edit Answer</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <a href="pages/calendar.html">
@@ -702,5 +681,9 @@
     {
         @RenderSection("AddToBody", required: false)
     }
+    <script type="text/javascript">
+        var url = window.location.pathname;
+        $('.sidebar-menu a[href="' + url + '"]').parents('li').addClass('active');
+    </script>
 </body>
 </html>

@@ -13,8 +13,8 @@ namespace Business
         public string name { get; set; }
         public DateTime createdAt { get; set; }
         public int createdBy { get; set; }
-        public DateTime startAt { get; set; }
-        public int time { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
     }
 
     public class Project
@@ -39,8 +39,8 @@ namespace Business
                 project.id = int.Parse(data["Id"].ToString());
                 project.code = data["ProjectCode"].ToString();
                 project.name = data["Name"].ToString();
-                project.startAt = DateTime.Parse(data["StartAt"].ToString());
-                project.time = int.Parse(data["Time"].ToString());
+                project.startDate = DateTime.Parse(data["StartDate"].ToString());
+                project.endDate = DateTime.Parse(data["EndDate"].ToString());
                 project.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 project.createdBy = int.Parse(data["CreatedBy"].ToString());
             }
@@ -58,8 +58,8 @@ namespace Business
                 project.id = int.Parse(data["Id"].ToString());
                 project.code = data["ProjectCode"].ToString();
                 project.name = data["Name"].ToString();
-                project.startAt = DateTime.Parse(data["StartAt"].ToString());
-                project.time = int.Parse(data["Time"].ToString());
+                project.startDate = DateTime.Parse(data["StartDate"].ToString());
+                project.endDate = DateTime.Parse(data["EndDate"].ToString());
                 project.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 project.createdBy = int.Parse(data["CreatedBy"].ToString());
                 projectList.Add(project);
@@ -77,8 +77,8 @@ namespace Business
                 project.id = int.Parse(data["Id"].ToString());
                 project.code = data["ProjectCode"].ToString();
                 project.name = data["Name"].ToString();
-                project.startAt = DateTime.Parse(data["StartAt"].ToString());
-                project.time = int.Parse(data["Time"].ToString());
+                project.startDate = DateTime.Parse(data["StartDate"].ToString());
+                project.endDate = DateTime.Parse(data["EndDate"].ToString());
                 project.createdAt = DateTime.Parse(data["CreatedAt"].ToString());
                 project.createdBy = int.Parse(data["CreatedBy"].ToString());
             }
@@ -86,9 +86,12 @@ namespace Business
             return project;
         }
 
-        public static void Add(string name, DateTime createdAt, int createdBy, DateTime startAt, int time)
+        public static string Add(string name, DateTime createdAt, int createdBy, DateTime startDate, DateTime endDate)
         {
-            DataAccess.Project.Add(name, createdAt, createdBy, startAt, time);
+            if (DateTime.Compare(startDate, endDate) == 0) return "Error 1002: Start date can't be the same as End date";
+            else if (DateTime.Compare(startDate, endDate) > 0) return "Error 1003: Start date can't be later than End date";
+            else DataAccess.Project.Add(name, createdAt, createdBy, startDate, endDate);
+            return null;
         }
 
         public static void Update(int id, string name)
@@ -96,14 +99,20 @@ namespace Business
             DataAccess.Project.Update(id, name);
         }
 
-        public static void Update(int id, DateTime startAt)
+        public static string Update(int id, DateTime startDate, DateTime endDate)
         {
-            DataAccess.Project.Update(id, startAt);
+            if (DateTime.Compare(startDate, endDate) == 0) return "Error 1002: Start date can't be the same as End date";
+            else if (DateTime.Compare(startDate, endDate) > 0) return "Error 1003: Start date can't be later than End date";
+            else DataAccess.Project.Update(id, startDate, endDate);
+            return null;
         }
 
-        public static void Update(int id, int time)
+        public static string Update(int id, string name, DateTime startDate, DateTime endDate)
         {
-            DataAccess.Project.Update(id, time);
+            if (DateTime.Compare(startDate, endDate) == 0) return "Error 1002: Start date can't be the same as End date";
+            else if (DateTime.Compare(startDate, endDate) > 0) return "Error 1003: Start date can't be later than End date";
+            else DataAccess.Project.Update(id, name, startDate, endDate);
+            return null;
         }
 
         public static void Delete(int id)
