@@ -30,6 +30,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -1069,6 +1070,8 @@
     <Content Include="Content\Professor\plugins\timepicker\bootstrap-timepicker.js" />
     <Content Include="Content\Professor\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="Content\Professor\plugins\timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="Content\Professor\project\css\project.css" />
+    <Content Include="Content\Professor\project\js\project.js" />
     <Content Include="Content\vendor\bootstrap-social\bootstrap-social.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css" />
@@ -1277,8 +1280,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\ProfessorManager\Index.cshtml" />
-    <Content Include="Views\ProfessorManager\Edit.cshtml" />
-    <Content Include="Views\ProfessorManager\CreateNew.cshtml" />
     <Content Include="Views\AccountAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

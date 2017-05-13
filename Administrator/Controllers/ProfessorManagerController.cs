@@ -29,6 +29,16 @@ namespace Administrator.Controllers
             }
             return "Không được để trống.";
         }
+
+        private string emailValidationEdit(string email)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                return "";
+            }
+            return "Không được để trống.";
+        }
+
         private string fullNameValidation(string fullName)
         {
             if (!string.IsNullOrEmpty(fullName))
@@ -61,6 +71,31 @@ namespace Administrator.Controllers
             }
             return "Không được để trống.";
         }
+
+        private string userNameValidationEdit(string userName, int id)
+        {
+            if (!string.IsNullOrEmpty(userName))
+            {
+                if (userName.Count() < 3 || userName.Count() > 16)
+                {
+                    return "Tài khoản phải có 3 ký tự đến 16 ký tự.";
+                }
+                else
+                {
+                    foreach (var item in Business.Professor.Get())
+                    {
+                        if (userName == item.username && id != item.id)
+                        {
+                            return "Tài khoản đã tồn tại.";
+                        }
+                    }
+                }
+
+                return "";
+            }
+            return "Không được để trống.";
+        }
+
         private string passwordValidation(string password)
         {
             if (!string.IsNullOrEmpty(password))
@@ -75,6 +110,7 @@ namespace Administrator.Controllers
 
             return "Không được để trống.";
         }
+
         private string phoneNumberValidation(string phoneNumber)
         {
             if (!string.IsNullOrEmpty(phoneNumber))
@@ -112,12 +148,7 @@ namespace Administrator.Controllers
         private bool CheckValidate(string fullName, string email, string userName, string password, string passwordConfirm, string phoneNumber, string address)
         {
             bool status = false;
-            if (fullNameValidation(fullName) == "" && emailValidation(email) == "" && userNameValidation(userName) == ""
-                && passwordValidation(password) == "" && passwordConfirmValidation(passwordConfirm, password) == ""
-                && phoneNumberValidation(phoneNumber) == "" && addressValidation(address) == "")
-            {
-                status = true;
-            }
+            
             ModelState.AddModelError("FullName", fullNameValidation(fullName));
             ModelState.AddModelError("Email", emailValidation(email));
             ModelState.AddModelError("UserName", userNameValidation(userName));
@@ -126,11 +157,39 @@ namespace Administrator.Controllers
             ModelState.AddModelError("PhoneNumber", phoneNumberValidation(phoneNumber));
             ModelState.AddModelError("Address", addressValidation(address));
 
+            if (fullNameValidation(fullName) == "" && emailValidation(email) == "" && userNameValidation(userName) == ""
+                && passwordValidation(password) == "" && passwordConfirmValidation(passwordConfirm, password) == ""
+                && phoneNumberValidation(phoneNumber) == "" && addressValidation(address) == "")
+            {
+                status = true;
+            }
+
+            return status;
+        }
+
+        private bool CheckValidateEdit(int id, string fullName, string email, string userName, string password, string passwordConfirm, string phoneNumber, string address)
+        {
+            bool status = false;
+
+            ModelState.AddModelError("FullName", fullNameValidation(fullName));
+            ModelState.AddModelError("Email", emailValidationEdit(email));
+            ModelState.AddModelError("UserName", userNameValidationEdit(userName, id));
+            ModelState.AddModelError("Password", passwordValidation(password));
+            ModelState.AddModelError("PasswordConfirm", passwordConfirmValidation(passwordConfirm, password));
+            ModelState.AddModelError("PhoneNumber", phoneNumberValidation(phoneNumber));
+            ModelState.AddModelError("Address", addressValidation(address));
+
+            if (fullNameValidation(fullName) == "" && emailValidationEdit(email) == "" && userNameValidationEdit(userName, id) == ""
+                && passwordValidation(password) == "" && passwordConfirmValidation(passwordConfirm, password) == ""
+                && phoneNumberValidation(phoneNumber) == "" && addressValidation(address) == "")
+            {
+                status = true;
+            }
+
             return status;
         }
 
         // GET: ProfessorManager
-        [Route("professor")]
         public ActionResult Index()
         {
             var adminSession = (Business.propAdmin)Session["admin"];
@@ -160,10 +219,19 @@ namespace Administrator.Controllers
         }
 
         [HttpPost]
-        public JsonResult CreateNew(string fullName, string email, string userName, string password, string passwordConfirm, string phoneNumber, string address,bool statusProfessor)
+        public ActionResult Create(FormCollection f)
         {
+            var fullName = f["fullName"];
+            var email = f["email"];
+            var userName = f["userName"];
+            var password = f["password"];
+            var passwordConfirm = f["passwordConfirm"];
+            var phoneNumber = f["phoneNumber"];
+            var address = f["address"];
+            bool statusProfessor = false;
+
+
             var status = CheckValidate(fullName, email, userName, password, passwordConfirm, phoneNumber, address);
-            statusProfessor = false;
             if (status)
             {
                 DateTime createdAt = DateTime.Now;
@@ -192,86 +260,62 @@ namespace Administrator.Controllers
             });
         }
 
-        [Route("professor/del/{id}")]
-        public ActionResult Delete(int id)
-        {
-            Business.Professor.Delete(id);
-            return RedirectToAction("Index", "ProfessorManager");
-        }
-
-
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            Business.propProfessor pfs = Business.Professor.Get(id);
-            ViewBag.fullName = pfs.fullName;
-            ViewBag.username = pfs.username;
-            ViewBag.password = pfs.password;
-            ViewBag.email = pfs.email;
-            ViewBag.address = pfs.address;
-            ViewBag.phoneNumber = pfs.phoneNumber;
-            ViewBag.createdBy = pfs.createdBy;
-            ViewBag.createdAt = pfs.createdAt;
-
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection f)
+        public JsonResult EditProfessor(FormCollection f)
         {
-            Business.propProfessor pfs = Business.Professor.Get(id);
-            ViewBag.fullName = pfs.fullName;
-            ViewBag.username = pfs.username;
-            ViewBag.password = pfs.password;
-            ViewBag.email = pfs.email;
-            ViewBag.address = pfs.address;
-            ViewBag.phoneNumber = pfs.phoneNumber;
-            ViewBag.createdBy = pfs.createdBy;
-            ViewBag.createdAt = pfs.createdAt;
-
-            var username = f["username"];
-            var password = f["password"];
-            var email = f["email"];
+            var id = int.Parse(f["id"]);
             var fullName = f["fullName"];
-            var address = f["address"];
+            var email = f["email"];
+            var userName = f["userName"];
+            var password = f["password"];
             var phoneNumber = f["phoneNumber"];
+            var address = f["address"];
+            var passwordConfirm = password;
 
-            if (username.Count() < 5 || username.Count() > 20)
+            var admin = (Business.propAdmin)Session["admin"];
+            Business.propProfessor pfs = Business.Professor.Get(id);
+            DateTime createdAt = pfs.createdAt;
+            var status = CheckValidateEdit(id, fullName, email, userName, password, passwordConfirm, phoneNumber, address);
+            if (status)
             {
-                ViewBag.ErrorUsername = "Tài khoản phải từ 5 đến 20 ký tự.";
-                return View();
-            }
-            if (password.Count() < 5 || password.Count() > 32)
-            {
-                ViewBag.ErrorPassword = "Mật khẩu phải từ 5 đến 32 ký tự.";
-            }
+                var tmp = _MD5.Hash(password);
+                Business.Professor.Update(id, fullName, email, userName, tmp, phoneNumber, address);
 
-            var Pass = pfs.password;
-            if (password != Pass)
-            {
-                password = _MD5.Hash(password);
-            }
-            else
-            {
-                password = Pass;
-            }
-            foreach (var item in Business.Professor.Get())
-            {
-                if (username == item.username && id != item.id)
+                //Send Email
+                string message = "Tài khoản giáo viên của bạn vừa được cập nhật bởi quản trị viên " + admin.FullName + " lúc " + createdAt.ToShortTimeString() + " ngày " + createdAt.ToShortDateString() + ":"
+                + "<br>Thông tin tài khoản:<br>   - Tên đăng nhập: " + userName + "<br>   - Mật khẩu: " + password
+                + "<br>Vui lòng đăng nhập và hoàn thành thông tin.";
+                var sendStatus = EmailSender.Send(email, "Vui lòng hoàn thành thông tin giáo viên trên FreePay", message);
+                if (!sendStatus)
                 {
-                    ViewBag.ThongBao = "Tài khoản đã có người sử dụng.";
-                    return View();
+                    ViewBag.Error = "Email chưa được gửi";
                 }
+                //End Send Email
             }
-            if (ModelState.IsValid)
+
+            return Json(new
             {
-                Business.Professor.Update(id, fullName, email, username, password, phoneNumber, address);
-                return RedirectToAction("Index", "ProfessorManager");
-            }
-            return View();
+                Status = status,
+                Errors = this.ValidationMessageList
+            });
         }
 
-       
-
+        public JsonResult Delete(FormCollection f)
+        {
+            bool status = false;
+            int id = int.Parse(f["id"]);
+            if (id != 0)
+            {
+                status = true;
+            }
+            if (status)
+            {
+                Business.Professor.Delete(id);
+            }
+            return Json(new
+            {
+                Status = status
+            });
+        }
     }
 }
