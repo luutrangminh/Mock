@@ -9,12 +9,12 @@ F:\GST\project\SPM_URD\Business.Tests\bin\Debug\DataAccess.pdb
 F:\GST\project\SPM_URD\Business.Tests\obj\Debug\Business.Tests.csprojResolveAssemblyReference.cache
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\Business.Tests.dll
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\Business.Tests.pdb
-C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\Business.dll
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\fr\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\obj\Debug\Business.Tests.dll
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\obj\Debug\Business.Tests.pdb
+C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\Business.dll
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\DataAccess.dll
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\Business.pdb
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\DataAccess.pdb
-C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\bin\Debug\fr\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
 C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\obj\Debug\Business.Tests.csprojResolveAssemblyReference.cache
-C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\obj\Debug\Business.Tests.dll
-C:\Users\ASUS\Desktop\Mock_GitHUb\SPM_URD\Business.Tests\obj\Debug\Business.Tests.pdb

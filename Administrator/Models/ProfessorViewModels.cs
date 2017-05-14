@@ -41,6 +41,7 @@ namespace Administrator.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime createdAt { get; set; }
+        public byte[] avatar { get; set; }
 
         public ProfessorViewModel(Business.propProfessor obj)
         {
@@ -54,6 +55,7 @@ namespace Administrator.Models
             this.createdBy = obj.createdBy;
             this.createdAt = obj.createdAt;
             this.createdByStr = obj.createdByStr;
+            this.avatar = obj.avatar;
         }
     }
 }

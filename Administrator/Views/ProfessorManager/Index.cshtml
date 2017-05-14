@@ -5,9 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/Content/Professor/plugins/project/css/project.css" rel="stylesheet" />
+
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Tables</h1>
+        <h1 class="page-header">Professor Manager</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -16,13 +18,16 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                @Html.ActionLink("Create New", "Create")
+                <button type="button" class="btn btn-primary btn-sm" data-url="@Url.Action("Create","ProfessorManager")" data-toggle="modal" data-target="#myModal">Create New</button>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
                         <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.avatar)
+                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.fullName)
                             </th>
@@ -55,6 +60,9 @@
                         {
                             <tr class="gradeA">
                                 <td>
+                                    <img src="data:image/png;base64,@Convert.ToBase64String(item.avatar)" width="100" height="100" />
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.fullName)
                                 </td>
                                 <td>
@@ -79,8 +87,13 @@
                                     @Html.DisplayFor(modelItem => item.createdByStr)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.id , fullName = item.fullName })
+                                    <span data-url="@Url.Action("EditProfessor", "ProfessorManager").ToLower()"
+                                          data-created-by="@item.createdBy" data-id="@item.id" data-name="@item.fullName" data-email="@item.email" data-un="@item.username" data-pwd="@item.password" data-phone="@item.phoneNumber" data-address="@item.address" class="edit-button button" data-toggle="modal" data-target="#myModalEdit"></span>
+                                    |
+
+                                    <span data-url="@Url.Action("Delete","ProfessorManager").ToLower()"
+                                          data-id="@item.id" class="del-button button"
+                                          data-toggle="modal" data-target="#myModalDelete"></span>
                                 </td>
                             </tr>
                         }
@@ -93,3 +106,321 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+
+
+<!-- Modal Create New -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create New Professor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" name="fullName" class="form-control" placeholder="Họ Tên" id="txtFullName" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtFullName"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="email" name="email" class="form-control" placeholder="Email" id="txtEmail" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtEmail"></p>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" name="username" class="form-control" placeholder="Tài Khoản" id="txtUserName" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtUserName"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" name="password" class="form-control" placeholder="Mật Khẩu" id="txtPassword" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtPassword"></p>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" name="password-confirm" class="form-control" placeholder="Xác Nhận Mật Khẩu" id="txtPasswordConfirm" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtPasswordConfirm"></p>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="number" name="phoneNumber" class="form-control" placeholder="Điện Thoại" id="txtPhoneNumber" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtPhoneNumber"></p>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" name="address" class="form-control" placeholder="Địa Chỉ" id="txtAddress" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtAddress"></p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSave">Add New</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="myModalEdit" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Professor <span id="id" style="font-weight: bold;"></span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" name="fullName" class="form-control" placeholder="Họ Tên" id="txtFullNameEdit" readonly="readonly" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtFullNameEdit"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="email" name="email" class="form-control" placeholder="Email" id="txtEmailEdit" readonly="readonly" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtEmailEdit"></p>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" name="username" class="form-control" placeholder="Tài Khoản" id="txtUserNameEdit" value="" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtUserNameEdit"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" name="password" class="form-control" placeholder="Mật Khẩu" id="txtPasswordEdit" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtPasswordEdit"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" name="passwordConfirm" class="form-control" placeholder="Mật Khẩu" id="txtPasswordConfirmEdit" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtPasswordConfirmEdit"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="number" name="phoneNumber" class="form-control" placeholder="Điện Thoại" id="txtPhoneNumberEdit" readonly="readonly" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtPhoneNumberEdit"></p>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" name="address" class="form-control" placeholder="Địa Chỉ" id="txtAddressEdit" readonly="readonly" />
+                            <p class="help-block text-danger" style="color: red; margin-bottom: 0 !important" id="error-txtAddressEdit"></p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSaveEdit">Edit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="myModalDelete" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Professor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <span>Do you sure delete this Professor?</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnDelete">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Add new
+    $('#myModal').on('show.bs.modal', function (e) {
+        var data = $(e.relatedTarget).data();
+        $("#error-txtFullName").html("");
+        $("#error-txtEmail").html("");
+        $("#error-txtUserName").html("");
+        $("#error-txtPassword").html("");
+        $("#error-txtPasswordConfirm").html("");
+        $("#error-txtPhoneNumber").html("");
+        $("#error-txtAddress").html("");
+
+        $('#btnSave', this).data({ url: data.url });
+    });
+
+    $('#myModal').on('click', '#btnSave', function (e) {
+
+        let professor = {
+            fullName: $("#txtFullName").val(),
+            email: $("#txtEmail").val(),
+            userName: $("#txtUserName").val(),
+            password: $("#txtPassword").val(),
+            passwordConfirm: $("#txtPasswordConfirm").val(),
+            phoneNumber: $("#txtPhoneNumber").val(),
+            address: $("#txtAddress").val()
+        };
+        var url = $(this).data('url');
+        console.log(url);
+
+        $.post(url , {
+            fullName: professor.fullName,
+            email: professor.email,
+            userName: professor.userName,
+            password: professor.password,
+            passwordConfirm: professor.passwordConfirm,
+            phoneNumber: professor.phoneNumber,
+            address: professor.address
+        }, function (response) {
+            if (response.Status) {
+                console.log("Tạo mới thành công");
+                location.reload();
+
+            } else {
+                console.log(response.Errors);
+                $("#error-txtFullName").html(response.Errors.FullName[0]);
+                $("#error-txtEmail").html(response.Errors.Email[0]);
+                $("#error-txtUserName").html(response.Errors.UserName[0]);
+                $("#error-txtPassword").html(response.Errors.Password[0]);
+                $("#error-txtPasswordConfirm").html(response.Errors.PasswordConfirm[0]);
+                $("#error-txtPhoneNumber").html(response.Errors.PhoneNumber[0]);
+                $("#error-txtAddress").html(response.Errors.Address[0]);
+            }
+        });
+
+    });
+
+    //Edit
+    $('#myModalEdit').on('show.bs.modal', function (e) {
+        var data = $(e.relatedTarget).data();
+        $('#id', this).text(data.id);
+        $('#txtFullNameEdit', this).val(data.name);
+        $('#txtUserNameEdit', this).val(data.un);
+        $('#txtPhoneNumberEdit', this).val(data.phone);
+        $('#txtAddressEdit', this).val(data.address);
+        $('#txtEmailEdit', this).val(data.email);
+
+        $('#btnSaveEdit', this).data({ url: data.url, id: data.id, fullName: data.name, email: data.email, userName: data.un, phoneNumber: data.phone, address: data.address });
+
+    });
+
+    $('#myModalEdit').on('click', '#btnSaveEdit', function (e) {
+        var $modalDiv = $(e.delegateTarget);
+
+        let professor = {
+            id: $(this).data('id'),
+            fullName: $modalDiv.find("#txtFullNameEdit").val(),
+            email: $modalDiv.find("#txtEmailEdit").val(),
+            userName: $modalDiv.find("#txtUserNameEdit").val(),
+            password: $modalDiv.find("#txtPasswordEdit").val(),
+            passwordConfirm: $modalDiv.find("#txtPasswordConfirmEdit").val(),
+            phoneNumber: $modalDiv.find("#txtPhoneNumberEdit").val(),
+            address: $modalDiv.find("#txtAddressEdit").val()
+        };
+        var url = $(this).data('url');
+
+        $.post(url, {
+            id: professor.id,
+            fullName: professor.fullName,
+            email: professor.email,
+            userName: professor.userName,
+            password: professor.password,
+            passwordConfirm: professor.passwordConfirm,
+            phoneNumber: professor.phoneNumber,
+            address: professor.address
+        }, function (response) {
+            if (response.Status) {
+                console.log("Sửa thành công");
+                location.reload();
+
+            } else {
+                $("#error-txtFullNameEdit").html(response.Errors.FullName[0]);
+                $("#error-txtEmailEdit").html(response.Errors.Email[0]);
+                $("#error-txtUserNameEdit").html(response.Errors.UserName[0]);
+                $("#error-txtPasswordEdit").html(response.Errors.Password[0]);
+                $("#error-txtPasswordConfirmEdit").html(response.Errors.PasswordConfirm[0]);
+                $("#error-txtPhoneNumberEdit").html(response.Errors.PhoneNumber[0]);
+                $("#error-txtAddressEdit").html(response.Errors.Address[0]);
+            }
+        });
+
+
+
+    });
+
+    //Delete
+    $('#myModalDelete').on('click', '#btnDelete', function (e) {
+        var $modalDiv = $(e.delegateTarget);
+        var id = $(this).data('id');
+        var url = $(this).data('url');
+
+        $.post(url, { id: id },
+            function (response) {
+                if (response.Status) {
+                    console.log("Sửa thành công");
+                    location.reload();
+                }
+                else {
+                    console.log("Delete fail !");
+                }
+            });
+    });
+
+
+    // Bind to modal opening to set necessary data properties to be used to make request
+    $('#myModalDelete').on('show.bs.modal', function (e) {
+        var data = $(e.relatedTarget).data();
+        $('#btnDelete', this).data({ id: data.id, url: data.url });
+    });
+
+</script>

@@ -11,8 +11,185 @@ namespace Administrator.Controllers
 {
     public class ProfessorManagerController : Controller
     {
+        private string emailValidation(string email)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                if (!EmailSender.isEmail(email))
+                    return "Email không hợp lệ.";
+                foreach(var item in Business.Professor.GetEmail())
+                {
+                    if (email == item)
+                    {
+                        return "Email đã tồn tại.";
+                    }
+                }
+
+                return "";
+            }
+            return "Không được để trống.";
+        }
+
+        private string emailValidationEdit(string email)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                return "";
+            }
+            return "Không được để trống.";
+        }
+
+        private string fullNameValidation(string fullName)
+        {
+            if (!string.IsNullOrEmpty(fullName))
+            {
+                return "";
+            }
+
+            return "Không được để trống.";
+        }
+        private string userNameValidation(string userName)
+        {
+            if (!string.IsNullOrEmpty(userName))
+            {
+                if (userName.Count() < 3 || userName.Count() > 16)
+                {
+                    return "Tài khoản phải có 3 ký tự đến 16 ký tự.";
+                }
+                else
+                {
+                    foreach (var item in Business.Professor.GetUserName())
+                    {
+                        if (userName == item)
+                        {
+                            return "Tài khoản đã tồn tại.";
+                        }
+                    }
+                }
+
+                return "";
+            }
+            return "Không được để trống.";
+        }
+
+        private string userNameValidationEdit(string userName, int id)
+        {
+            if (!string.IsNullOrEmpty(userName))
+            {
+                if (userName.Count() < 3 || userName.Count() > 16)
+                {
+                    return "Tài khoản phải có 3 ký tự đến 16 ký tự.";
+                }
+                else
+                {
+                    foreach (var item in Business.Professor.Get())
+                    {
+                        if (userName == item.username && id != item.id)
+                        {
+                            return "Tài khoản đã tồn tại.";
+                        }
+                    }
+                }
+
+                return "";
+            }
+            return "Không được để trống.";
+        }
+
+        private string passwordValidation(string password)
+        {
+            if (!string.IsNullOrEmpty(password))
+            {
+                if (password.Count() < 5 || password.Count() > 20)
+                {
+                    return "Mật khẩu phải có 5 ký tự đến 20 ký tự.";
+                }
+
+                return "";
+            }
+
+            return "Không được để trống.";
+        }
+
+        private string phoneNumberValidation(string phoneNumber)
+        {
+            if (!string.IsNullOrEmpty(phoneNumber))
+            {
+                return "";
+            }
+
+            return "Không được để trống.";
+        }
+        private string addressValidation(string address)
+        {
+            if (!string.IsNullOrEmpty(address))
+            {
+                return "";
+            }
+
+            return "Không được để trống.";
+        }
+
+        private string passwordConfirmValidation(string passwordConfirm, string password)
+        {
+            if (!string.IsNullOrEmpty(passwordConfirm))
+            {
+                if (password != passwordConfirm)
+                {
+                    return "Mật khẩu xác nhận không chính xác.";
+                }
+
+                return "";
+            }
+
+            return "Không được để trống";
+        }
+
+        private bool CheckValidate(string fullName, string email, string userName, string password, string passwordConfirm, string phoneNumber, string address)
+        {
+            bool status = false;
+            
+            ModelState.AddModelError("FullName", fullNameValidation(fullName));
+            ModelState.AddModelError("Email", emailValidation(email));
+            ModelState.AddModelError("UserName", userNameValidation(userName));
+            ModelState.AddModelError("Password", passwordValidation(password));
+            ModelState.AddModelError("PasswordConfirm", passwordConfirmValidation(passwordConfirm, password));
+            ModelState.AddModelError("PhoneNumber", phoneNumberValidation(phoneNumber));
+            ModelState.AddModelError("Address", addressValidation(address));
+
+            if (fullNameValidation(fullName) == "" && emailValidation(email) == "" && userNameValidation(userName) == ""
+                && passwordValidation(password) == "" && passwordConfirmValidation(passwordConfirm, password) == ""
+                && phoneNumberValidation(phoneNumber) == "" && addressValidation(address) == "")
+            {
+                status = true;
+            }
+
+            return status;
+        }
+
+        private bool CheckValidateEdit(int id, string fullName, string email, string userName, string password, string passwordConfirm, string phoneNumber, string address)
+        {
+            bool status = false;
+
+            ModelState.AddModelError("FullName", fullNameValidation(fullName));
+            ModelState.AddModelError("Email", emailValidationEdit(email));
+            ModelState.AddModelError("UserName", userNameValidationEdit(userName, id));
+            ModelState.AddModelError("Password", passwordValidation(password));
+            ModelState.AddModelError("PasswordConfirm", passwordConfirmValidation(passwordConfirm, password));
+            ModelState.AddModelError("PhoneNumber", phoneNumberValidation(phoneNumber));
+            ModelState.AddModelError("Address", addressValidation(address));
+
+            if (fullNameValidation(fullName) == "" && emailValidationEdit(email) == "" && userNameValidationEdit(userName, id) == ""
+                && passwordValidation(password) == "" && passwordConfirmValidation(passwordConfirm, password) == ""
+                && phoneNumberValidation(phoneNumber) == "" && addressValidation(address) == "")
+            {
+                status = true;
+            }
+
+            return status;
+        }
+
         // GET: ProfessorManager
-        [Route("{fullName}")]
         public ActionResult Index()
         {
             var adminSession = (Business.propAdmin)Session["admin"];
@@ -28,138 +205,117 @@ namespace Administrator.Controllers
             return View(listProfessorShow);
         }
 
-        public ActionResult Create()
+        public Dictionary<string, string[]> ValidationMessageList
         {
-            return View();
+            get
+            {
+                return ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
+            }
         }
 
         [HttpPost]
         public ActionResult Create(FormCollection f)
         {
-            if (f["createdAt"] == "")
-            {
-                ViewBag.Date = "Không được để trống.";
-                return View();
-            }
-            var username = f["username"];
-            var password = f["password"];
             var fullName = f["fullName"];
             var email = f["email"];
+            var userName = f["userName"];
+            var password = f["password"];
+            var passwordConfirm = f["passwordConfirm"];
             var phoneNumber = f["phoneNumber"];
             var address = f["address"];
-            DateTime createdAt = DateTime.Now;
-            var admin = (Business.propAdmin)Session["admin"];
-            int createdBy = admin.Id;
-            if (!EmailSender.isEmail(email)) {
-                ViewBag.Error = "Email not valid";
-                return View();
-            }
+            bool statusProfessor = false;
 
-            password = _MD5.Hash(password);
-            foreach (var item in Business.Professor.Get())
+
+            var status = CheckValidate(fullName, email, userName, password, passwordConfirm, phoneNumber, address);
+            if (status)
             {
-                if(username == item.username)
-                {
-                    ViewBag.ErrorUsername = "Tên đăng nhập đã có người sử dụng.";
-                    return View();
-                }
-            }
-            
-            if (ModelState.IsValid)
-            {
-                Business.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address);
+                DateTime createdAt = DateTime.Now;
+                var admin = (Business.propAdmin)Session["admin"];
+                int createdBy = admin.Id;
+                password = _MD5.Hash(password);
+                Business.Professor.Add(createdBy, createdAt, fullName, email, userName, password, phoneNumber, address, statusProfessor);
+
+                //Send Email
                 string message = "Tài khoản giáo viên của bạn vừa được cấp bởi quản trị viên " + admin.FullName + " lúc " + createdAt.ToShortTimeString() + " ngày " + createdAt.ToShortDateString() + ":"
-                + "<br>Thông tin tài khoản:<br>   - Tên đăng nhập: " + username + "<br>   - Mật khẩu: " + f["password"]
+                + "<br>Thông tin tài khoản:<br>   - Tên đăng nhập: " + userName + "<br>   - Mật khẩu: " + password
                 + "<br>Vui lòng đăng nhập và hoàn thành thông tin.";
                 var sendStatus = EmailSender.Send(email, "Vui lòng hoàn thành thông tin giáo viên trên FreePay", message);
                 if (!sendStatus)
                 {
                     ViewBag.Error = "Email chưa được gửi";
-                    return View();
                 }
-                return RedirectToAction("Index", "ProfessorManager");
+                //End Send Email
+
             }
-            return View();
-        }
 
-        [Route("del/{fullName}-{id}")]
-        public ActionResult Delete(int id)
-        {
-            Business.Professor.Delete(id);
-            return RedirectToAction("Index", "ProfessorManager");
-        }
-
-
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            Business.propProfessor pfs = Business.Professor.Get(id);
-            ViewBag.fullName = pfs.fullName;
-            ViewBag.username = pfs.username;
-            ViewBag.password = pfs.password;
-            ViewBag.email = pfs.email;
-            ViewBag.address = pfs.address;
-            ViewBag.phoneNumber = pfs.phoneNumber;
-            ViewBag.createdBy = pfs.createdBy;
-            ViewBag.createdAt = pfs.createdAt;
-
-            return View();
+            return Json(new
+            {
+                Status = status,
+                Errors = this.ValidationMessageList
+            });
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection f)
+        public JsonResult EditProfessor(FormCollection f)
         {
-            Business.propProfessor pfs = Business.Professor.Get(id);
-            ViewBag.fullName = pfs.fullName;
-            ViewBag.username = pfs.username;
-            ViewBag.password = pfs.password;
-            ViewBag.email = pfs.email;
-            ViewBag.address = pfs.address;
-            ViewBag.phoneNumber = pfs.phoneNumber;
-            ViewBag.createdBy = pfs.createdBy;
-            ViewBag.createdAt = pfs.createdAt;
-
-            var username = f["username"];
-            var password = f["password"];
-            var email = f["email"];
+            var id = int.Parse(f["id"]);
             var fullName = f["fullName"];
-            var address = f["address"];
+            var email = f["email"];
+            var userName = f["userName"];
+            var password = f["password"];
             var phoneNumber = f["phoneNumber"];
+            var address = f["address"];
+            var passwordConfirm = password;
 
-            if (username.Count() < 5 || username.Count() > 20)
+            var admin = (Business.propAdmin)Session["admin"];
+            Business.propProfessor pfs = Business.Professor.Get(id);
+            DateTime createdAt = pfs.createdAt;
+            var status = CheckValidateEdit(id, fullName, email, userName, password, passwordConfirm, phoneNumber, address);
+            if (status)
             {
-                ViewBag.ErrorUsername = "Tài khoản phải từ 5 đến 20 ký tự.";
-                return View();
-            }
-            if (password.Count() < 5 || password.Count() > 32)
-            {
-                ViewBag.ErrorPassword = "Mật khẩu phải từ 5 đến 32 ký tự.";
-            }
-            
-            var Pass = pfs.password;
-            if (password != Pass)
-            {
-                password = _MD5.Hash(password);
-            }
-            else
-            {
-                password = Pass;
-            }
-            foreach (var item in Business.Professor.Get())
-            {
-                if (username == item.username && id != item.id)
+                var tmp = _MD5.Hash(password);
+                Business.Professor.Update(id, fullName, email, userName, tmp, phoneNumber, address);
+
+                //Send Email
+                string message = "Tài khoản giáo viên của bạn vừa được cập nhật bởi quản trị viên " + admin.FullName + " lúc " + createdAt.ToShortTimeString() + " ngày " + createdAt.ToShortDateString() + ":"
+                + "<br>Thông tin tài khoản:<br>   - Tên đăng nhập: " + userName + "<br>   - Mật khẩu: " + password
+                + "<br>Vui lòng đăng nhập và hoàn thành thông tin.";
+                var sendStatus = EmailSender.Send(email, "Vui lòng hoàn thành thông tin giáo viên trên FreePay", message);
+                if (!sendStatus)
                 {
-                    ViewBag.ThongBao = "Tài khoản đã có người sử dụng.";
-                    return View();
+                    ViewBag.Error = "Email chưa được gửi";
                 }
+                //End Send Email
             }
-            if (ModelState.IsValid)
+
+            return Json(new
             {
-                Business.Professor.Update(id,fullName,email,username,password,phoneNumber,address);
-                return RedirectToAction("Index", "ProfessorManager");
-            }
-            return View();
+                Status = status,
+                Errors = this.ValidationMessageList
+            });
         }
 
+        public JsonResult Delete(FormCollection f)
+        {
+            bool status = false;
+            int id = int.Parse(f["id"]);
+            if (id != 0)
+            {
+                status = true;
+            }
+            if (status)
+            {
+                Business.Professor.Delete(id);
+            }
+            return Json(new
+            {
+                Status = status
+            });
+        }
     }
 }

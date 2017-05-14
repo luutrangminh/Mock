@@ -14,7 +14,7 @@ namespace Administrator.Controllers
         {
             var admin = (Business.propAdmin)Session["admin"];
             if (admin == null) return View();
-            return RedirectToAction("Index","ProfessorManager");
+            return RedirectToAction("Index", "ProfessorManager");
         }
 
         [HttpPost]
@@ -28,7 +28,7 @@ namespace Administrator.Controllers
                 if (_MD5.Verify(password, item.Password))
                 {
                     Session["admin"] = item;
-                    return RedirectToAction("Index", "ProfessorManager", new { fullName = item.FullName.ToLower().Replace(" ", "-") });
+                    return RedirectToAction("Index", "ProfessorManager");
                 }
                 else
                 {
@@ -41,6 +41,12 @@ namespace Administrator.Controllers
                 ViewBag.ThongBao = "Tài khoản hoặc Mật khẩu không chính xác. Vui lòng kiểm tra lại.";
                 return View();
             }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Remove("admin");
+            return RedirectToAction("Index", "Login");
         }
     }
 }

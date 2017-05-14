@@ -27,7 +27,7 @@ namespace DataAccess
             " WHERE Username = '" + username + "'";
             return con.ExecuteReader(queryStr);
         }
-
+        
         public static IDataReader Get(int id)
         {
             con = new Connections();
@@ -51,10 +51,11 @@ namespace DataAccess
         {
             con = new Connections();
             string queryStr = "SELECT Professors.Id, Professors.FullName, Professors.Email, Professors.Username," +
-            "Professors.Password, Professors.PhoneNumber, Professors.Address, Professors.CreatedBy, Administrator.FullName as CreatedByStr, CreatedAt, Status, avatar FROM Professors, Administrator" +
+            "Professors.Password, Professors.PhoneNumber, Professors.Address, Professors.CreatedBy, Administrator.FullName as CreatedByStr, CreatedAt, Status, Professors.avatar FROM Professors, Administrator" +
             " WHERE Administrator.Id = Professors.CreatedBy AND CreatedBy = " + id;
             return con.ExecuteReader(queryStr);
         }
+
 
         public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
             string password, string phoneNumber, string address, bool status, byte[] avatar)

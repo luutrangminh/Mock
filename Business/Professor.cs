@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Business
 {
     public class propProfessor
@@ -45,6 +46,34 @@ namespace Business
                 professor.status = bool.Parse(data["Status"].ToString());
                 professor.avatar = (byte[])(data["avatar"]);
                 listProfessor.Add(professor);
+            }
+            data.Close();
+            return listProfessor;
+        }
+
+        public static List<string> GetEmail()
+        {
+            var listProfessor = new List<string>();
+            var data = DataAccess.Professor.Get();
+            if (data == null)
+                return null;
+            while (data.Read())
+            {
+                listProfessor.Add(data["Email"].ToString());
+            }
+            data.Close();
+            return listProfessor;
+        }
+
+        public static List<string> GetUserName()
+        {
+            var listProfessor = new List<string>();
+            var data = DataAccess.Professor.Get();
+            if (data == null)
+                return null;
+            while (data.Read())
+            {
+                listProfessor.Add(data["Username"].ToString());
             }
             data.Close();
             return listProfessor;
@@ -150,9 +179,9 @@ namespace Business
         }
 
         public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
-            string password, string phoneNumber, string address, bool status, byte[] avatar)
+            string password, string phoneNumber, string address, bool status)
         {
-            DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address, status, avatar);
+            DataAccess.Professor.Add(createdBy, createdAt, fullName, email, username, password, phoneNumber, address, status);
         }
 
         public static void Add(int createdBy, DateTime createdAt, string fullName, string email, string username,
