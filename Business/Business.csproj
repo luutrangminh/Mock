@@ -38,6 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DataAccess\bin\Debug\DataAccess.dll</HintPath>
     </Reference>
+    <Reference Include="EmailSender">
+      <HintPath>..\EmailSender\bin\Debug\EmailSender.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,10 +52,15 @@
   <ItemGroup>
     <Compile Include="Administrator.cs" />
     <Compile Include="Answer.cs" />
+    <Compile Include="Assignee.cs" />
+    <Compile Include="Group.cs" />
+    <Compile Include="GroupMember.cs" />
+    <Compile Include="OnlineTest.cs" />
     <Compile Include="Professor.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
+    <Compile Include="ScoreBoard.cs" />
     <Compile Include="Student.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

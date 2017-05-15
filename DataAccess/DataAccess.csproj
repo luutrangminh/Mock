@@ -44,6 +44,9 @@
     <Compile Include="Administrator.cs" />
     <Compile Include="Answer.cs" />
     <Compile Include="Connections.cs" />
+    <Compile Include="Group.cs" />
+    <Compile Include="GroupMember.cs" />
+    <Compile Include="OnlineTest.cs" />
     <Compile Include="Professor.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

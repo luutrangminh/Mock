@@ -34,7 +34,7 @@ namespace DataAccess
             con = new Connections();
             string queryStr = "SELECT Id, ProjectCode, Name, CreatedAt, CreatedBy, StartDate, EndDate " +
             "FROM Project " +
-            "WHERE ProjectCode = '" + projectCode + "'";
+            "WHERE ProjectCode like '" + projectCode + "'";
             return con.ExecuteReader(queryStr);
         }
 

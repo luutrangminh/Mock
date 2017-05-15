@@ -9,14 +9,21 @@ namespace DataAccess
 {
     public class Students
     {
-
         private static Connections con = null;
+
+        public static IDataReader Get()
+        {
+            con = new Connections();
+            string queryStr = "SELECT Id, FullName, Email, College, Username, Password, " +
+            "Subject, Age, Birthday, Assigned FROM Student ";
+            return con.ExecuteReader(queryStr);
+        }
 
         public static IDataReader Get(int professorId)
         {
             con = new Connections();
-            string queryStr = "SELECT Id, FullName, College, " +
-            "Subject, Age, Birthday FROM Student " +
+            string queryStr = "SELECT Id, FullName, Email, College, Username, Password, " +
+            "Subject, Age, Birthday, Assigned FROM Student " +
             "WHERE AssignBy = " + professorId;
             return con.ExecuteReader(queryStr);
         }
@@ -24,8 +31,8 @@ namespace DataAccess
         public static IDataReader Get(string username)
         {
             con = new Connections();
-            string queryStr = "SELECT Id, Username, Password, FullName, College, " +
-            "Subject, Age, Birthday FROM Student " +
+            string queryStr = "SELECT Id, Username, Email, Password, FullName, College, " +
+            "Subject, Age, Birthday, Assigned FROM Student " +
             " WHERE Username = '" + username + "'";
             return con.ExecuteReader(queryStr);
         }
@@ -33,8 +40,8 @@ namespace DataAccess
         public static IDataReader GetById(int id)
         {
             con = new Connections();
-            string queryStr = "SELECT Id, FullName, College, " +
-            "Subject, Age, Birthday FROM Student " +
+            string queryStr = "SELECT Id, FullName, Email, College, Username, Password, " +
+            "Subject, Age, Birthday, Assigned FROM Student " +
             " WHERE Id = '" + id + "'";
             return con.ExecuteReader(queryStr);
         }
@@ -53,7 +60,7 @@ namespace DataAccess
         public static void Update(int id)
         {
             con = new Connections();
-            string queryStr = "UPDATE [dbo].[Professors] SET [Assigned] = True" +
+            string queryStr = "UPDATE [dbo].[Student] SET [Assigned] = 'True'" +
                 " WHERE Id = " + id;
             con.ExecuteNonQuery(queryStr);
             con.CloseConnection();

@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "Students";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var account = (Business.propProfessor)ViewBag.Account;
+    var listScoreBoard = (List<Business.propScoreBoard>)ViewBag.ListScoreBoard;
+    var projectList = (List<Business.propProject>)ViewBag.ProjectList;
+}
+
+@section AddToHead {
+    <link href="~/Content/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/plugins/assign/css/project.css" rel="stylesheet" />
+    <link href="~/Content/plugins/iCheck/all.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/select2.min.css" rel="stylesheet" />
+}
+
+@section AddToBody{
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/plugins/select2/select2.full.min.js"></script>
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/Content/plugins/assign/js/project.js"></script>
+}
+<section class="content-header">
+    <h1>
+        Score board
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Students</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="student-data" class="table table-bordered table-striped hover">
+                        <thead>
+                            <tr>
+                                <th>Full name</th>
+                                <th>College</th>
+                                <th>Subject</th>
+                                <th>Age</th>
+                                <th>Birthday</th>
+                                <th>Score</th>
+                                <th>Submit At</th>
+                                <th class="nosort" style="padding-right: 8px; text-align: center;">Assign</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var scoreBoard in listScoreBoard)
+                            {
+                                <tr role="row">
+                                    <td>@scoreBoard.fullName</td>
+                                    <td>@scoreBoard.college</td>
+                                    <td>@scoreBoard.subject</td>
+                                    <td>@scoreBoard.age</td>
+                                    <td>@scoreBoard.birthday.ToString("dd/MM/yyyy")</td>
+                                    <td style="text-align: right;">@scoreBoard.score</td>
+                                    <td>@scoreBoard.submitAt.ToString("dd/MM/yyyy")</td>
+                                    <td style="text-align: center;">
+                                        @{
+                                var data = "data-id=" + scoreBoard.id +
+                                    " data-title='" + Html.Raw(scoreBoard.fullName) +
+                                "' data-toggle=modal data-target=#confirm-projects";
+                                var status = "";
+                                if (scoreBoard.assigned)
+                                {
+                                    data = "";
+                                    status = "disable";
+                                }
+                                        }
+                                        <span data-url="@Url.Action("Edit", "Student", new { id = scoreBoard.id }).ToLower()" style="margin: 0px 5px;"
+                                              class="edit-button button @status" @Html.Raw(data)></span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- Projects modal -->
+<div class="modal fade projects" id="confirm-projects" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Select a project</h4>
+            </div>
+            <div class="modal-body">
+
+                <table id="project-data" class="table table-bordered table-striped hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Created at</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>Days left</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var project in projectList)
+                        {
+                            <tr role="row">
+                                <td data-name="code">@project.code</td>
+                                <td>@project.name</td>
+                                <td>@project.createdAt.ToShortDateString()</td>
+                                <td><span style="color: #0613f7;">@project.startDate.ToString("dddd")</span> @project.startDate.ToString("dd/MM/yyyy h:mm tt")</td>
+                                <td><span style="color: #0613f7;">@project.endDate.ToString("dddd")</span> @project.endDate.ToString("dd/MM/yyyy h:mm tt")</td>
+                                @functions {
+                                    private string ConvertDateToString(DateTime startDate, DateTime endDate)
+                                    {
+                                        if (startDate > endDate) { return null; }
+                                        var diff = endDate.Subtract(startDate);
+                                        string diffStr = null;
+
+                                        if (diff.TotalDays == 365) { diffStr = "1 year "; }
+                                        if (diff.TotalDays > 365) { diffStr = (int)(diff.TotalDays / 365) + " years "; }
+                                        var prevDays = diff.TotalDays - (int)(diff.TotalDays / 365) * 365;
+                                        var prevMonths = (int)(prevDays / 30);
+                                        if (prevMonths == 1) { diffStr += "1 month "; }
+                                        if (prevMonths <= 12 && prevMonths > 1) { diffStr += prevMonths + " months "; }
+                                        prevDays = diff.Days - (prevMonths * 30);
+                                        if (prevDays == 1) { diffStr += "1 day "; }
+                                        if (prevDays < 31 && prevDays > 1) { diffStr += prevDays + " days "; }
+                                        if (diff.TotalDays < 1)
+                                        {
+                                            if (diff.Hours == 1) { diffStr = "1 hour "; }
+                                            else if (diff.Hours > 1) { diffStr = diff.Hours + " hours "; }
+                                            if (diff.Minutes == 1) { diffStr += "1 minute"; }
+                                            else if (diff.Minutes > 1) { diffStr += diff.Minutes + " minutes"; }
+                                        }
+                                        return diffStr;
+                                    }
+                                }
+                                @{
+                            string status = null;
+                            if (@project.startDate < DateTime.Now)
+                            {
+                                status = @ConvertDateToString(DateTime.Now, project.endDate) != null ?
+                                    @ConvertDateToString(DateTime.Now, project.endDate) :
+                                    "<span style='color: #ff0000;' >Closed</span>";
+                            }
+                            else
+                            {
+                                status = "<span style='color: #0026ff;' >Not Open Yet</span>";
+                            }
+                                }
+                                <td style="text-align: right;">@Html.Raw(status)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="submit">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.Projects modal -->
+<!-- Assign modal -->
+<div class="modal fade assign" id="confirm-assign" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Assign a group</h4>
+            </div>
+            <div class="modal-body">
+                <p>Assign group of <b><span class="title" id="title"></span></b> to project <b><span class="title" id="projectCode"></span></b>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="submit">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.Assign modal -->

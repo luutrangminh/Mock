@@ -1,0 +1,182 @@
+﻿@keyframes Deleting {
+    0%   {content: attr(data-msg)'.';}
+    50%  {content: attr(data-msg)'..';}
+    100%  {content: attr(data-msg)'...';}
+}
+
+.selected {
+    color: #f32121 !important;
+}
+
+.project-selected {
+    background-color: rgba(40, 153, 238, 0.88) !important;
+}
+
+.box .container {
+    padding: 10px;
+}
+
+    .box .container .add-new,
+    .box .container .del-all {
+        background: #0094ff;
+        color: #fff;
+        padding: 10px 10px 10px 0px;
+        transition: font-size .3s;
+    }
+
+        .box .container .add-new:before {
+            content: "\f067";
+            font-family: FontAwesome;
+            color: #fff;
+            margin: 10px;
+            margin-left: 0px;
+            padding: 10px;
+            border-right: solid 1px #ccc;
+        }
+
+        .box .container .del-all:before {
+            content: "\f1f8";
+            font-family: FontAwesome;
+            color: #fff;
+            margin: 10px;
+            margin-left: 0px;
+            padding: 10px;
+            border-right: solid 1px #ccc;
+        }
+
+        .box .container .add-new:hover,
+        .box .container .del-all:hover {
+            box-shadow: 3px 3px 20px #ccc;
+            background: rgba(0, 148, 255, 0.82);
+            font-size: 15px;
+        }
+
+.edit-button,
+.del-button {
+    clear: both;
+    width: auto;
+    height: auto;
+    position: relative;
+}
+
+.edit-button:hover,
+.del-button:hover {
+    cursor: pointer;
+    text-shadow: 2px 2px 10px #ccc;
+}
+
+.edit-button:hover:before ,
+.del-button:hover:before {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.disable:before {
+    color: gray !important;
+}
+
+.disable:hover:before {
+    cursor: no-drop;
+}
+
+.row .edit-button:before {
+    content: "\f02b";
+    font-family: FontAwesome;
+    color: #0094ff;
+    transition: font-size .3s;
+}
+
+.row .del-button:before {
+    content: "\f1f8";
+    font-family: FontAwesome;
+    color: #ff0000;
+    transition: font-size .3s;
+}
+
+.modal.loading .modal-content:before {
+    content: attr(data-msg);
+    text-align: center;
+    line-height: 155px;
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #fff;
+    z-index: 1000;
+    animation-name: Deleting;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.modal.err .modal-content:before {
+    content: attr(data-error);
+    text-align: center;
+    line-height: 155px;
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.25);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #ff0000;
+    z-index: 1000;
+}
+
+#images-container .image {
+    float: left;
+    width: 110px;
+    height: 110px;
+    color: rgba(86, 153, 245, 0.66);
+    border: dotted 1px #ccc;
+    margin: 10px;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+}
+
+.add-image,
+.del-image {
+    float: left;
+    width: 110px;
+    height: 110px;
+    color: rgba(86, 153, 245, 0.66);
+    border: dotted 1px #ccc;
+    margin: 10px;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+}
+
+    .add-image:before {
+        content: '\f2b5';
+        font-family: FontAwesome;
+        font-size: 80px;
+        padding-left: 22px;
+    }
+
+    .del-image:before {
+        content: '\f00d';
+        font-family: FontAwesome;
+        font-size: 80px;
+        padding-left: 20px;
+        color: #ff0000;
+    }
+
+.button-add {
+    color: #fff;
+    background: #0094ff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+    .button-add:hover {
+        background: rgba(0, 148, 255, 0.82);
+        box-shadow: 2px 2px 20px #ccc;
+    }

@@ -12,6 +12,7 @@ namespace Business
     {
         public int id { get; set; }
         public string fullName { get; set; }
+        public string email { get; set; }
         public string college { get; set; }
         public string username { get; set; }
         public string password { get; set; }
@@ -24,10 +25,10 @@ namespace Business
     public class Student
     {
 
-        public static List<propStudent> Get(int professorId)
+        public static List<propStudent> Get()
         {
             var listStudent = new List<propStudent>();
-            var data = Students.Get(professorId);
+            var data = Students.Get();
             if (data == null)
                 return null;
             while (data.Read())
@@ -35,6 +36,7 @@ namespace Business
                 propStudent student = new propStudent();
                 student.id = int.Parse(data["Id"].ToString());
                 student.fullName = data["FullName"].ToString();
+                student.email = data["Email"].ToString();
                 student.college = data["College"].ToString();
                 student.username = data["Username"].ToString();
                 student.password = data["Password"].ToString();
@@ -58,6 +60,7 @@ namespace Business
             {
                 student.id = int.Parse(data["Id"].ToString());
                 student.fullName = data["FullName"].ToString();
+                student.email = data["Email"].ToString();
                 student.college = data["College"].ToString();
                 student.username = data["Username"].ToString();
                 student.password = data["Password"].ToString();
@@ -80,6 +83,7 @@ namespace Business
             {
                 student.id = int.Parse(data["Id"].ToString());
                 student.fullName = data["FullName"].ToString();
+                student.email = data["Email"].ToString();
                 student.college = data["College"].ToString();
                 student.username = data["Username"].ToString();
                 student.password = data["Password"].ToString();

@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "Students";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var account = (Business.propProfessor)ViewBag.Account;
+    var listAssignedGroup = (List<Business.propGroup>)ViewBag.ListAssignedGroup;
+}
+
+@section AddToHead {
+    <link href="~/Content/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/plugins/assigned/css/assigned.css" rel="stylesheet" />
+    <link href="~/Content/plugins/iCheck/all.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/select2.min.css" rel="stylesheet" />
+}
+
+@section AddToBody{
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/plugins/select2/select2.full.min.js"></script>
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/Content/plugins/assigned/js/assigned.js"></script>
+    <script type="text/javascript">
+
+        /* Formatting function for row details - modify as you need */
+        function format(datum) {
+            // `d` is the original data object for the row
+            return
+            '<tr>' +
+            '<th>' + datum.fullName + '</th>' +
+            '<th>' + datum.email + '</th>' +
+            '<th>' + datum.college + '</th>' +
+            '<th>' + datum.subject + '</th>' +
+            '<th>' + datum.age + '</th>' +
+            '<th>' + datum.birthdayStr + '</th>' +
+            '<th>' + datum.joinAt + '</th>' +
+            '</tr>';
+        }
+
+        function tableRender(data) {
+            var str = '<table id="details-data' + data[0].id + '" class="table table-bordered table-striped"  style="margin: 20px auto; font-size: .9em;">' +
+                '<thead style="text-align: center;">' +
+                '<tr>' +
+                '<th>Full name</th>' +
+                '<th>Email</th>' +
+                '<th>College</th>' +
+                '<th>Subject</th>' +
+                '<th>Age</th>' +
+                '<th>Birthday</th>' +
+                '<th>Join at</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody style="font-weight: normal;">';
+            data.forEach(function (datum) {
+                str += '<tr>' +
+                    '<td>' + datum.fullName + '</td>' +
+                    '<td>' + datum.email + '</td>' +
+                    '<td>' + datum.college + '</td>' +
+                    '<td>' + datum.subject + '</td>' +
+                    '<td>' + datum.age + '</td>' +
+                    '<td>' + datum.birthdayStr + '</td>' +
+                    '<td>' + datum.joinAtStr + '</td>' +
+                    '</tr>';
+            });
+            str += '</tbody>' +
+                '</table>';
+            return str;
+        }
+
+        $('#group-data tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                var groupCode = row.data()[1];
+                $.get('@Url.Action("Assigned", "Student").ToLower()/' + groupCode, function (data) {
+                    row.child(tableRender(JSON.parse(data))).show();
+                    tr.addClass('shown');
+
+                    $('#details-data' + JSON.parse(data)[0].id).DataTable({
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": false,
+                        "ordering": true,
+                        "info": false,
+                        "autoWidth": true,
+                        "visible": true,
+                        "columnDefs": [{
+                            "targets": ['nosort', 'no-sort'],
+                            "orderable": false,
+                            'searchable': false,
+                        }],
+                        'order': [1, 'asc']
+                    });
+
+                });
+            }
+        });
+    </script>
+}
+<section class="content-header">
+    <h1>
+        Group list
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Assigned</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="group-data" class="table table-bordered table-striped hover">
+                        <thead>
+                            <tr>
+                                <th class="details-control nosort" rowspan="1" colspan="1" style="width: 18px;" aria-label=""></th>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Created At</th>
+                                <th>Created by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var assignedGroup in listAssignedGroup)
+                            {
+                                <tr role="row">
+                                    <td class="details-control" data-id="@assignedGroup.id"></td>
+                                    <td>@assignedGroup.code</td>
+                                    <td>@assignedGroup.name</td>
+                                    <td>@assignedGroup.createAt.ToString("dd/MM/yyyy")</td>
+                                    <td>@assignedGroup.createdByStr</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
